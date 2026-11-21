@@ -457,6 +457,45 @@ h2{font-size:clamp(34px,6vw,60px)}
 .tal-btn.an{background:var(--senf);border-color:var(--senf);color:var(--grill)}
 @media (hover:hover){.tal-btn:not(.an):hover{border-color:var(--senf);box-shadow:0 0 0 4px rgba(244,183,49,.18)}}
 @media (prefers-reduced-motion:reduce){.tal-svg *{transition:none}}
+
+/* Tal: Haus-Details, Rauch, Sterne */
+.tal .rauch circle{fill:#F3EFE8;opacity:0;filter:blur(1.6px)}
+.tal[data-zeit="nacht"]:not(.offen) .tuerfenster{fill:#2D3550}
+.tal.offen .rauch circle{animation:rauch 7.5s ease-out infinite}
+.tal.offen .rauch circle:nth-child(2){animation-delay:1.9s}.tal.offen .rauch circle:nth-child(3){animation-delay:3.8s}.tal.offen .rauch circle:nth-child(4){animation-delay:5.6s}
+@keyframes rauch{0%{opacity:0;transform:translate(0,0) scale(.5)}12%{opacity:.75}100%{opacity:0;transform:translate(-26px,-70px) scale(2.4)}}
+.tal .rauch circle{transform-box:fill-box;transform-origin:50% 50%}
+.tal[data-zeit="nacht"] .rauch circle{fill:#9AA3B8}
+.tal .leute{fill:#3A2A20;opacity:0;transition:opacity .7s ease}
+.tal.offen .leute{opacity:.82}
+.tal .tuerfenster{fill:#9FB7C6}.tal.offen .tuerfenster{fill:#FFE08A}
+.tal .lampe{fill:#B9AA90}.tal.offen .lampe{fill:#FFE08A}
+.tal .lichtschein{fill:#FFE08A;opacity:0;transition:opacity .7s ease}
+.tal.offen[data-zeit="abend"] .lichtschein,.tal.offen[data-zeit="nacht"] .lichtschein{opacity:.35}
+.tal[data-zeit="nacht"] .glanz{fill:#FFF6D8}
+.tal .sterne .glanz,.tal .sterne circle{transform-box:fill-box;transform-origin:50% 50%}
+.tal[data-zeit="nacht"] .sterne circle,.tal[data-zeit="nacht"] .sterne .glanz{opacity:.45;animation:funkeln 11s ease-in-out infinite}
+.tal[data-zeit="nacht"] .sterne .glanz{opacity:0}
+@keyframes funkeln{0%,86%,100%{opacity:.45;transform:scale(1)}90%{opacity:1;transform:scale(1.9)}94%{opacity:.6;transform:scale(1.1)}}
+.tal[data-zeit="nacht"] .sterne .glanz{animation-name:glanz}
+@keyframes glanz{0%,84%,100%{opacity:0;transform:scale(.4) rotate(0)}90%{opacity:1;transform:scale(1.15) rotate(20deg)}96%{opacity:0;transform:scale(.6) rotate(40deg)}}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(1){animation-delay:0.0s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(2){animation-delay:4.3s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(3){animation-delay:8.1s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(4){animation-delay:1.7s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(5){animation-delay:6.2s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(6){animation-delay:2.9s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(7){animation-delay:9.4s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(8){animation-delay:5.1s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(9){animation-delay:0.9s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(10){animation-delay:7.3s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(11){animation-delay:3.6s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(12){animation-delay:10.2s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(13){animation-delay:1.3s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(14){animation-delay:5.8s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(15){animation-delay:8.8s}
+.tal[data-zeit="nacht"] .sterne>*:nth-child(16){animation-delay:3.1s}
+@media (prefers-reduced-motion:reduce){.tal .rauch circle,.tal .sterne *{animation:none!important}}
 /* ---------- Breiten ---------- */
 @media (max-width:1060px){
   .karte{grid-template-columns:repeat(2,1fr)}
@@ -788,7 +827,7 @@ h2{font-size:clamp(34px,6vw,60px)}
     <defs><linearGradient id="talHimmel" x1="0" y1="0" x2="0" y2="1"><stop class="h1" offset="0"/><stop class="h2" offset="1"/></linearGradient>
     <radialGradient id="talSchein" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".9"/><stop offset="1" stop-color="#FFE7A0" stop-opacity="0"/></radialGradient></defs>
     <rect width="1440" height="300" fill="url(#talHimmel)"/>
-    <g class="sterne"><circle cx="120" cy="40" r="2"/><circle cx="260" cy="90" r="1.5"/><circle cx="420" cy="30" r="2"/><circle cx="560" cy="70" r="1.4"/><circle cx="720" cy="26" r="2"/><circle cx="880" cy="80" r="1.6"/><circle cx="1010" cy="34" r="1.8"/><circle cx="1180" cy="60" r="1.5"/><circle cx="1330" cy="28" r="2"/><circle cx="1390" cy="96" r="1.4"/><circle cx="640" cy="120" r="1.3"/><circle cx="330" cy="140" r="1.2"/></g>
+    <g class="sterne"><circle cx="120" cy="40" r="2"/><circle cx="260" cy="90" r="1.5"/><circle cx="420" cy="30" r="2"/><circle cx="560" cy="70" r="1.4"/><circle cx="720" cy="26" r="2"/><circle cx="880" cy="80" r="1.6"/><circle cx="1010" cy="34" r="1.8"/><circle cx="1180" cy="60" r="1.5"/><circle cx="1330" cy="28" r="2"/><circle cx="1390" cy="96" r="1.4"/><circle cx="640" cy="120" r="1.3"/><circle cx="330" cy="140" r="1.2"/><path class="glanz" d="M190 70l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/><path class="glanz" d="M800 46l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/><path class="glanz" d="M1260 110l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/><path class="glanz" d="M500 104l1.6 5.6 5.6 1.6-5.6 1.6-1.6 5.6-1.6-5.6-5.6-1.6 5.6-1.6z"/></g>
     <g class="sonne"><circle r="70" fill="url(#talSchein)"/><circle r="30" fill="#FFD36B" stroke="#211A14" stroke-width="3"/></g>
     <g class="mond"><circle r="24" fill="#F5EFD9" stroke="#211A14" stroke-width="3"/><circle cx="-7" cy="-5" r="4" fill="#E2D8B8"/><circle cx="8" cy="7" r="3" fill="#E2D8B8"/></g>
     <path class="berg-fern" d="M0 210 L80 150 L150 175 L230 120 L300 165 L380 110 L450 150 L520 105 L600 160 L680 128 L760 170 L840 118 L920 160 L1000 122 L1080 168 L1160 130 L1240 172 L1320 136 L1440 180 V300 H0Z" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
@@ -799,14 +838,30 @@ h2{font-size:clamp(34px,6vw,60px)}
     </g>
     <g class="laden" transform="translate(720 0)">
       <path d="M-86 262v-70h172v70z" fill="#E9DCC2" stroke="#211A14" stroke-width="3"/>
+      <path d="M-86 252h172" stroke="#CDBB9A" stroke-width="2"/>
       <path d="M-96 194l96-40 96 40z" fill="#A92A1A" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M-70 186l70-29 70 29" fill="none" stroke="#C8402E" stroke-width="2" opacity=".7"/>
       <rect x="40" y="150" width="16" height="26" fill="#6B5A4A" stroke="#211A14" stroke-width="2.5"/>
-      <g class="dampf-kamin"><path d="M48 144c-8-10 8-16 0-26" /><path d="M56 140c-8-10 8-16 0-26"/></g>
+      <rect x="37" y="146" width="22" height="6" rx="1.5" fill="#5A4A3C" stroke="#211A14" stroke-width="2"/>
+      <g class="rauch"><circle cx="48" cy="138" r="7"/><circle cx="48" cy="138" r="8"/><circle cx="48" cy="138" r="6.5"/><circle cx="48" cy="138" r="7.5"/></g>
       <rect class="schild" x="-70" y="200" width="140" height="26" rx="6" stroke="#211A14" stroke-width="2.5"/>
       <text class="schild-text" x="0" y="219" text-anchor="middle">BURGER HOUSE</text>
-      <rect class="fenster" x="-70" y="232" width="62" height="30" rx="3" stroke="#211A14" stroke-width="2.5"/>
-      <rect class="fenster" x="8" y="232" width="34" height="30" rx="3" stroke="#211A14" stroke-width="2.5"/>
-      <rect x="48" y="232" width="24" height="30" fill="#5A3220" stroke="#211A14" stroke-width="2.5"/>
+      <rect class="fenster" x="-74" y="230" width="66" height="32" rx="3" stroke="#211A14" stroke-width="2.5"/>
+      <rect class="fenster" x="-2" y="230" width="42" height="32" rx="3" stroke="#211A14" stroke-width="2.5"/>
+      <g class="leute">
+        <circle cx="-58" cy="242" r="5"/><path d="M-66 262v-6a8 8 0 0 1 16 0v6z"/>
+        <circle cx="-26" cy="243" r="4.6"/><path d="M-33.5 262v-5.5a7.5 7.5 0 0 1 15 0v5.5z"/>
+        <circle cx="19" cy="242" r="5"/><path d="M11 262v-6a8 8 0 0 1 16 0v6z"/>
+        <rect x="-50" y="254" width="20" height="3" rx="1.5"/>
+      </g>
+      <path d="M-41 230v32M19 230v14" stroke="#211A14" stroke-width="2"/>
+      <path class="markise" d="M-78 230h122l-6 -7h-110z" fill="#D23A26" stroke="#211A14" stroke-width="2.2" stroke-linejoin="round"/>
+      <path d="M-72 223v7M-56 223v7M-40 223v7M-24 223v7M-8 223v7M8 223v7M24 223v7" stroke="#FFFDF8" stroke-width="3" opacity=".75"/>
+      <rect x="48" y="228" width="26" height="34" rx="2" fill="#5A3220" stroke="#211A14" stroke-width="2.5"/>
+      <rect x="52" y="232" width="18" height="12" rx="1.5" class="tuerfenster" stroke="#211A14" stroke-width="1.8"/>
+      <circle cx="69" cy="249" r="1.8" fill="#F4B731"/>
+      <g class="laterne"><path d="M88 262v-34" stroke="#211A14" stroke-width="3"/><path d="M88 228h10" stroke="#211A14" stroke-width="2.5"/><circle class="lichtschein" cx="98" cy="234" r="16"/><rect x="94" y="228" width="8" height="10" rx="2" class="lampe" stroke="#211A14" stroke-width="2"/></g>
+      <g class="tischchen"><path d="M108 262v-14M102 248h22M124 262v-14" stroke="#211A14" stroke-width="2.5"/><rect x="101" y="245" width="25" height="4" rx="2" fill="#A26C2C" stroke="#211A14" stroke-width="1.8"/><path d="M98 262v-8h7M130 262v-8h-7" fill="none" stroke="#211A14" stroke-width="2"/></g>
     </g>
     <rect y="262" width="1440" height="38" class="strasse"/>
     <path d="M0 280h1440" stroke="#FFFDF8" stroke-width="3" stroke-dasharray="26 22" opacity=".35"/>
