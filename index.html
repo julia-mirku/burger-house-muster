@@ -87,6 +87,13 @@ h2{font-size:clamp(34px,6vw,60px)}
 @media (hover:hover){.burger.bereit:hover .schicht:not(:first-child){margin-top:12px}.burger.bereit:hover .etikett{opacity:1;transform:translate(0,-50%)}}
 .burger.bereit.offen .schicht:not(:first-child){margin-top:12px}
 .burger.bereit.offen .etikett{opacity:1;transform:translate(0,-50%)}
+.held .burger{filter:drop-shadow(0 22px 20px rgba(140,70,0,.28))}
+.dampf{position:absolute;width:150px;height:120px;pointer-events:none;overflow:visible}
+.dampf path{fill:none;stroke:#FFFDF8;stroke-width:7;stroke-linecap:round;opacity:0;stroke-dasharray:160;stroke-dashoffset:160}
+.dampf.an path{animation:dampf 2.4s ease-out both}
+.dampf.an path:nth-child(2){animation-delay:.25s}
+.dampf.an path:nth-child(3){animation-delay:.5s}
+@keyframes dampf{0%{opacity:0;stroke-dashoffset:160;transform:translateY(10px)}25%{opacity:.85}100%{opacity:0;stroke-dashoffset:0;transform:translateY(-34px)}}
 .funke{position:absolute;width:34px;height:34px;opacity:0;pointer-events:none}
 .funke.an{animation:funke .7s ease-out both}
 @keyframes funke{0%{opacity:0;transform:scale(.2) rotate(0)}40%{opacity:1;transform:scale(1.1) rotate(30deg)}100%{opacity:0;transform:scale(.6) rotate(60deg)}}
@@ -117,12 +124,18 @@ h2{font-size:clamp(34px,6vw,60px)}
 
 /* Karte */
 .karte{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.gericht{position:relative;background:var(--weiss);border:2.5px solid var(--grill);border-radius:var(--r);padding:22px 22px 20px;display:flex;flex-direction:column;gap:6px;min-height:150px;transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease}
-.gericht .nr{position:absolute;right:16px;top:8px;font-family:"Bowlby One SC",sans-serif;font-size:58px;line-height:1;color:transparent;-webkit-text-stroke:2px var(--linie)}
-.gericht h3{font-size:24px;position:relative;padding-right:56px}
-.gericht p{margin:0;color:var(--grau);font-weight:500;font-size:16px;padding-right:60px}
-.gericht .preis{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.preis-marke{font-weight:700;font-size:14px;color:var(--grau);border:1.5px dashed #B9AA90;border-radius:8px;padding:3px 10px}
+.gericht{position:relative;background:var(--weiss);border:2.5px solid var(--grill);border-radius:var(--r);padding:18px 20px 18px 16px;display:grid;grid-template-columns:122px 1fr;gap:16px;align-items:center;transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease}
+.mini{display:flex;flex-direction:column;justify-content:center;filter:drop-shadow(0 6px 6px rgba(120,60,0,.18))}
+.mini .schicht{margin-top:-3px}
+.mini .schicht:first-child{margin-top:0}
+.mini .etikett{display:none}
+.g-text{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0}
+.karte-fuss b{color:var(--ketchup-dunkel)}
+.gericht .nr{font-family:"Bowlby One SC",sans-serif;font-size:15px;color:var(--ketchup)!important;-webkit-text-stroke:0!important;letter-spacing:.06em;line-height:1;display:block;margin-bottom:-2px}
+.gericht .nr-alt{font-size:58px;line-height:1;color:transparent;-webkit-text-stroke:2px var(--linie)}
+.gericht h3{font-size:23px;position:relative}
+.gericht p{margin:0;color:var(--grau);font-weight:500;font-size:16px}
+.gericht .marke-tag{margin-top:4px}
 .marke-tag{font-weight:800;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
 .tag-liebling{background:var(--ketchup);color:#fff}
 .tag-vegi{background:var(--gurke);color:#fff}
@@ -130,7 +143,8 @@ h2{font-size:clamp(34px,6vw,60px)}
 .gericht.star .nr{-webkit-text-stroke-color:#F0C98A}
 @media (hover:hover){
   .gericht.live:hover{transform:translateY(-4px) rotate(-.6deg);box-shadow:0 8px 0 var(--grill);background:#FFF1CF}
-  .gericht.live:hover .nr{-webkit-text-stroke-color:var(--senf)}
+  .gericht.live:hover .mini .schicht:not(:first-child){margin-top:2px}
+  .mini .schicht{transition:margin-top .35s cubic-bezier(.3,1.4,.5,1)}
 }
 .karte-fuss{margin-top:20px;color:var(--grau);font-size:15px;font-weight:500}
 
@@ -204,9 +218,7 @@ h2{font-size:clamp(34px,6vw,60px)}
 /* ---------- Breiten ---------- */
 @media (max-width:1060px){
   .karte{grid-template-columns:repeat(2,1fr)}
-  .gericht .nr{font-size:44px;top:12px;right:14px}
-  .gericht h3{font-size:22px;padding-right:52px}
-  .gericht p{padding-right:0}
+  .gericht h3{font-size:21px}
   .band .wrap{grid-template-columns:1fr;gap:24px}
 }
 @media (max-width:860px){
@@ -239,10 +251,9 @@ h2{font-size:clamp(34px,6vw,60px)}
   .held-knoepfe .btn{flex:1 1 100%}
   .held h1{font-size:54px}
   .bau .btn{width:100%}
-  .gericht .nr{font-size:40px;top:12px;right:14px}
-  .gericht h3{font-size:21px;padding-right:50px}
-  .gericht p{padding-right:0}
-  .bau-buehne{height:330px}
+  .gericht{grid-template-columns:104px 1fr;gap:14px}
+  .gericht h3{font-size:21px}
+  .bau-buehne{height:290px}
   .bau-buehne .burger{width:min(230px,66%)}
   .held-knoepfe{gap:10px}
   .karte{grid-template-columns:1fr}
@@ -265,10 +276,9 @@ h2{font-size:clamp(34px,6vw,60px)}
 @media (orientation:landscape) and (max-height:500px){
   .held .wrap{grid-template-columns:1.1fr .9fr;padding-top:20px;padding-bottom:28px}
   .held h1{font-size:54px}
-  .gericht .nr{font-size:40px;top:12px;right:14px}
-  .gericht h3{font-size:21px;padding-right:50px}
-  .gericht p{padding-right:0}
-  .bau-buehne{height:330px}
+  .gericht{grid-template-columns:104px 1fr;gap:14px}
+  .gericht h3{font-size:21px}
+  .bau-buehne{height:290px}
   .bau-buehne .burger{width:min(230px,66%)}
   .held p.lead{display:none}
   .held-ort{margin-bottom:6px}
@@ -336,7 +346,7 @@ h2{font-size:clamp(34px,6vw,60px)}
       <div class="teller"></div>
       <div class="burger" id="heldBurger"></div>
       <div class="sticker" id="sticker"><small>mit</small><b>Rösti</b><small>Hausliebling</small></div>
-      <div class="buehne-hinweis" id="heldHinweis">Antippen: Was steckt drin?</div>
+      <div class="buehne-hinweis" id="heldHinweis">Tippen: Was steckt drin?</div>
     </div>
   </div>
 </section>
@@ -359,17 +369,17 @@ h2{font-size:clamp(34px,6vw,60px)}
   <div class="wrap">
     <div class="kopfzeile rv">
       <div><div class="kicker" style="color:var(--ketchup)">Aus der Küche</div><h2 id="karteTitel">Die Burger</h2></div>
-      <p>Eine Auswahl aus der Karte. Fragen und Bestellungen: <a href="tel:+41719900428"><b>071 990 04 28</b></a>.</p>
+      <p>Eine Auswahl aus der Karte.</p>
     </div>
     <div class="karte">
-      <article class="gericht star rv"><span class="nr">01</span><h3>Rösti-Burger</h3><p>Mit knuspriger Rösti. Der Liebling der Gäste.</p><div class="preis"><span class="marke-tag tag-liebling">Liebling</span><span class="preis-marke">Preis folgt</span></div></article>
-      <article class="gericht rv"><span class="nr">02</span><h3>Curry-Burger</h3><p>Mit Currysauce.</p><div class="preis"><span></span><span class="preis-marke">Preis folgt</span></div></article>
-      <article class="gericht rv"><span class="nr">03</span><h3>Teriyaki-Burger</h3><p>Mit Teriyaki-Sauce.</p><div class="preis"><span></span><span class="preis-marke">Preis folgt</span></div></article>
-      <article class="gericht rv"><span class="nr">04</span><h3>Blue-Cheese-Burger</h3><p>Mit Blauschimmelkäse.</p><div class="preis"><span></span><span class="preis-marke">Preis folgt</span></div></article>
-      <article class="gericht rv"><span class="nr">05</span><h3>Zucchini-Burger</h3><p>Mit Zucchini.</p><div class="preis"><span class="marke-tag tag-vegi">Vegi</span><span class="preis-marke">Preis folgt</span></div></article>
-      <article class="gericht rv"><span class="nr">06</span><h3>Falafel-Burger</h3><p>Mit Falafel.</p><div class="preis"><span class="marke-tag tag-vegi">Vegi</span><span class="preis-marke">Preis folgt</span></div></article>
+      <article class="gericht star rv"><div class="mini" data-schichten="deckel,salat,kaese,roesti,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">01</span><h3>Rösti-Burger</h3><p>Mit knuspriger Rösti. Der Liebling der Gäste.</p><span class="marke-tag tag-liebling">Liebling</span></div></article>
+      <article class="gericht rv"><div class="mini" data-schichten="deckel,salat,curry,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">02</span><h3>Curry-Burger</h3><p>Mit Currysauce.</p></div></article>
+      <article class="gericht rv"><div class="mini" data-schichten="deckel,zwiebel,teriyaki,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">03</span><h3>Teriyaki-Burger</h3><p>Mit Teriyaki-Sauce.</p></div></article>
+      <article class="gericht rv"><div class="mini" data-schichten="deckel,salat,blau,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">04</span><h3>Blue-Cheese-Burger</h3><p>Mit Blauschimmelkäse.</p></div></article>
+      <article class="gericht rv"><div class="mini" data-schichten="deckel,tomate,zucchini,salat,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">05</span><h3>Zucchini-Burger</h3><p>Mit Zucchini.</p><span class="marke-tag tag-vegi">Vegi</span></div></article>
+      <article class="gericht rv"><div class="mini" data-schichten="deckel,salat,falafel,tomate,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">06</span><h3>Falafel-Burger</h3><p>Mit Falafel.</p><span class="marke-tag tag-vegi">Vegi</span></div></article>
     </div>
-    <p class="karte-fuss rv">Preise und die ganze Karte ergänzen wir mit dem Burger House.</p>
+    <p class="karte-fuss rv">Aktuelle Preise am Telefon: <a href="tel:+41719900428"><b>071 990 04 28</b></a></p>
   </div>
 </section>
 
@@ -463,22 +473,27 @@ h2{font-size:clamp(34px,6vw,60px)}
 var S='stroke="#211A14" stroke-width="3" stroke-linejoin="round"';
 /* Schichten: Breite 300, eigene Höhe */
 var ART={
-  deckel:{n:"Brot",h:112,c:"#E08A33",svg:function(){return '<defs><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0A24A"/><stop offset="1" stop-color="#C96E22"/></linearGradient></defs><path d="M8 102C8 40 70 6 150 6s142 34 142 96a8 8 0 0 1-8 8H16a8 8 0 0 1-8-8z" fill="url(#gb)" '+S+'/><path d="M58 42c20-16 50-24 82-24" fill="none" stroke="#FFD49A" stroke-width="7" stroke-linecap="round" opacity=".7"/>'+[[92,40,-20],[130,30,8],[170,34,24],[210,48,-12],[112,64,14],[150,56,-6],[190,70,20],[72,70,-30],[232,76,10],[132,86,-14],[170,90,6]].map(function(p){return '<ellipse cx="'+p[0]+'" cy="'+p[1]+'" rx="6.5" ry="3.4" transform="rotate('+p[2]+' '+p[0]+' '+p[1]+')" fill="#FFF3D6" stroke="#211A14" stroke-width="1.6"/>';}).join("");}},
+  deckel:{n:"Brot",h:112,c:"#E08A33",svg:function(){return '<defs><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6B25A"/><stop offset=".55" stop-color="#E08A33"/><stop offset="1" stop-color="#B85F1C"/></linearGradient><radialGradient id="gl" cx=".38" cy=".25" r=".6"><stop offset="0" stop-color="#FFE2B0" stop-opacity=".85"/><stop offset="1" stop-color="#FFE2B0" stop-opacity="0"/></radialGradient></defs><path d="M8 102C8 40 70 6 150 6s142 34 142 96a8 8 0 0 1-8 8H16a8 8 0 0 1-8-8z" fill="url(#gb)" '+S+'/><path d="M10 98c40 8 240 8 280 0v4a8 8 0 0 1-8 8H18a8 8 0 0 1-8-8z" fill="#9C4E16" opacity=".55"/><ellipse cx="118" cy="44" rx="96" ry="34" fill="url(#gl)"/><path d="M58 42c20-16 50-24 82-24" fill="none" stroke="#FFE7BE" stroke-width="7" stroke-linecap="round" opacity=".8"/>'+[[92,40,-20],[130,30,8],[170,34,24],[210,48,-12],[112,64,14],[150,56,-6],[190,70,20],[72,70,-30],[232,76,10],[132,86,-14],[170,90,6],[250,58,30],[52,88,-10]].map(function(p){return '<ellipse cx="'+(p[0]+1)+'" cy="'+(p[1]+2)+'" rx="6.5" ry="3.4" transform="rotate('+p[2]+' '+p[0]+' '+p[1]+')" fill="#9C4E16" opacity=".35"/><ellipse cx="'+p[0]+'" cy="'+p[1]+'" rx="6.5" ry="3.4" transform="rotate('+p[2]+' '+p[0]+' '+p[1]+')" fill="#FFF6E0" stroke="#211A14" stroke-width="1.6"/>';}).join("");}},
   salat:{n:"Salat",h:34,c:"#6FA83B",svg:function(){var d="M4 12";for(var i=0;i<10;i++){var x=4+i*29.2;d+=" Q"+(x+14.6)+" "+(i%2?30:32)+" "+(x+29.2)+" 12";}d+=" L296 6 L4 6Z";return '<path d="'+d+'" fill="#6FA83B" '+S+'/><path d="M30 12q20 8 40 0M130 13q20 8 40 0M220 12q20 8 40 0" fill="none" stroke="#9CCB5E" stroke-width="3" stroke-linecap="round"/>';}},
-  tomate:{n:"Tomate",h:24,c:"#E0412C",svg:function(){return '<rect x="18" y="3" width="128" height="18" rx="9" fill="#E0412C" '+S+'/><rect x="152" y="3" width="130" height="18" rx="9" fill="#D83A26" '+S+'/><path d="M50 12h20M100 12h18M186 12h20M236 12h20" stroke="#F6A08F" stroke-width="3" stroke-linecap="round"/>';}},
-  kaese:{n:"Käse",h:34,c:"#F7C948",svg:function(){return '<path d="M2 4h296v10H262l-12 18-12-18H150l-14 16-14-16H70l-12 20-12-20H2z" fill="#F7C948" '+S+'/>';}},
+  tomate:{n:"Tomate",h:24,c:"#E0412C",svg:function(){return '<rect x="18" y="3" width="128" height="18" rx="9" fill="#E0412C" '+S+'/><rect x="152" y="3" width="130" height="18" rx="9" fill="#D83A26" '+S+'/><path d="M34 9h40M168 9h44" stroke="#FFB4A4" stroke-width="3" stroke-linecap="round" opacity=".9"/>'+[60,84,108,196,220,244].map(function(x){return '<ellipse cx="'+x+'" cy="14" rx="3.2" ry="2" fill="#F7D36A"/>';}).join("");}},
+  kaese:{n:"Käse",h:36,c:"#F7C948",svg:function(){return '<defs><linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD965"/><stop offset="1" stop-color="#F0B52E"/></linearGradient></defs><path d="M2 4h296v9c-6 0-10 2-12 8q-3 12-9 12t-8-12c-2-6-8-8-14-8H178c-8 0-12 3-14 10q-3 11-9 11t-8-11c-2-7-6-10-14-10H82c-8 0-12 4-14 12q-3 12-9 12t-9-12c-2-8-6-12-14-12H2z" fill="url(#gk)" '+S+'/><path d="M16 9h96M190 9h80" stroke="#FFF0B0" stroke-width="3" stroke-linecap="round"/>';}},
   roesti:{n:"Rösti",h:42,c:"#E9A23B",svg:function(){var s="",seed=7;function r(){seed=(seed*9301+49297)%233280;return seed/233280;}for(var i=0;i<46;i++){var x=24+r()*252,y=10+r()*22,a=-30+r()*60,l=10+r()*14;s+='<line x1="'+(x-l/2)+'" y1="'+y+'" x2="'+(x+l/2)+'" y2="'+y+'" transform="rotate('+a.toFixed(0)+' '+x.toFixed(0)+' '+y.toFixed(0)+')" stroke="'+(i%3?"#B9701C":"#FBD27A")+'" stroke-width="2.6" stroke-linecap="round"/>';}return '<path d="M16 6h268q12 0 12 12v6q0 12-12 12H16Q4 36 4 24v-6Q4 6 16 6z" fill="#E9A23B" '+S+'/>'+s;}},
-  fleisch:{n:"Fleisch",h:46,c:"#5A3220",svg:function(){return '<rect x="6" y="4" width="288" height="38" rx="17" fill="#5A3220" '+S+'/><path d="M40 16l18 16M90 14l18 18M140 14l18 18M190 14l18 18M240 16l18 16" stroke="#2E170C" stroke-width="5" stroke-linecap="round"/><path d="M30 12q120-8 240 0" fill="none" stroke="#8A5236" stroke-width="3" stroke-linecap="round"/>';}},
+  fleisch:{n:"Fleisch",h:48,c:"#5A3220",svg:function(){var d="",seed=3;function r(){seed=(seed*9301+49297)%233280;return seed/233280;}for(var i=0;i<26;i++){d+='<circle cx="'+(22+r()*256).toFixed(0)+'" cy="'+(10+r()*28).toFixed(0)+'" r="'+(1+r()*1.8).toFixed(1)+'" fill="'+(i%2?"#2A140A":"#8E5A3C")+'"/>';}return '<defs><linearGradient id="gf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7A4529"/><stop offset=".5" stop-color="#5A3220"/><stop offset="1" stop-color="#3A1E12"/></linearGradient></defs><path d="M22 4h256q16 0 16 14v8q0 18-18 18H24Q6 44 6 26v-8Q6 4 22 4z" fill="url(#gf)" '+S+'/>'+d+'<path d="M40 16l18 16M90 14l18 18M140 14l18 18M190 14l18 18M240 16l18 16" stroke="#24110A" stroke-width="5" stroke-linecap="round"/><path d="M30 11q120-8 240 0" fill="none" stroke="#A8704C" stroke-width="3" stroke-linecap="round"/>';}},
   speck:{n:"Speck",h:24,c:"#C9574A",svg:function(){return '<path d="M8 8q24-8 48 0t48 0 48 0 48 0 48 0 44 0v10q-22 8-44 0t-48 0-48 0-48 0-48 0-48 0z" fill="#C9574A" '+S+'/><path d="M14 12q22-6 44 0t48 0 48 0 48 0 48 0 38 0" fill="none" stroke="#F2B7A6" stroke-width="2.5"/>';}},
   zwiebel:{n:"Zwiebeln",h:20,c:"#EADCF0",svg:function(){var s="";[40,92,146,200,254].forEach(function(x){s+='<ellipse cx="'+x+'" cy="10" rx="24" ry="7" fill="#F4EAF6" stroke="#211A14" stroke-width="2.5"/><ellipse cx="'+x+'" cy="10" rx="13" ry="3.4" fill="none" stroke="#B48BC0" stroke-width="2"/>';});return s;}},
   gurke:{n:"Gurken",h:22,c:"#4E7A2E",svg:function(){var s="";[44,100,156,212,262].forEach(function(x){s+='<ellipse cx="'+x+'" cy="11" rx="25" ry="8" fill="#5E8E36" stroke="#211A14" stroke-width="2.5"/><ellipse cx="'+x+'" cy="11" rx="16" ry="4" fill="#A8CB6E"/>';});return s;}},
-  boden:{n:"Brot",h:52,c:"#E08A33",svg:function(){return '<path d="M6 6h288v18q0 24-24 24H30Q6 48 6 24z" fill="#D9842F" '+S+'/><path d="M30 18h240" stroke="#F0A24A" stroke-width="5" stroke-linecap="round"/>';}}
+  boden:{n:"Brot",h:52,c:"#E08A33",svg:function(){return '<defs><linearGradient id="gu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B9611E"/><stop offset=".25" stop-color="#E5913A"/><stop offset="1" stop-color="#C8711F"/></linearGradient></defs><path d="M6 6h288v18q0 24-24 24H30Q6 48 6 24z" fill="url(#gu)" '+S+'/><path d="M30 24h240" stroke="#F6B866" stroke-width="5" stroke-linecap="round" opacity=".8"/>';}},
+  curry:{n:"Currysauce",h:30,c:"#E39A16",svg:function(){return '<path d="M4 4h292v8c-8 0-12 3-14 9q-3 9-8 9t-7-9c-2-6-6-9-12-9H196c-6 0-10 3-12 8q-3 8-8 8t-7-8c-2-5-6-8-12-8H96c-6 0-10 3-12 9q-3 9-8 9t-7-9c-2-6-6-9-12-9H4z" fill="#E39A16" '+S+'/><path d="M20 8h120M180 8h90" stroke="#FFD27A" stroke-width="2.5" stroke-linecap="round"/>';}},
+  teriyaki:{n:"Teriyaki",h:30,c:"#6B2E14",svg:function(){return '<path d="M4 4h292v8c-8 0-12 3-14 9q-3 9-8 9t-7-9c-2-6-6-9-12-9H150c-6 0-10 3-12 8q-3 8-8 8t-7-8c-2-5-6-8-12-8H60c-6 0-10 3-12 9q-3 9-8 9t-7-9c-2-6-6-9-12-9H4z" fill="#6B2E14" '+S+'/><path d="M20 8h100M170 8h100" stroke="#C47A50" stroke-width="2.5" stroke-linecap="round"/>'+[50,96,150,204,250].map(function(x){return '<ellipse cx="'+x+'" cy="9" rx="4" ry="2" fill="#FFF3D6"/>';}).join("");}},
+  blau:{n:"Blue Cheese",h:22,c:"#DCE4EA",svg:function(){var s="";for(var i=0;i<11;i++){var x=22+i*25.6;s+='<path d="M'+(x-11)+' 15q-2-10 9-11 9-2 12 6 3 9-8 11-11 2-13-6z" fill="#EEF2F4" stroke="#211A14" stroke-width="2.2"/><circle cx="'+(x+1)+'" cy="11" r="2" fill="#5E86A8"/><circle cx="'+(x-4)+'" cy="14" r="1.3" fill="#5E86A8"/>';}return s;}},
+  zucchini:{n:"Zucchini",h:24,c:"#6E9A3E",svg:function(){var s="";[40,96,152,208,262].forEach(function(x){s+='<ellipse cx="'+x+'" cy="12" rx="27" ry="9" fill="#3F6A26" stroke="#211A14" stroke-width="2.5"/><ellipse cx="'+x+'" cy="12" rx="21" ry="6" fill="#E3EBB4"/><path d="M'+(x-8)+' 12h16" stroke="#C7D58A" stroke-width="2" stroke-dasharray="2 3"/>';});return s;}},
+  falafel:{n:"Falafel",h:44,c:"#9B6A2E",svg:function(){var s="",seed=11;function r(){seed=(seed*9301+49297)%233280;return seed/233280;}[54,118,182,246].forEach(function(x){s+='<circle cx="'+x+'" cy="22" r="21" fill="#A26C2C" stroke="#211A14" stroke-width="3"/><path d="M'+(x-16)+' 10q10-8 22-2" fill="none" stroke="#D69B52" stroke-width="3" stroke-linecap="round"/>';for(var i=0;i<6;i++){s+='<circle cx="'+(x-16+r()*32).toFixed(0)+'" cy="'+(12+r()*22).toFixed(0)+'" r="1.6" fill="'+(i%2?"#4F7A2A":"#5E3A12")+'"/>';}});return s;}},
 };
 var uid=0;
 function schicht(art){
   var a=ART[art],d=document.createElement("div");
   d.className="schicht";d.dataset.art=art;
-  var svg=a.svg().replace(/id="gb"/g,'id="gb'+(++uid)+'"').replace(/url\(#gb\)/g,'url(#gb'+uid+')');
+  var nr=++uid,svg=a.svg().replace(/id="(\w+)"/g,function(m,i){return 'id="'+i+'_'+nr+'"';}).replace(/url\(#(\w+)\)/g,function(m,i){return 'url(#'+i+'_'+nr+')';});
   d.innerHTML='<svg viewBox="0 0 300 '+a.h+'" preserveAspectRatio="xMidYMid meet">'+svg+'</svg><span class="etikett">'+a.n+'</span>';
   return d;
 }
@@ -497,8 +512,18 @@ function funke(ziel,behaelter){
   f.style.left=(zr.right-br.left-30)+"px";f.style.top=(zr.top-br.top-18)+"px";
   f.classList.add("an");setTimeout(function(){f.remove();},800);
 }
-if(window.matchMedia&&window.matchMedia("(hover: hover)").matches)hinweis.textContent="Mit der Maus drüber: Was steckt drin?";
-function heldBereit(){hb.classList.add("bereit");hinweis.classList.add("an");document.getElementById("sticker").classList.add("an");}
+hinweis.textContent=(window.matchMedia&&window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 861px)").matches)?"Mit der Maus drüber: Was steckt drin?":"Tippen: Was steckt drin?";
+function dampf(){
+  var st=hb.parentNode,d=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  d.setAttribute("viewBox","0 0 150 120");d.setAttribute("class","dampf");
+  d.innerHTML='<path d="M40 115c-14-18 14-30 0-50s12-32 4-58"/><path d="M76 115c-14-18 14-30 0-50s12-32 4-58"/><path d="M112 115c-14-18 14-30 0-50s12-32 4-58"/>';
+  st.appendChild(d);
+  var br=st.getBoundingClientRect(),tr=hEl[0].getBoundingClientRect();
+  d.style.left=(tr.left-br.left+tr.width/2-75)+"px";d.style.top=(tr.top-br.top-104)+"px";
+  requestAnimationFrame(function(){d.classList.add("an");});
+  setTimeout(function(){d.remove();},3400);
+}
+function heldBereit(){hb.classList.add("bereit");if(!ruhig)dampf();hinweis.classList.add("an");document.getElementById("sticker").classList.add("an");}
 if(ruhig){heldBereit();}
 else{
   var n=hEl.length;
@@ -514,6 +539,9 @@ else{
   hEl[4].addEventListener("animationend",function(){funke(hEl[4],hb);},{once:true});
 }
 hb.addEventListener("click",function(){if(hb.classList.contains("bereit")){hb.classList.toggle("offen");hinweis.classList.remove("an");}});
+
+/* ---- Mini-Burger in der Karte ---- */
+[].forEach.call(document.querySelectorAll(".mini"),function(m){m.dataset.schichten.split(",").forEach(function(k){m.appendChild(schicht(k));});});
 
 /* ---- Bau dein Burger ---- */
 var bb=document.getElementById("bauBurger"),liste=document.getElementById("bauListe"),voll=document.getElementById("bauVoll"),zt=document.getElementById("zutaten");
