@@ -23,6 +23,8 @@
   --r:18px;
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
+.rv:not(.live) :is(.btn,.plus,.zutat,.dazu-btn,.leer),.rv.gericht:not(.live){pointer-events:none}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:var(--weiss);color:var(--text);font:400 17px/1.55 Figtree,system-ui,sans-serif;overflow-x:hidden}
 img,svg{display:block;max-width:100%}
@@ -172,7 +174,7 @@ h2{font-size:clamp(34px,6vw,60px)}
 /* Bau dein Burger */
 .bau{background:var(--papier);border-top:2.5px solid var(--grill);border-bottom:2.5px solid var(--grill)}
 .bau-raster{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.bau-buehne{position:relative;height:400px;display:flex;justify-content:center;align-items:flex-end}
+.bau-buehne{overflow:hidden;position:relative;height:400px;display:flex;justify-content:center;align-items:flex-end}
 .bau-buehne .burger{width:min(300px,78%);transform-origin:50% 100%;transition:transform .5s cubic-bezier(.3,1.1,.5,1)}
 .bau-buehne .teller{width:min(360px,90%)}
 .zutaten{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 18px}
@@ -268,8 +270,8 @@ h2{font-size:clamp(34px,6vw,60px)}
 .bau-knoepfe{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
 .bau-knoepfe .btn svg{width:22px;height:22px}
 .plus{margin-top:6px;width:40px;height:40px;border-radius:50%;border:2px solid var(--grill);background:var(--senf);color:var(--grill);font:800 24px/1 Figtree,sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:transform .18s ease,box-shadow .2s ease,background-color .2s ease}
-.g-text{position:relative}
-.gericht .plus{position:absolute;right:-4px;bottom:-4px}
+.g-text{padding-right:36px}
+.gericht .plus{position:absolute;right:14px;bottom:14px;margin:0}
 @media (hover:hover){.plus:hover{background:var(--senf-hell);box-shadow:0 0 0 5px rgba(255,211,107,.45);transform:scale(1.06)}}
 .plus:active{transform:scale(.92)}
 .dazu{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
@@ -343,12 +345,14 @@ h2{font-size:clamp(34px,6vw,60px)}
   .gericht h3{font-size:21px}
   .band .wrap{grid-template-columns:1fr;gap:24px}
 }
-@media (max-width:860px){
-  .held h1{font-size:clamp(54px,8.2vw,80px)}
-  .buehne{height:380px}
+@media (max-width:1100px){
   .schicht .etikett,.schicht:nth-child(even) .etikett{font-size:13px;left:50%;right:auto;transform:translate(-50%,-50%) scale(.8)}
   .schicht .etikett::before{display:none}
   .burger.bereit.offen .etikett,.burger.bereit:hover .etikett{transform:translate(-50%,-50%) scale(1)}
+}
+@media (max-width:860px){
+  .held h1{font-size:clamp(54px,8.2vw,80px)}
+  .buehne{height:380px}
   .bau-raster,.info-raster{grid-template-columns:1fr}
   .bau-buehne{height:360px;order:-1}
   .abschnitt{padding:60px 0}
@@ -361,7 +365,7 @@ h2{font-size:clamp(34px,6vw,60px)}
   .held .wrap{grid-template-columns:1fr;gap:6px;padding-top:14px;padding-bottom:36px}
   .held p.lead{margin:12px 0 14px}
   .held-knoepfe{margin-top:16px}
-  .buehne{height:236px;order:-1;margin:-4px 0 8px}
+  .buehne{height:258px;order:-1;margin:-4px 0 8px}
   .burger{width:min(224px,56%);padding-bottom:14px}
   .buehne-hinweis{bottom:-8px;font-size:13px}
   .held-ort{margin-bottom:8px}
@@ -424,6 +428,9 @@ h2{font-size:clamp(34px,6vw,60px)}
   .fuss{padding-bottom:34px}
 }
 @media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .korb,.korb-hintergrund,.sticker,.schicht .etikett{transition:none}
+  .tuete-knopf.neu,.tuete-knopf.stups,.tuete.noten .wack{animation:none}
   .burger .schicht.faellt,.rv.da,.pommes.an .tuete .stab,.pommes.an .dipstab,.burger.bereit .hals,.burger.bereit .perle{animation:none}
   .rv{opacity:1;transform:none}
   .schicht{transition:none}
@@ -518,7 +525,7 @@ h2{font-size:clamp(34px,6vw,60px)}
     </div>
     <div class="rv">
       <div class="kicker" style="color:var(--ketchup)">Zum Ausprobieren</div>
-      <h2 id="bauTitel">Bau dein Burger</h2>
+      <h2 id="bauTitel">Bau deinen Burger</h2>
       <p style="margin:14px 0 0;font-weight:500;color:var(--grau);max-width:28em">Tippe auf eine Zutat: Sie kommt auf den Burger. Nochmals tippen: Sie kommt weg. Gefällt er dir? Leg ihn in die Bestellung.</p>
       <div class="zutaten" id="zutaten"></div>
       <div class="bau-zeile">
@@ -553,8 +560,8 @@ h2{font-size:clamp(34px,6vw,60px)}
     </svg>
     <div class="rv">
       <div class="kicker" style="color:var(--ketchup)">Das sagen die Gäste</div>
-      <h2 id="pommesTitel">Pommes mit Knack</h2>
-      <p>In den Google-Bewertungen steht es immer wieder: Die Pommes sind knusprig. Dazu ein Burger, und das Abendessen ist erledigt.</p>
+      <h2 id="pommesTitel">Knusprige Pommes</h2>
+      <p>In den Google-Bewertungen steht es immer wieder: Die Pommes sind knusprig. Dazu ein Burger: Zmittag oder Znacht – erledigt.</p>
       <div class="dazu">
         <button class="dazu-btn" type="button" data-art="pommes">+ Pommes</button>
         <button class="dazu-btn" type="button" data-art="ketchup">+ Ketchup</button>
@@ -678,7 +685,7 @@ var ART={
   tomate:{n:"Tomate",h:26,c:"#E0412C",svg:function(){return '<rect x="152" y="3" width="134" height="20" rx="10" fill="#D83A26" '+S+'/><rect x="14" y="3" width="146" height="20" rx="10" fill="#E0412C" '+S+'/><path d="M30 9h40M172 9h44" stroke="#FFB4A4" stroke-width="3" stroke-linecap="round" opacity=".9"/>'+[60,84,108,196,220,244].map(function(x){return '<ellipse cx="'+x+'" cy="15" rx="3.2" ry="2" fill="#F7D36A"/>';}).join("");}},
   kaese:{n:"Käse",h:36,c:"#F7C948",svg:function(){
     /* x, halbe Breite, Länge, Endfaktor, Dauer s, Verzögerung s */
-    var T=[[58,3.1,5,2.3,24,1],[124,2.1,1.5,2.2,32,3],[190,4.3,8,2.6,22,.4],[250,3.8,7,2.4,26,1.6]];
+    var T=[[58,3,2.5,1.7,24,1],[124,2.1,.5,1.6,32,3],[190,4,4.5,1.9,22,.4],[250,3.6,3.5,1.8,26,1.6]];
     var striche="",fuell="";
     T.forEach(function(d){var x=d[0],w=d[1],l=d[2],sf=d[3],dur=d[4],del=d[5],r=w*1.18,y=15+l;
       var st='animation-duration:'+dur+'s;animation-delay:'+del+'s;--lang:'+((3+l)*(sf-1)).toFixed(1)+'px;--fak:'+sf;
@@ -688,7 +695,7 @@ var ART={
       striche+='<path class="hals" style="'+st+'" d="M'+(x-w)+' 16V'+y+'M'+(x+w)+' 16V'+y+'" fill="none" stroke="#211A14" stroke-width="2.4" vector-effect="non-scaling-stroke"/><circle class="perle" style="'+st+'" cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#211A14" stroke="#211A14" stroke-width="2.4"/><path d="'+ansatzStrich+'" fill="none" stroke="#211A14" stroke-width="2.4" stroke-linecap="round"/>';
       fuell+='<path class="hals" style="'+st+'" d="'+hals+'" fill="#F2B832"/><circle class="perle" style="'+st+'" cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#F2B832"/><path d="'+ansatz+'" fill="#F2B832"/><path class="hals" style="'+st+'" d="M'+(x-w*.4)+' 17V'+(y-1)+'" stroke="#FFE08A" stroke-width="1.4" stroke-linecap="round" vector-effect="non-scaling-stroke"/>';
     });
-    return '<defs><linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD965"/><stop offset="1" stop-color="#F2B832"/></linearGradient></defs><path d="M2 3H298V20Q298 26 293.5 26Q289 26 288 20Q287 16 280 16H20Q13 16 12 20Q11 26 6.5 26Q2 26 2 20Z" fill="url(#gk)" '+S+'/>'+striche+fuell+'<path d="M16 8h96M190 8h80" stroke="#FFF0B0" stroke-width="3" stroke-linecap="round"/>';}},
+    return '<defs><linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD965"/><stop offset="1" stop-color="#F2B832"/></linearGradient></defs><path d="M2 3H298V15C298 21.5 291 22 287 18.5C284 16.2 281 16 276 16H24C19 16 16 16.2 13 18.5C9 22 2 21.5 2 15Z" fill="url(#gk)" '+S+'/>'+striche+fuell+'<path d="M16 8h96M190 8h80" stroke="#FFF0B0" stroke-width="3" stroke-linecap="round"/>';}},
   roesti:{n:"Rösti",h:42,c:"#E9A23B",svg:function(){var s="",seed=7;function r(){seed=(seed*9301+49297)%233280;return seed/233280;}for(var i=0;i<46;i++){var x=24+r()*252,y=10+r()*22,a=-30+r()*60,l=10+r()*14;s+='<line x1="'+(x-l/2)+'" y1="'+y+'" x2="'+(x+l/2)+'" y2="'+y+'" transform="rotate('+a.toFixed(0)+' '+x.toFixed(0)+' '+y.toFixed(0)+')" stroke="'+(i%3?"#B9701C":"#FBD27A")+'" stroke-width="2.6" stroke-linecap="round"/>';}return '<path d="M16 6h268q12 0 12 12v6q0 12-12 12H16Q4 36 4 24v-6Q4 6 16 6z" fill="#E9A23B" '+S+'/>'+s;}},
   fleisch:{n:"Fleisch",h:48,c:"#5A3220",svg:function(){var d="",seed=3;function r(){seed=(seed*9301+49297)%233280;return seed/233280;}for(var i=0;i<26;i++){d+='<circle cx="'+(22+r()*256).toFixed(0)+'" cy="'+(10+r()*28).toFixed(0)+'" r="'+(1+r()*1.8).toFixed(1)+'" fill="'+(i%2?"#2A140A":"#8E5A3C")+'"/>';}return '<defs><linearGradient id="gf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7A4529"/><stop offset=".5" stop-color="#5A3220"/><stop offset="1" stop-color="#3A1E12"/></linearGradient></defs><path d="M22 4h256q16 0 16 14v8q0 18-18 18H24Q6 44 6 26v-8Q6 4 22 4z" fill="url(#gf)" '+S+'/>'+d+'<path d="M40 16l18 16M90 14l18 18M140 14l18 18M190 14l18 18M240 16l18 16" stroke="#24110A" stroke-width="5" stroke-linecap="round"/><path d="M30 11q120-8 240 0" fill="none" stroke="#A8704C" stroke-width="3" stroke-linecap="round"/>';}},
   speck:{n:"Speck",h:24,c:"#C9574A",svg:function(){return '<path d="M8 8q24-8 48 0t48 0 48 0 48 0 48 0 44 0v10q-22 8-44 0t-48 0-48 0-48 0-48 0-48 0z" fill="#C9574A" '+S+'/><path d="M14 12q22-6 44 0t48 0 48 0 48 0 48 0 38 0" fill="none" stroke="#F2B7A6" stroke-width="2.5"/>';}},
@@ -754,7 +761,7 @@ else{
   },{once:true});
   hEl[4].addEventListener("animationend",function(){funke(hEl[4],hb);},{once:true});
 }
-hb.addEventListener("click",function(){if(hb.classList.contains("bereit")){hb.classList.toggle("offen");hinweis.classList.remove("an");}});
+hb.addEventListener("click",function(){if(mausMQ&&mausMQ.matches)return;if(hb.classList.contains("bereit")){hb.classList.toggle("offen");hinweis.classList.remove("an");}});
 
 /* ---- Mini-Burger in der Karte ---- */
 [].forEach.call(document.querySelectorAll(".gericht"),function(g){g.addEventListener("click",function(){if(g.classList.contains("live")&&!window.matchMedia("(hover: hover)").matches)g.classList.toggle("offen");});});
@@ -871,7 +878,7 @@ try{status();setInterval(status,60000);}catch(e){}
 
 /* ---- Einblenden: einmal, unabhängig vom Tempo ---- */
 var rv=[].slice.call(document.querySelectorAll(".rv"));
-function live(el){el.classList.add("live");var z=el.querySelector&&el.querySelector(".zeiten");if(z)z.classList.add("live");}
+function live(el){el.classList.add("live");if(el.classList.contains("da")){el.classList.remove("da");el.classList.add("sofort");}var z=el.querySelector&&el.querySelector(".zeiten");if(z)z.classList.add("live");}
 if(ruhig||!("IntersectionObserver" in window)){rv.forEach(function(el){el.classList.add("sofort");live(el);});}
 else{
   var io=new IntersectionObserver(function(es){
@@ -924,7 +931,7 @@ var ICON={
 var DAZU={pommes:"Pommes",ketchup:"Ketchup",mayo:"Mayo"};
 function stapel(schichten,cls){var d=document.createElement("div");d.className=cls;schichten.forEach(function(k){d.appendChild(schicht(k));});dicht(d);return d;}
 function anzahl(){return korb.reduce(function(a,x){return a+x.n;},0);}
-function korbZeigen(){
+function korbZeigen(fokus){
   var n=anzahl();korbZahl.textContent=n;
   korbKnopf.setAttribute("aria-label","Bestellung öffnen, "+n+" Artikel");
   korbListe.innerHTML="";
@@ -935,17 +942,19 @@ function korbZeigen(){
     li.appendChild(bild);
     var t=document.createElement("div");t.innerHTML='<span class="k-name"></span>'+(it.sub?'<span class="k-sub"></span>':'');
     t.querySelector(".k-name").textContent=it.name;if(it.sub)t.querySelector(".k-sub").textContent=it.sub;
-    var weg=document.createElement("button");weg.type="button";weg.className="k-weg";weg.textContent="Entfernen";
-    weg.addEventListener("click",function(){korb.splice(i,1);korbZeigen();});
+    var weg=document.createElement("button");weg.type="button";weg.className="k-weg";weg.textContent="Entfernen";weg.dataset.f="w"+i;
+    weg.addEventListener("click",function(){korb.splice(i,1);korbZeigen(korb.length?"w"+Math.min(i,korb.length-1):"zu");});
     t.appendChild(weg);li.appendChild(t);
     var m=document.createElement("div");m.className="k-menge";
     m.innerHTML='<button type="button" aria-label="Eins weniger">−</button><b>'+it.n+'</b><button type="button" aria-label="Eins mehr">+</button>';
-    m.children[0].addEventListener("click",function(){it.n--;if(it.n<1)korb.splice(i,1);korbZeigen();});
-    m.children[2].addEventListener("click",function(){it.n++;korbZeigen();});
+    m.children[0].dataset.f="m"+i;m.children[2].dataset.f="p"+i;
+    m.children[0].addEventListener("click",function(){it.n--;if(it.n<1){korb.splice(i,1);korbZeigen(korb.length?"w"+Math.min(i,korb.length-1):"zu");}else korbZeigen("m"+i);});
+    m.children[2].addEventListener("click",function(){it.n++;korbZeigen("p"+i);});
     li.appendChild(m);korbListe.appendChild(li);
   });
   document.getElementById("korbLeer").hidden=korb.length>0;
   pruefen();
+  if(fokus){var z=fokus==="zu"?document.getElementById("korbZu"):korbListe.querySelector('[data-f="'+fokus+'"]');if(z)z.focus();}
 }
 function rein(it){
   var key=it.name+"|"+(it.schichten||[]).join(",");
@@ -989,7 +998,7 @@ document.getElementById("bauRein").addEventListener("click",function(){
 });
 /* Abholzeiten */
 function zeiten(){
-  var sel=document.getElementById("fAbhol");sel.innerHTML="";
+  var sel=document.getElementById("fAbhol"),alt=sel.value;sel.innerHTML="";
   var j=jetztZH(),start=Math.ceil((j.m+20)/15)*15,gefunden=0;
   for(var d=0;d<3&&gefunden<16;d++){
     var t=(j.t+d)%7,lab=d===0?"Heute":d===1?"Morgen":TAGE[t];
@@ -1001,28 +1010,39 @@ function zeiten(){
       }
     });
   }
+  if(alt&&[].some.call(sel.options,function(o){return o.value===alt;}))sel.value=alt;
 }
 function pruefen(){
   var ok=korb.length>0&&document.getElementById("fName").value.trim()&&document.getElementById("fTel").value.trim().length>=7;
   document.getElementById("fSenden").disabled=!ok;
 }
 ["fName","fTel"].forEach(function(id){document.getElementById(id).addEventListener("input",pruefen);});
-var vorher=null;
+var vorher=null,zuTimer=null,AUSSEN=[document.querySelector("main"),document.querySelector(".kopf"),document.querySelector(".fuss"),document.getElementById("leiste"),korbKnopf];
+function aussen(an){AUSSEN.forEach(function(el){if(!el)return;if(an){el.setAttribute("inert","");}else{el.removeAttribute("inert");}});}
 function korbAuf(){
-  vorher=document.activeElement;zeiten();
+  clearTimeout(zuTimer);
+  if(!document.getElementById("korbDanke").hidden)dankeReset();
+  vorher=document.activeElement;zeiten();aussen(true);
   korbHg.hidden=false;korbEl.hidden=false;document.documentElement.style.overflow="hidden";
   requestAnimationFrame(function(){requestAnimationFrame(function(){korbHg.classList.add("an");korbEl.classList.add("an");});});
   setTimeout(function(){document.getElementById("korbZu").focus();},50);
 }
 function korbZu(){
-  korbHg.classList.remove("an");korbEl.classList.remove("an");document.documentElement.style.overflow="";
-  setTimeout(function(){korbHg.hidden=true;korbEl.hidden=true;},400);
+  var danke=!document.getElementById("korbDanke").hidden;
+  korbHg.classList.remove("an");korbEl.classList.remove("an");document.documentElement.style.overflow="";aussen(false);
+  clearTimeout(zuTimer);
+  zuTimer=setTimeout(function(){if(korbEl.classList.contains("an"))return;korbHg.hidden=true;korbEl.hidden=true;if(danke)dankeReset();},400);
   if(vorher&&vorher.focus)vorher.focus();
 }
 korbKnopf.addEventListener("click",korbAuf);
 document.getElementById("korbZu").addEventListener("click",korbZu);
 korbHg.addEventListener("click",korbZu);
-document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!korbEl.hidden)korbZu();});
+document.addEventListener("keydown",function(e){
+  if(korbEl.hidden||!korbEl.classList.contains("an"))return;
+  if(e.key==="Escape"){korbZu();return;}
+  if(e.key==="Tab"){var f=[].filter.call(korbEl.querySelectorAll("button,input,select,textarea,a[href]"),function(x){return !x.disabled&&x.offsetParent!==null;});if(!f.length)return;var a=f[0],z=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}
+});
 document.getElementById("korbForm").addEventListener("submit",function(e){
   e.preventDefault();if(document.getElementById("fSenden").disabled)return;
   var name=document.getElementById("fName").value.trim(),zeit=document.getElementById("fAbhol").value;
@@ -1034,11 +1054,12 @@ document.getElementById("korbForm").addEventListener("submit",function(e){
   var dk=document.getElementById("korbDanke");dk.hidden=false;
   var pa=dk.querySelector(".packen");pa.classList.remove("los");void pa.offsetWidth;pa.classList.add("los");
 });
-document.getElementById("dankeFertig").addEventListener("click",function(){
-  korb=[];korbZeigen();document.getElementById("korbForm").reset();
+function dankeReset(){
+  korb=[];korbZeigen();document.getElementById("korbForm").reset();pruefen();
   document.getElementById("korbInhalt").hidden=false;document.getElementById("korbDanke").hidden=true;
-  korbKnopf.hidden=true;korbZu();
-});
+  korbKnopf.hidden=true;
+}
+document.getElementById("dankeFertig").addEventListener("click",function(){vorher=null;korbZu();});
 korbZeigen();
 })();
 </script>
