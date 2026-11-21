@@ -24,7 +24,7 @@
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-.rv:not(.live) :is(.btn,.plus,.zutat,.dazu-btn,.leer),.rv.gericht:not(.live){pointer-events:none}
+.rv:not(.live) :is(.btn,.plus,.zutat,.dazu-btn,.leer,.wk-btn,.sv-pfeil),.rv.gericht:not(.live){pointer-events:none}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{margin:0;background:var(--weiss);color:var(--text);font:400 17px/1.55 Figtree,system-ui,sans-serif;overflow-x:hidden}
 img,svg{display:block;max-width:100%}
@@ -339,6 +339,99 @@ h2{font-size:clamp(34px,6vw,60px)}
 }
 @media (orientation:landscape) and (max-height:500px){.tuete-knopf{top:auto;bottom:16px}}
 @media (prefers-reduced-motion:reduce){.packen.los .pk-burger,.packen.los .pk-falz{animation:none}.packen.los .pk-burger{transform:translateY(120px) scale(.92)}.packen.los .pk-falz{opacity:1;transform:none}}
+
+/* ---------- IDEE 4: Servietten ---------- */
+.lob{display:block;min-width:0}
+.band .wrap>*{min-width:0}
+.servietten-rahmen{min-width:0;max-width:100%}
+.servietten-rahmen{position:relative;margin-bottom:16px}
+.servietten{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 6px 18px;scrollbar-width:none;cursor:grab;outline:none}
+.servietten::-webkit-scrollbar{display:none}
+.servietten.zieht{cursor:grabbing;scroll-snap-type:none}
+.servietten:focus-visible{box-shadow:0 0 0 3px rgba(244,183,49,.6);border-radius:12px}
+.serviette{position:relative;flex:0 0 auto;width:250px;min-height:200px;margin:0;padding:24px 22px 18px;scroll-snap-align:start;background:#FFFDF8;color:var(--grill);border-radius:4px;
+  background-image:linear-gradient(90deg,transparent 49.6%,rgba(33,26,20,.06) 50%,transparent 50.4%),linear-gradient(0deg,transparent 49.6%,rgba(33,26,20,.06) 50%,transparent 50.4%),repeating-linear-gradient(45deg,rgba(33,26,20,.025) 0 2px,transparent 2px 7px);
+  box-shadow:0 1px 0 rgba(0,0,0,.08),0 10px 22px rgba(0,0,0,.28);transform:rotate(var(--dreh,0deg));transition:transform .25s ease,box-shadow .25s ease;display:flex;flex-direction:column;justify-content:space-between}
+.serviette::before{content:"";position:absolute;inset:8px;border:1.5px dashed rgba(33,26,20,.13);border-radius:2px;pointer-events:none}
+.serviette .fleck{position:absolute;right:10px;bottom:34px;width:70px;height:58px;pointer-events:none}
+.serviette blockquote{position:relative;margin:0;font:700 17.5px/1.38 Figtree,sans-serif}
+.serviette figcaption{position:relative;margin-top:14px;font-weight:700;font-size:13.5px;color:var(--grau)}
+@media (hover:hover){.servietten-rahmen.live .serviette:hover{transform:rotate(0) translateY(-6px);box-shadow:0 1px 0 rgba(0,0,0,.08),0 16px 28px rgba(0,0,0,.34)}}
+.sv-pfeile{display:flex;gap:8px;justify-content:flex-end}
+.sv-pfeil{width:40px;height:40px;border-radius:50%;border:2px solid var(--senf);background:transparent;color:var(--senf);font:800 22px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,box-shadow .2s ease}
+@media (hover:hover){.sv-pfeil:hover{background:rgba(244,183,49,.18);box-shadow:0 0 0 5px rgba(244,183,49,.18)}}
+@media (max-width:640px){.serviette{width:78vw;max-width:290px}.sv-pfeile{display:none}}
+
+/* ---------- IDEE 3: Zisch ---------- */
+.ton{position:absolute;left:4px;bottom:8px;z-index:3;display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px 0 10px;border-radius:999px;border:2px solid var(--grill);background:var(--weiss);color:var(--grill);font:800 13.5px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,box-shadow .2s ease}
+.ton svg{width:18px;height:18px}
+.ton{opacity:0;pointer-events:none}
+.burger.bereit~.ton{opacity:1;pointer-events:auto;transition:opacity .4s ease,background-color .2s ease,box-shadow .2s ease}
+.ton .ton-an{display:none}
+.ton[aria-pressed="true"]{background:var(--ketchup);color:#fff}
+.ton[aria-pressed="true"] .ton-an{display:inline}
+.ton[aria-pressed="true"] .ton-aus{display:none}
+@media (hover:hover){.ton:hover{box-shadow:0 0 0 5px rgba(255,253,248,.55)}}
+@media (max-width:700px){.ton{left:0;bottom:2px}}
+
+/* ---------- IDEE 2: Weg-Karte ---------- */
+.weg-karte{margin-top:22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);grid-template-areas:"kopf karte" "info karte" "quelle karte";grid-template-rows:auto auto 1fr;column-gap:28px;align-items:start}
+.wk-kopf{grid-area:kopf;flex-direction:column;align-items:flex-start!important}
+.wk-svg{grid-area:karte}
+.wk-info{grid-area:info}
+.wk-quelle{grid-area:quelle}
+@media (max-width:860px){.weg-karte{grid-template-columns:1fr;grid-template-areas:"kopf" "karte" "info" "quelle"}}
+.wk-kopf{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 20px;margin-bottom:12px}
+.wk-titel{font-size:26px;margin-top:4px}
+.wk-wahl{display:flex;flex-wrap:wrap;gap:8px}
+.wk-btn{min-height:40px;padding:0 14px;border-radius:999px;border:2px solid rgba(255,253,248,.35);background:transparent;color:var(--weiss);font:700 14.5px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,border-color .2s ease,box-shadow .2s ease}
+.wk-btn.an{background:var(--senf);border-color:var(--senf);color:var(--grill)}
+@media (hover:hover){.wk-btn:not(.an):hover{border-color:var(--senf);box-shadow:0 0 0 4px rgba(244,183,49,.18)}}
+.wk-svg{width:100%;height:auto;border-radius:14px;background:#2A221B}
+.wk-weg{fill:none;stroke:var(--senf);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .3s ease}
+.wk-weg.an{opacity:1}
+.wk-label{fill:#FFFDF8;font:700 15px Figtree,sans-serif;paint-order:stroke;stroke:#2A221B;stroke-width:4px}
+.wk-label-gross{font-family:"Bowlby One SC",sans-serif;font-size:17px;fill:var(--senf)}
+.wk-fluss{fill:#8DB9D8;font:italic 600 14px Figtree,sans-serif}
+.wk-laeufer{opacity:0}
+.wk-laeufer.an{opacity:1}
+.wk-info{margin:12px 0 0;font-size:17px;font-weight:600}
+.wk-info b{color:var(--senf)}
+.wk-quelle{margin:4px 0 0;font-size:12.5px;color:rgba(255,253,248,.55)}
+
+/* ---------- IDEE 1: Tal im Tageslauf ---------- */
+.tal{position:relative;background:#2A221B;border-top:2.5px solid var(--grill)}
+.tal-svg{display:block;width:100%;height:clamp(170px,22vw,300px)}
+.tal-svg *{transition:fill 1s ease,stop-color 1s ease,opacity 1s ease,transform 1.2s cubic-bezier(.4,0,.2,1)}
+.tal .h1{stop-color:#5DB8EA}.tal .h2{stop-color:#CDEBFA}
+.tal .berg-fern{fill:#7FA36A}.tal .berg-nah{fill:#4E8A3A}.tal .haeuser{fill:#D9C9AC;stroke:#211A14;stroke-width:3}
+.tal .strasse{fill:#5E5247}
+.tal .sterne{fill:#FFF6D8;opacity:0}
+.tal .sonne{transform:translate(1080px,70px)}.tal .mond{transform:translate(1180px,330px);opacity:0}
+.tal .schild{fill:#5E5247;transition:fill .6s ease,filter .6s ease}.tal .schild-text{fill:#B9AA90;font:400 15px "Bowlby One SC",sans-serif}
+.tal .fenster{fill:#9FB7C6}
+.tal .dampf-kamin path{fill:none;stroke:#FFFDF8;stroke-width:4;stroke-linecap:round;opacity:0}
+.tal.offen .schild{fill:#D23A26;filter:drop-shadow(0 0 10px rgba(255,120,80,.8))}.tal.offen .schild-text{fill:#FFF3C4}
+.tal.offen .dampf-kamin path{opacity:.7}
+.tal[data-zeit="morgen"] .h1{stop-color:#9CCFEF}.tal[data-zeit="morgen"] .h2{stop-color:#FFD9A8}
+.tal[data-zeit="morgen"] .sonne{transform:translate(260px,190px)}
+.tal[data-zeit="abend"] .h1{stop-color:#E9774A}.tal[data-zeit="abend"] .h2{stop-color:#FFD28A}
+.tal[data-zeit="abend"] .sonne{transform:translate(1260px,200px)}
+.tal[data-zeit="abend"] .berg-fern{fill:#7A7A5A}.tal[data-zeit="abend"] .berg-nah{fill:#465E33}
+.tal[data-zeit="abend"].offen .fenster,.tal[data-zeit="nacht"].offen .fenster{fill:#FFD36B}
+.tal[data-zeit="nacht"] .h1{stop-color:#121A33}.tal[data-zeit="nacht"] .h2{stop-color:#34416E}
+.tal[data-zeit="nacht"] .sonne{transform:translate(1300px,360px);opacity:0}
+.tal[data-zeit="nacht"] .mond{transform:translate(1160px,70px);opacity:1}
+.tal[data-zeit="nacht"] .sterne{opacity:1}
+.tal[data-zeit="nacht"] .berg-fern{fill:#26324A}.tal[data-zeit="nacht"] .berg-nah{fill:#1A2436}.tal[data-zeit="nacht"] .haeuser{fill:#3A4256}
+.tal[data-zeit="nacht"] .fenster{fill:#2D3550}.tal[data-zeit="nacht"] .strasse{fill:#2A2A33}
+.tal-leiste{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 18px;padding-top:14px;padding-bottom:16px}
+.tal-text{margin:0;color:var(--weiss);font-weight:700;font-size:16px}
+.tal-wahl{display:flex;flex-wrap:wrap;gap:6px}
+.tal-btn{min-height:36px;padding:0 12px;border-radius:999px;border:2px solid rgba(255,253,248,.3);background:transparent;color:var(--weiss);font:700 13.5px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,border-color .2s ease,box-shadow .2s ease}
+.tal-btn.an{background:var(--senf);border-color:var(--senf);color:var(--grill)}
+@media (hover:hover){.tal-btn:not(.an):hover{border-color:var(--senf);box-shadow:0 0 0 4px rgba(244,183,49,.18)}}
+@media (prefers-reduced-motion:reduce){.tal-svg *{transition:none}}
 /* ---------- Breiten ---------- */
 @media (max-width:1060px){
   .karte{grid-template-columns:repeat(2,1fr)}
@@ -384,7 +477,6 @@ h2{font-size:clamp(34px,6vw,60px)}
   .bau-buehne .burger{width:min(230px,66%)}
   .held-knoepfe{gap:10px}
   .karte{grid-template-columns:1fr}
-  .lob{grid-template-columns:1fr}
   .note .zahl{font-size:68px}
   .leiste{display:flex}
   .fuss{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
@@ -476,11 +568,13 @@ h2{font-size:clamp(34px,6vw,60px)}
       <div class="held-sterne"><span class="st" aria-hidden="true">★★★★★</span><a href="#bewertungen">4,8 · 501 Google-Bewertungen</a></div>
     </div>
 
-    <div class="buehne" aria-hidden="true">
+    <div class="buehne">
       <div class="teller"></div>
-      <div class="burger" id="heldBurger"></div>
-      <div class="sticker" id="sticker"><small>mit</small><b>Rösti</b><small>Hausliebling</small></div>
-      <div class="buehne-hinweis" id="heldHinweis">Tippen: Was steckt drin?</div>
+      <div class="burger" id="heldBurger" aria-hidden="true"></div>
+      <div class="sticker" id="sticker" aria-hidden="true"><small>mit</small><b>Rösti</b><small>Hausliebling</small></div>
+<!-- IDEE 3: Zisch! Grillgeräusch, standardmässig aus — zum Entfernen diesen Button und den JS-Block «IDEE 3» löschen -->
+      <button class="ton" id="tonKnopf" type="button" aria-pressed="false" aria-label="Grillgeräusch einschalten"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="ton-an" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="ton-aus" d="M16 9l5 6M21 9l-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Zisch!</span></button>
+      <div class="buehne-hinweis" id="heldHinweis" aria-hidden="true">Tippen: Was steckt drin?</div>
     </div>
   </div>
 </section>
@@ -492,8 +586,12 @@ h2{font-size:clamp(34px,6vw,60px)}
       <div><div class="st" aria-label="4,8 von 5 Sternen">★★★★★</div><small>501 Bewertungen auf Google</small></div>
     </div>
     <div class="lob">
-      <blockquote class="rv">«Absolut bester Burger weit und breit!»<cite>Gast auf Restaurant Guru</cite></blockquote>
-      <blockquote class="rv">«Very affordable compared to the price of food here in Switzerland.»<cite>Google-Bewertung</cite></blockquote>
+<!-- IDEE 4: Gästestimmen als Servietten (echte Zitate, wörtlich: Google Maps / Restaurant Guru, 21.11.2026) — zum Entfernen diesen Block löschen -->
+      <div class="servietten-rahmen rv">
+        <div class="servietten" id="servietten" tabindex="0" aria-label="Gästestimmen, zum Blättern wischen"><figure class="serviette" style="--dreh:-2.2deg"><svg class="fleck" viewBox="0 0 60 50" aria-hidden="true"><path d="M30 6c9-3 20 4 21 13 6 3 6 12-1 15-2 8-13 12-21 8-8 5-20 1-21-8-7-3-6-13 1-16 2-8 12-14 21-12z" fill="#C8261A" opacity=".18"/><circle cx="52" cy="40" r="3.5" fill="#C8261A" opacity=".2"/></svg><blockquote>«Super Burgerladen in Wattwil!»</blockquote><figcaption>Sandro S. · Google</figcaption></figure><figure class="serviette" style="--dreh:1.6deg"><svg class="fleck" viewBox="0 0 60 50" aria-hidden="true"><path d="M14 10c8-6 18-3 22 2 8-2 16 4 14 12 5 6 0 14-8 13-5 7-17 6-21-1-9 1-15-8-10-15-3-5-1-10 3-11z" fill="#E9A23B" opacity=".2"/></svg><blockquote>«Wow, die Burger sind sehr gut! Frisch zubereitet, auf individuelle Wünsche wird eingegangen.»</blockquote><figcaption>Martin B. · Google</figcaption></figure><figure class="serviette" style="--dreh:-1.2deg"><svg class="fleck" viewBox="0 0 60 50" aria-hidden="true"><path d="M30 6c9-3 20 4 21 13 6 3 6 12-1 15-2 8-13 12-21 8-8 5-20 1-21-8-7-3-6-13 1-16 2-8 12-14 21-12z" fill="#C8261A" opacity=".18"/><circle cx="52" cy="40" r="3.5" fill="#C8261A" opacity=".2"/></svg><blockquote>«Sehr fein, hausgemachte Saucen und Fleisch von der Umgebung. Gerne wieder!»</blockquote><figcaption>Ilker A. · Google</figcaption></figure><figure class="serviette" style="--dreh:2deg"><svg class="fleck" viewBox="0 0 60 50" aria-hidden="true"><path d="M14 10c8-6 18-3 22 2 8-2 16 4 14 12 5 6 0 14-8 13-5 7-17 6-21-1-9 1-15-8-10-15-3-5-1-10 3-11z" fill="#E9A23B" opacity=".2"/></svg><blockquote>«Absolut bester Burger weit und breit!»</blockquote><figcaption>Gast · Restaurant Guru</figcaption></figure><figure class="serviette" style="--dreh:-1.6deg"><svg class="fleck" viewBox="0 0 60 50" aria-hidden="true"><path d="M30 6c9-3 20 4 21 13 6 3 6 12-1 15-2 8-13 12-21 8-8 5-20 1-21-8-7-3-6-13 1-16 2-8 12-14 21-12z" fill="#C8261A" opacity=".18"/><circle cx="52" cy="40" r="3.5" fill="#C8261A" opacity=".2"/></svg><blockquote>«Wer einen sehr feinen Burger mit frischen Zutaten essen möchte, dann ist das der richtige Ort.»</blockquote><figcaption>Marie B. · Google</figcaption></figure><figure class="serviette" style="--dreh:1.2deg"><svg class="fleck" viewBox="0 0 60 50" aria-hidden="true"><path d="M14 10c8-6 18-3 22 2 8-2 16 4 14 12 5 6 0 14-8 13-5 7-17 6-21-1-9 1-15-8-10-15-3-5-1-10 3-11z" fill="#E9A23B" opacity=".2"/></svg><blockquote>«Bester Burger, sehr nettes Personal und Preis - Leistung top. Gerne wieder :)»</blockquote><figcaption>Nicole · Restaurant Guru</figcaption></figure><figure class="serviette" style="--dreh:-2deg"><svg class="fleck" viewBox="0 0 60 50" aria-hidden="true"><path d="M30 6c9-3 20 4 21 13 6 3 6 12-1 15-2 8-13 12-21 8-8 5-20 1-21-8-7-3-6-13 1-16 2-8 12-14 21-12z" fill="#C8261A" opacity=".18"/><circle cx="52" cy="40" r="3.5" fill="#C8261A" opacity=".2"/></svg><blockquote>«Preis Leistung TOP.»</blockquote><figcaption>Antonio · Google</figcaption></figure></div>
+        <div class="sv-pfeile"><button type="button" class="sv-pfeil" data-r="-1" aria-label="Zurück">‹</button><button type="button" class="sv-pfeil" data-r="1" aria-label="Weiter">›</button></div>
+      </div>
+<!-- /IDEE 4 -->
       <div class="chips rv"><span>Knusprige Pommes</span><span>Rösti-Burger</span><span>Faire Preise</span><span>Freundlicher Service</span></div>
     </div>
   </div>
@@ -619,8 +717,76 @@ h2{font-size:clamp(34px,6vw,60px)}
         <p class="weg-text" style="margin:0">Ein Tippen, und es klingelt.</p>
       </div>
     </div>
+<!-- IDEE 2: Vom Bahnhof zum Burger (Weg: OpenStreetMap, routing.openstreetmap.de, 21.11.2026) — zum Entfernen diesen Block löschen -->
+    <div class="weg-karte kasten rv" id="wegKarte">
+      <div class="wk-kopf">
+        <div><div class="kicker" style="color:var(--senf)">Zu Fuss</div><h3 class="wk-titel">Vom Bahnhof zum Burger</h3></div>
+        <div class="wk-wahl" role="group" aria-label="Start wählen">
+          <button type="button" class="wk-btn an" data-weg="1" aria-pressed="true">vom Bahnhof</button>
+          <button type="button" class="wk-btn" data-weg="2" aria-pressed="false">von der Kantonsschule</button>
+        </div>
+      </div>
+      <svg class="wk-svg" viewBox="110 20 420 380" aria-label="Karte: Fussweg zum Burger House">
+        <path d="M10141.6 7316.5 L10138.0 7328.4 L10119.6 7358.9 L10096.4 7376.2 L10088.9 7382.8 L10068.8 7406.5 L10043.9 7434.3 L10031.9 7446.2 L10027.1 7449.3 L10023.4 7449.4 L10007.6 7441.6 L9960.2 7416.7 L9954.8 7415.1 L9949.7 7415.2 L9940.8 7416.3 L9929.8 7419.9 L9909.2 7431.1 L9899.8 7434.0 L9890.7 7434.9 L9883.4 7434.3 L9870.5 7430.7 L9857.0 7425.3 L9853.6 7424.6 L9847.4 7423.5 L9840.4 7424.0 L9814.1 7429.0 L9805.2 7429.1 L9785.5 7425.2 L9780.9 7424.5 L9773.5 7425.4 L9764.3 7427.9 L9755.0 7433.2 L9713.7 7462.6 L9709.3 7464.6 L9699.6 7466.3 L9693.8 7464.9 L9681.3 7459.5 L9672.5 7457.4 L9656.9 7456.9 L9639.2 7457.7 L9629.8 7458.9 L9618.1 7462.6 L9596.1 7473.1 L9581.2 7481.0 L9563.1 7493.5 L9557.2 7494.8 L9550.0 7494.7 L9530.4 7486.4 L9529.7 7486.1 L9522.3 7484.2 L9516.4 7483.6 L9489.0 7486.5 L9448.9 7487.8 L9431.2 7485.7 L9408.4 7475.0 L9397.1 7469.3 L9387.5 7464.3 L9371.1 7455.3 L9366.2 7453.2 L9361.0 7451.2 L9355.7 7449.8 L9350.6 7449.1 L9345.6 7448.8 L9339.9 7448.6 L9273.2 7449.3 L9266.1 7449.8 L9259.9 7450.7 L9254.0 7451.8 L9248.8 7453.4 L9242.8 7455.6 L9234.7 7459.1 L9226.5 7463.4 L9219.4 7467.6 L9214.3 7471.1 L9209.4 7475.1 L9205.4 7478.8 L9191.1 7492.3 L9187.0 7495.6 L9184.7 7497.4 L9181.9 7499.2 L9178.2 7501.2 L9174.7 7502.5 L9168.0 7504.5 L9161.7 7505.8 L9155.0 7506.7 L9148.1 7507.3 L9140.8 7507.3 L9134.7 7507.0 L9128.0 7506.2 L9121.1 7504.7 L9116.2 7503.4 L9111.0 7501.5 L9101.7 7497.8 L9098.4 7496.7 L9094.5 7495.4 L9092.2 7494.8 L9089.5 7494.5 L9086.9 7494.2 L9084.5 7494.2 L9082.5 7494.5 L9080.6 7495.0 L9078.7 7495.7 L9076.2 7497.0 L9074.0 7498.2 L9062.2 7504.4 L9036.6 7517.5 L9026.5 7526.3 L9017.1 7535.4 L9009.2 7544.1 L9003.1 7552.8 L8989.3 7579.7 L8982.6 7590.9 L8976.8 7599.1 L8968.8 7606.9 L8958.9 7615.3 L8943.7 7624.6 L8926.6 7630.2 L8911.0 7632.9 L8898.8 7633.4 L8886.5 7632.6 L8852.0 7626.6 L8844.0 7626.5 L8836.7 7628.6 L8828.1 7634.5 L8805.8 7657.3 L8789.8 7675.6 L8779.0 7696.9 L8744.5 7811.7 L8730.6 7831.0 L8709.0 7836.6 L8674.7 7827.2 L8647.1 7819.7 L8631.7 7819.4 L8618.4 7825.1 L8615.9 7836.3 L8620.0 7860.7 L8619.6 7884.4 L8617.4 7894.0 L8609.7 7905.8 L8555.5 7923.9 L8535.8 7924.5 L8523.0 7913.7 L8518.2 7906.3 L8521.4 7890.6 L8528.0 7877.2 L8562.1 7835.0 L8566.0 7827.0 L8553.0 7773.5 L8545.2 7766.7 L8530.9 7767.1 L8493.4 7782.2 L8447.2 7811.1 L8398.7 7837.3 L8364.2 7858.5 L8353.7 7866.8 L8347.0 7872.9 L8337.9 7885.0 L8322.9 7906.8 L8311.0 7920.0 L8298.6 7930.7 L8270.1 7952.4 L8258.7 7959.2 L8238.6 7967.6 L8205.5 7980.4 L8198.7 7982.3 L8190.5 7982.2 L8182.1 7980.3 L8171.8 7977.0 L8159.5 7976.9 L8151.2 7978.8 L8140.1 7983.6 L8125.5 7991.9 L8110.8 7997.8 L8097.8 8000.8 L8092.0 7999.9 L8085.8 7997.9 L8079.8 7995.6 L8074.7 7991.4 L8069.9 7980.7 L8065.4 7968.3 L8063.9 7959.9 L8061.2 7955.9 L8058.5 7954.5 L8055.1 7954.0 L8051.3 7954.5 L7990.4 7971.1 L7971.4 7977.6 L7961.6 7979.0 L7947.1 7979.1 L7935.8 7977.9 L7920.7 7974.7 L7906.2 7969.9 L7888.5 7961.8 L7876.3 7954.1 L7868.1 7947.4 L7861.3 7941.5 L7854.2 7934.6 L7845.2 7921.6 L7838.5 7909.8 L7832.8 7895.2 L7828.0 7879.0 L7821.1 7845.3 L7817.5 7833.0 L7814.1 7826.0 L7809.9 7821.5 L7806.2 7818.5 L7801.6 7816.1 L7793.9 7813.9 L7784.4 7813.2 L7777.1 7814.8 L7769.9 7817.4 L7750.9 7825.9 L7735.3 7832.6 L7733.1 7833.3 L7726.5 7834.2 L7721.0 7834.4 L7714.3 7834.1 L7707.0 7832.7 L7700.6 7830.9 L7694.7 7828.0 L7685.9 7821.5 L7678.9 7813.8 L7672.8 7802.5 L7669.9 7798.7 L7666.5 7795.6 L7660.1 7792.1 L7646.5 7786.9 L7627.3 7782.1 L7601.6 7782.2 L7574.6 7793.0 L7515.1 7825.0 L7500.2 7830.1 L7485.1 7833.6 L7472.4 7833.8 L7458.7 7830.4 L7434.9 7811.1 L7397.9 7775.0 L7314.1 7721.8 L7296.7 7715.5 L7244.8 7711.3 L7213.5 7701.6 L7104.1 7675.7 L7085.0 7679.2 L7040.6 7694.4 L7025.6 7703.1 L7017.8 7706.6 L7004.5 7705.4 L6999.7 7702.4 L6996.2 7699.7 L6993.8 7696.7 L6991.9 7693.9 L6990.4 7689.2 L6987.0 7665.8 L6986.9 7660.7 L6987.8 7651.5 L6987.9 7646.8 L6987.3 7642.0 L6986.1 7637.0 L6982.3 7628.0 L6981.1 7623.4 L6980.4 7609.5 L6980.1 7579.7 L6979.4 7572.2 L6978.2 7565.0 L6976.3 7558.6 L6972.0 7549.8 L6968.2 7545.0 L6962.3 7538.3 L6950.2 7530.4 L6942.9 7526.7 L6931.2 7522.2 L6899.0 7515.1 L6890.6 7512.6 L6860.2 7502.5 L6853.8 7500.1 L6848.3 7496.9 L6842.5 7492.1 L6837.9 7487.5 L6834.7 7482.8 L6831.9 7477.3 L6830.6 7471.6 L6828.6 7459.9 L6828.0 7451.3 L6828.0 7431.1 L6829.4 7406.5 L6834.1 7368.5 L6834.6 7359.2 L6833.7 7351.1 L6813.3 7280.2 L6807.5 7261.3 L6802.9 7252.7 L6797.7 7245.4 L6766.4 7204.2 L6756.2 7190.2 L6745.5 7171.0 L6734.2 7147.3 L6728.4 7137.7 L6722.8 7129.0 L6719.7 7124.8 L6717.5 7122.3 L6715.0 7120.3 L6711.3 7117.8 L6706.5 7115.1 L6699.9 7112.3 L6692.8 7109.8 L6685.4 7107.7 L6652.8 7100.0 L6642.3 7096.4 L6633.7 7091.7 L6626.6 7086.3 L6622.9 7081.1 L6620.6 7075.0 L6619.2 7068.9 L6618.5 7064.1 L6619.4 7055.3 L6621.5 7048.7 L6626.0 7040.9 L6628.1 7036.2 L6630.1 7027.7 L6631.3 7019.5 L6632.4 7009.8 L6632.7 7002.5 L6632.6 6996.4 L6631.6 6990.5 L6630.1 6985.9 L6627.8 6981.2 L6625.2 6977.6 L6621.8 6974.5 L6617.5 6971.5 L6612.2 6968.9 L6592.4 6960.5 L6516.5 6929.9 L6488.5 6920.6 L6479.0 6915.5 L6472.1 6910.2 L6464.9 6903.5 L6446.1 6882.1 L6441.8 6879.1 L6438.1 6877.3 L6433.9 6876.3 L6429.6 6876.1 L6425.2 6876.2 L6417.5 6876.5 L6408.9 6876.0 L6400.4 6875.1 L6369.1 6869.2 L6362.3 6867.8 L6357.1 6866.1 L6351.2 6862.9 L6346.3 6859.4 L6342.1 6855.8 L6337.3 6850.8 L6333.3 6845.9 L6329.7 6840.2 L6321.7 6825.2 L6310.0 6796.4 L6304.9 6784.6 L6303.7 6781.1 L6302.9 6777.9 L6302.2 6774.1 L6301.7 6769.6 L6300.8 6762.4 L6300.7 6757.4 L6301.0 6752.3 L6301.9 6747.0 L6306.6 6732.2 L6321.3 6687.6 L6322.7 6681.0 L6323.8 6666.2 L6321.0 6604.9 L6319.7 6594.0 L6315.4 6579.7 L6310.7 6570.1 L6304.9 6563.9 L6295.3 6556.4 L6289.6 6552.8 L6279.9 6550.5 L6262.8 6547.8 L6251.9 6542.0 L6244.0 6535.2 L6221.1 6472.2 L6212.9 6433.2 L6202.9 6402.4 L6205.9 6355.3 L6206.6 6346.1 L6207.0 6344.2 L6208.3 6341.6 L6210.5 6339.6 L6217.4 6333.7 L6219.2 6331.0 L6219.7 6327.2 L6220.2 6321.0 L6220.0 6313.5 L6218.0 6295.1 L6217.1 6292.2 L6216.1 6291.0 L6213.7 6290.1 L6212.0 6290.7 L6208.0 6292.7 L6205.7 6292.8 L6203.2 6291.8 L6201.3 6289.0 L6196.1 6281.1 L6193.7 6271.6 L6191.0 6260.5 L6179.3 6229.5 L6176.8 6225.1 L6169.7 6217.3 L6162.6 6209.7 L6158.7 6207.1 L6146.0 6203.9 L6142.7 6201.8 L6140.7 6199.8 L6139.0 6196.3 L6138.3 6193.0 L6139.2 6178.4 L6139.1 6169.6 L6136.6 6150.5 L6134.7 6144.2 L6132.5 6140.3 L6131.4 6137.0 L6128.5 6116.2 L6127.4 6112.2 L6125.7 6109.4 L6122.3 6105.5 L6090.4 6088.1 L6082.4 6082.7 L6074.2 6075.9 L6049.5 6049.7 L6013.1 6005.1 L5951.8 5967.0 L5931.5 5950.3 L5927.8 5945.9 L5924.8 5941.2 L5922.6 5935.3 L5921.8 5931.3 L5921.1 5926.6 L5920.7 5921.0 L5921.0 5917.2 L5921.8 5914.2 L5922.7 5912.2 L5924.4 5910.4 L5926.6 5909.0 L5933.1 5905.9 L5935.4 5904.4 L5937.7 5902.6 L5939.7 5900.8 L5939.5 5899.2 L5939.2 5898.0 L5938.9 5897.2 L5938.5 5896.2 L5936.5 5894.0 L5934.4 5892.1 L5931.8 5890.1 L5923.5 5885.6 L5912.1 5879.2 L5895.7 5870.4 L5888.2 5866.8 L5886.6 5866.0 L5885.7 5865.6 L5884.5 5865.2 L5883.1 5865.0 L5881.0 5864.9 L5878.7 5864.7 L5876.6 5864.9 L5875.4 5864.8 L5874.2 5864.6 L5873.4 5864.0 L5872.8 5863.3 L5867.4 5854.2 L5864.4 5849.4 L5860.6 5843.0 L5855.8 5832.0 L5854.0 5828.0 L5838.0 5790.7 L5832.0 5785.2 L5822.8 5783.1 L5769.6 5788.4 L5761.2 5787.4 L5751.0 5784.4 L5696.8 5749.8 L5629.3 5695.6 L5620.1 5690.6 L5617.3 5689.7 L5578.0 5676.3 L5532.0 5662.9 L5459.9 5657.0 L5443.7 5655.7 L5421.4 5655.9 L5400.4 5659.1 L5382.0 5663.4 L5370.3 5669.1 L5360.2 5677.5 L5345.5 5691.8 L5308.7 5727.6 L5302.3 5729.7 L5295.7 5728.8 L5288.6 5723.0 L5280.1 5709.2 L5269.5 5662.9 L5272.0 5608.1 L5282.2 5562.7 L5285.4 5552.0 L5290.7 5543.7 L5344.5 5474.2 L5350.6 5464.4 L5353.1 5457.6 L5353.7 5450.9 L5353.3 5442.3 L5353.0 5440.2 L5352.0 5433.0 L5350.9 5425.6 L5349.3 5420.6 L5346.7 5417.3 L5343.2 5414.6 L5339.2 5414.2 L5335.1 5414.2 L5330.1 5415.3 L5325.0 5416.7 L5319.8 5418.2 L5314.1 5420.6 L5277.9 5444.3 L5266.7 5449.9 L5254.2 5452.8 L5203.3 5446.4 L5172.6 5435.6 L5146.8 5437.6 L5140.6 5437.6 L5135.2 5436.9 L5130.5 5435.9 L5126.9 5434.6 L5120.6 5432.0 L5108.1 5425.8 L5102.6 5422.6 L5097.6 5419.0 L5092.2 5414.8 L5085.3 5409.0 L5070.7 5396.0 L5065.1 5391.5 L5058.5 5386.9 L5053.8 5384.1 L5049.6 5382.2 L5045.1 5380.6 L5037.7 5378.4 L5018.4 5372.7 L5012.2 5370.2 L5006.7 5367.5 L4995.0 5359.4 L4984.8 5352.9 L4931.9 5323.6 L4925.1 5312.5 L4922.0 5307.8 L4918.9 5303.5 L4914.8 5298.7 L4910.1 5294.0 L4905.2 5289.7 L4900.1 5285.5 L4885.5 5274.4 L4880.4 5270.9 L4875.9 5268.4 L4872.2 5266.6 L4866.8 5264.5 L4855.8 5260.9 L4823.4 5241.4 L4810.6 5229.4 L4809.1 5227.8 L4797.9 5216.0 L4787.4 5196.8 L4781.3 5179.3 L4784.2 5165.8 L4790.1 5158.6 L4807.9 5141.5 L4836.0 5083.6 L4863.8 5035.2 L4873.8 5004.7 L4873.0 4974.8 L4864.1 4951.4 L4852.8 4931.5 L4834.6 4914.0 L4806.3 4898.6 L4778.6 4875.5 L4767.4 4862.2 L4761.0 4850.9 L4758.5 4844.1 L4750.7 4822.9 L4750.3 4810.6 L4754.4 4789.0 L4760.9 4776.3 L4789.8 4733.2 L4809.6 4698.7 L4816.0 4672.3 L4814.8 4666.3 L4809.2 4662.2 L4801.2 4659.8 L4786.8 4661.4 L4771.6 4660.1 L4755.1 4656.2 L4723.7 4645.2 L4708.4 4637.2 L4703.2 4629.4 L4701.1 4620.6 L4703.2 4604.7 L4710.2 4589.1 L4723.0 4565.9 L4723.7 4554.1 L4721.5 4542.7 L4701.7 4499.7 L4699.4 4484.6 L4704.0 4472.7 L4710.5 4467.7 L4710.0 4462.6 L4705.7 4459.5 L4700.8 4456.6 L4694.6 4451.2 L4689.8 4443.1 L4688.8 4437.6 L4687.2 4431.1 L4685.1 4425.4 L4682.3 4422.2 L4675.1 4415.7 L4652.4 4395.1 L4642.1 4389.7 L4622.8 4385.2 L4552.7 4370.8 L4504.1 4360.0 L4486.9 4353.6 L4477.6 4347.2 L4476.3 4346.3 L4467.9 4336.0 L4458.2 4327.7 L4441.2 4318.4 L4420.6 4304.8 L4417.1 4297.7 L4414.4 4288.8 L4411.3 4272.8 L4409.0 4255.1 L4410.7 4240.7 L4413.3 4234.1 L4417.1 4229.6 L4425.3 4220.7 L4426.5 4215.6 L4425.7 4209.1 L4422.5 4199.5 L4418.6 4189.0 L4412.2 4167.0 L4412.2 4157.8 L4417.1 4150.3 L4422.7 4146.2 L4458.4 4136.8 L4465.5 4132.5 L4470.9 4126.4 L4471.9 4120.7 L4468.6 4117.5 L4460.9 4115.7 L4448.5 4111.4 L4434.6 4101.3 L4419.9 4085.2 L4413.9 4075.0 L4411.1 4067.9 L4409.4 4057.7 L4409.2 4050.3 L4410.0 4044.5 L4411.1 4041.0 L4414.3 4034.5 L4415.2 4032.0 L4415.8 4029.5 L4416.2 4023.9 L4416.3 4021.3 L4416.1 4019.2 L4415.8 4017.3 L4415.1 4016.0 L4414.2 4014.9 L4412.6 4013.8 L4407.9 4011.0 L4399.7 4006.1 L4395.1 4004.1 L4389.9 4002.6 L4384.2 4001.5 L4345.9 3999.0 L4312.4 3999.3 L4272.7 3994.5 L4191.8 3974.4 L4142.2 3964.8 L4120.3 3961.0 L4105.7 3956.8 L4088.9 3952.0 L4054.0 3944.8 L3989.1 3939.1 L3964.3 3933.3 L3948.8 3920.0 L3923.8 3883.7 L3916.6 3867.8 L3913.9 3848.6 L3909.8 3742.2 L3904.9 3731.1 L3899.5 3727.1 L3891.3 3724.0 L3875.2 3721.7 L3863.5 3719.9 L3854.0 3718.8 L3846.0 3718.0 L3836.3 3717.8 L3833.4 3717.8 L3830.5 3718.1 L3828.1 3718.4 L3825.8 3719.0 L3823.5 3719.8 L3815.9 3722.9 L3809.3 3726.2 L3805.9 3727.5 L3801.8 3728.6 L3797.1 3729.0 L3792.9 3729.0 L3789.3 3728.5 L3786.0 3727.3 L3783.1 3725.6 L3778.4 3722.0 L3773.6 3717.8 L3769.7 3714.0 L3760.4 3703.5 L3757.9 3700.6 L3755.3 3698.0 L3752.8 3696.3 L3747.6 3692.9 L3742.6 3690.1 L3717.3 3679.2 L3653.7 3649.8 L3633.4 3637.6 L3616.4 3622.3 L3594.6 3592.8 L3577.7 3556.3 L3565.9 3527.6 L3556.7 3515.9 L3553.8 3513.1 L3545.0 3504.7 L3521.0 3496.5 L3495.1 3492.8 L3493.5 3492.5 L3455.3 3497.8 L3419.7 3494.8 L3315.3 3466.7 L3296.7 3459.1 L3276.9 3446.4 L3267.6 3432.4 L3266.6 3417.9 L3265.4 3398.0 L3260.1 3383.3 L3259.1 3382.5 L3250.5 3376.0 L3231.3 3370.7 L3218.7 3367.7 L3208.5 3366.0 L3196.5 3364.1 L3183.4 3364.1 L3172.6 3365.7 L3158.4 3370.0 L3152.5 3370.9 L3147.5 3369.1 L3142.3 3361.4 L3138.5 3353.3 L3134.9 3348.0 L3127.0 3343.0 L3117.8 3339.8 L3101.7 3334.4 L3083.7 3330.1 L3067.2 3328.7 L3050.9 3332.6 L3042.0 3338.0 L3034.1 3344.9 L3022.0 3359.9 L3013.7 3367.0 L3004.3 3373.0 L2992.7 3377.4 L2981.2 3378.5 L2970.8 3374.9 L2959.8 3369.5 L2940.0 3356.7 L2924.9 3343.1 L2912.7 3331.4 L2904.5 3321.1 L2901.6 3314.2 L2900.4 3306.0 L2899.0 3298.0 L2893.8 3286.5 L2888.2 3279.7 L2857.8 3251.3 L2841.5 3239.0 L2827.1 3234.1 L2815.5 3233.9 L2799.8 3234.6 L2789.6 3235.0 L2782.3 3232.7 L2773.1 3225.8 L2767.9 3219.3 L2763.7 3217.7 L2759.8 3219.0 L2753.3 3226.6 L2748.7 3238.3 L2740.4 3249.1 L2718.8 3264.5 L2678.6 3285.6 L2658.0 3288.7 L2646.6 3292.3 L2608.9 3319.9 L2598.0 3326.9 L2585.3 3331.3 L2572.2 3332.0 L2531.7 3322.3 L2502.8 3314.4 L2496.0 3311.1 L2490.9 3305.1 L2489.8 3296.5 L2490.7 3287.5 L2493.1 3273.7 L2492.9 3248.3 L2489.7 3231.9 L2482.9 3218.5 L2470.2 3204.0 L2454.5 3194.8 L2434.6 3177.3 L2427.4 3161.5 L2424.8 3148.7 L2423.8 3146.2 L2417.6 3130.4 L2407.7 3119.6 L2403.8 3115.4 L2387.4 3105.2 L2366.6 3094.7 L2347.0 3091.2 L2340.6 3090.9 L2335.2 3091.2 L2318.6 3092.8 L2308.5 3092.8 L2298.9 3092.2 L2273.2 3089.2 L2268.7 3088.8 L2264.2 3088.8 L2259.8 3089.2 L2254.9 3090.3 L2242.7 3094.6 L2235.4 3095.9 L2228.9 3096.2 L2222.2 3095.5 L2214.7 3093.6 L2157.0 3072.4 L2141.0 3066.1 L2130.5 3062.5 L2120.0 3059.7 L2108.9 3056.9 L2096.5 3054.2 L2080.4 3050.9 L2065.5 3048.6 L2049.6 3047.2 L2035.2 3047.0 L2020.1 3048.3 L1988.1 3053.1 L1940.5 3072.5 L1919.9 3080.9 L1913.1 3083.7 L1901.9 3085.0 L1891.1 3081.3 L1880.2 3075.4 L1847.4 3051.8 L1834.6 3039.4 L1825.8 3023.0 L1824.7 3009.8 L1829.3 2992.5 L1830.0 2989.7 L1829.0 2972.8 L1826.1 2963.8 L1824.1 2957.3 L1819.0 2925.7 L1815.5 2905.9 L1782.8 2837.9 L1776.3 2828.7 L1766.3 2814.3 L1722.3 2765.2 L1708.6 2740.1 L1701.8 2716.9 L1699.6 2685.7 L1700.5 2661.4 L1698.0 2643.6 L1691.5 2624.8 L1684.4 2611.0 L1675.1 2602.8 L1665.7 2601.3 L1653.1 2603.6 L1610.1 2615.6 L1558.1 2630.2 L1542.7 2632.1 L1536.4 2632.0 L1531.0 2630.3 L1524.0 2626.7 L1515.4 2619.7 L1507.3 2610.9 L1458.7 2562.1 L1420.7 2517.6 L1374.7 2441.3 L1332.6 2372.8 L1309.5 2338.9 L1297.3 2313.3 L1278.9 2263.7 L1259.4 2210.3 L1256.7 2203.7 L1231.0 2140.1 L1211.4 2106.1 L1185.5 2059.3 L1182.5 2054.3 L1180.5 2051.1 L1155.6 2011.1 L1138.2 1968.4 L1119.2 1906.7 L1106.7 1876.2 L1089.2 1853.5 L1069.0 1834.0 L1025.5 1810.2 L995.2 1792.5 L993.5 1791.5 L989.4 1789.1 L957.4 1770.3 L936.7 1758.3 L898.9 1731.7 L870.9 1706.5 L833.8 1659.2 L807.7 1623.5 L787.7 1603.7 L726.1 1560.7 L719.5 1554.0 L702.1 1536.6 L696.4 1529.4 L686.5 1510.4 L659.5 1430.1 L660.4 1394.0 L669.9 1360.6 L687.5 1314.9 L708.5 1277.7 L750.4 1235.1 L785.9 1205.1 L797.2 1187.4 L803.5 1171.4 L807.8 1145.3 L809.3 1126.6 L806.1 1102.5 L801.4 1087.6 L795.0 1073.9 L761.2 1012.5 L759.4 1009.4 L742.0 984.2 L727.3 968.8 L721.0 963.3 L709.7 953.6 L690.0 941.5 L635.5 915.7 L583.8 890.5 L558.1 877.1 L541.1 863.8 L528.8 851.4 L525.2 847.8 L509.6 827.9 L498.1 809.7 L462.6 729.0 L401.1 594.6 L385.7 557.9 L375.9 527.0 L370.1 501.6 L367.1 474.1 L365.3 457.7 L367.3 416.5 L377.5 293.6 L377.5 270.5 L377.5 266.3 L372.5 241.4 L360.4 214.4 L346.5 192.0 L329.1 175.4 L299.1 154.0 L269.5 140.3 L246.6 135.0 L206.5 132.4 L170.9 127.8 L134.0 117.0 L105.1 97.8 L85.7 83.4 L55.2 50.0 L40.5 19.6 L31.9 -8.6 L33.0 -30.7 L34.3 -52.8 L41.7 -82.4 L52.9 -106.9 L67.1 -128.3 L99.7 -162.2 L136.8 -188.1 L147.2 -194.9 L159.7 -207.9 L168.5 -218.8 L178.9 -237.8 L185.3 -255.7 L186.0 -260.1 L187.7 -271.2 L187.6 -285.9 L185.0 -305.8 L176.7 -328.3 L166.2 -346.5 L146.3 -367.7 L117.6 -390.6 L63.2 -432.4 L6.0 -486.3 L-99.2 -582.6 L-105.0 -590.1 L-110.6 -597.5 L-116.6 -612.1 L-118.0 -634.3 L-111.6 -668.2 L-81.5 -758.1 L-62.2 -797.1 L-33.0 -843.6 L-16.3 -863.2 L8.0 -881.6 L40.1 -895.6 L66.2 -899.2 L131.9 -896.3 L170.5 -894.4 L189.7 -899.7 L199.7 -908.7 L207.0 -917.3 L221.2 -961.1 L224.4 -988.7 L224.5 -1019.7 L223.0 -1031.4 L221.0 -1048.1 L214.7 -1072.2 L204.1 -1092.1 L193.7 -1106.6 L184.9 -1123.9 L180.0 -1142.3 L182.6 -1170.0 L187.1 -1189.4 L192.8 -1213.4 L191.5 -1233.4 L180.2 -1250.8 L164.6 -1262.9 L163.4 -1263.8 L160.7 -1265.1 L143.8 -1282.3 L131.2 -1294.9 L116.8 -1301.7 L102.6 -1302.9 L94.1 -1303.0 L87.5 -1303.0 L72.0 -1307.5 L33.4 -1330.7 L23.8 -1336.5 L4.7 -1351.4 L-2.1 -1362.6 L-3.3 -1372.8 L1.2 -1382.7 L12.6 -1393.0 L51.4 -1419.6 L86.2 -1440.2 L105.6 -1451.6 L122.8 -1466.8 L127.3 -1475.5 L126.6 -1489.6 L122.9 -1503.6 L117.9 -1515.0 L110.2 -1521.5 L101.0 -1525.0 L92.4 -1525.1 L66.6 -1524.7" fill="none" stroke="#3E7398" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+        <text x="284" y="140" class="wk-fluss">Thur</text>
+        <path d="M208.3 168.8 L205.0 169.0 L195.8 169.2 L190.2 170.5 L184.7 172.8 L181.2 173.6 M235.5 516.1 L234.9 502.0 L233.5 489.9 L233.4 483.6 L234.6 466.5 L234.8 457.6 L234.0 451.8 L232.6 446.6 L229.8 440.2 L205.4 385.1 L203.6 380.2 L202.2 374.2 L201.4 372.1 L199.8 371.2 L197.5 371.4 M181.2 173.6 L179.2 172.7 L175.1 170.2 L163.7 162.5 L160.2 159.7 M181.2 173.6 L182.8 178.7 L182.4 183.1 L179.6 197.4 L177.8 210.9 L177.4 213.3 L176.5 217.1 L173.2 220.6 L172.3 221.2 L171.9 221.4 L169.4 223.1 M227.0 89.4 L225.2 86.7 L217.7 76.4 L215.2 73.7 L211.6 70.3 L208.8 68.0 L204.7 65.2 L199.2 61.9 L192.9 58.8 L184.5 55.8 L176.1 53.4 L171.8 52.1 L162.9 48.7 L157.7 46.3 L153.9 44.0 L150.4 41.5 L146.7 38.1 L143.9 34.5 L142.2 31.1 L141.1 28.0 L140.7 24.9 L140.8 21.7 L141.5 17.2 L147.5 -3.3 L150.0 -12.2 L151.7 -18.5 M184.5 55.8 L188.6 42.6 L207.0 -22.4 L214.8 -49.9 L217.0 -59.9 L218.3 -67.7 L219.3 -82.6 L217.7 -94.6 L212.3 -114.8 L206.8 -135.3 L206.4 -137.0 L203.5 -147.8 L201.8 -154.9 L201.0 -158.5 L194.4 -187.0 M318.8 429.0 L317.1 432.6 L316.2 435.1 L314.9 439.1 L314.7 441.1 L314.7 443.3 L315.1 445.3 L315.8 447.1 L324.2 463.2 L327.6 470.3 L328.7 473.5 L328.5 476.4 L327.6 479.6 L323.9 486.9 L322.4 490.1 L321.9 493.2 L322.2 495.6 L323.9 500.7 L338.3 537.2 L339.5 541.6 L340.5 546.1 L341.0 551.2 L341.8 554.8 L343.0 557.8 L346.6 567.2 L361.2 603.3 L364.9 612.4 L370.4 627.1 L376.4 645.1 L378.8 652.5 L382.8 667.1 L386.8 681.8 L390.4 697.0 L393.2 710.6 L400.2 745.9 L407.4 785.5 L411.3 800.4 L412.6 805.5 L413.9 809.3 L421.4 831.5 L433.8 860.2 L450.0 893.8 L467.7 931.5 M469.6 156.8 L471.4 159.2 L479.5 171.1 L480.7 172.9 L488.0 183.5 L497.4 197.4 L503.3 199.4 L518.1 208.1 L524.6 214.5 L527.5 225.1 L531.8 238.0 L536.2 245.3 L540.1 249.1 L541.6 251.7 L543.0 254.3 L542.5 262.1 L539.2 269.9 L537.1 279.6 L538.0 289.8 L541.6 298.8 M497.4 197.4 L508.7 221.2 L507.4 225.9 L506.8 230.6 L502.2 236.1 L497.7 242.1 L498.2 249.6 L499.9 256.0 L500.1 264.3 L496.9 265.8 M543.5 98.4 L545.0 97.0 L549.9 91.4 L551.6 87.8 L552.8 85.5 L554.9 74.9 L553.5 63.4 L553.3 62.3 L550.8 50.1 L550.8 46.0 L553.5 43.0 L558.4 42.3 L563.6 44.0 L570.1 57.4 L571.2 64.7 L569.5 72.4 L568.5 77.0 L569.0 81.9 L570.5 89.3 L570.7 95.5 L569.8 104.2 L570.8 109.1 L574.1 114.6 M598.3 29.6 L563.6 44.0 M233.8 163.8 L237.4 188.5 L242.1 213.3 L242.5 215.6 M314.3 339.0 L299.3 304.4 L286.0 276.4 L284.9 274.2 M553.3 192.1 L547.0 186.6 L546.9 182.3 L545.0 173.9 L544.6 173.2 L540.5 164.3 L538.1 161.2 L532.3 153.9 L527.2 149.2 L516.4 139.4 L510.5 130.3 L509.1 128.2 L506.8 124.7 L506.3 123.2 L500.8 108.2 L497.9 103.5 L494.2 97.4 L492.6 95.9 L489.6 93.1 L484.9 88.6 L469.5 82.7 L467.3 82.5 M383.6 228.9 L407.4 220.1 L424.3 214.3 L427.0 213.2 M315.5 191.0 L259.5 210.1 L250.1 213.3 L242.5 215.6 L219.4 222.9 L216.3 224.0 M411.6 173.1 L414.0 172.5 L415.5 173.2 L420.6 176.9 L456.7 200.3 L464.7 214.5 L466.6 220.9 L470.8 235.2 L476.5 251.6 L476.4 257.4 L475.0 261.1 L472.5 263.2 L468.6 266.3 L459.0 273.8 M279.1 -79.1 L277.6 -76.0 L275.0 -71.0 L272.1 -65.2 L262.1 -23.4 L258.2 -1.7 L257.4 1.3 L250.3 29.8 L247.3 36.8 L245.5 41.2 L241.6 50.3 L241.0 53.3 L241.1 55.3 L241.3 56.7 M217.7 76.4 L219.5 74.8 L228.9 62.4 L230.5 60.8 L232.4 59.7 L241.3 56.7 M241.3 56.7 L242.4 60.7 L247.3 77.3 L247.7 78.3 L248.7 81.4 M151.7 -18.5 L152.7 -22.1 L157.7 -40.4 L161.1 -52.9 L162.0 -58.3 L163.1 -65.3 L163.2 -70.9 L163.0 -75.7 L161.5 -85.3 L145.6 -141.0 L145.0 -144.6 L145.4 -146.2 L145.8 -148.1 L150.3 -152.8 L163.9 -163.4 L165.6 -164.7 L173.5 -170.8 L183.1 -178.2 L188.6 -182.5 L191.8 -185.0 L194.4 -187.0 L215.5 -202.3 L216.4 -203.0 L222.8 -206.8 L229.4 -210.7 L236.1 -214.2 L238.6 -215.4 M120.1 451.0 L123.5 452.1 L126.0 451.6 L132.0 450.3 L135.6 447.3 L138.9 447.0 L145.6 450.6 L170.5 470.1 L176.4 476.2 L172.9 481.0 L163.1 489.5 L150.1 494.2 L138.4 495.7 L135.9 493.2 L120.9 456.0 L120.4 453.6 L120.1 451.0 M66.8 408.0 L67.7 405.7 L68.8 402.7 L69.8 400.1 L73.9 389.0 L81.9 367.2 L92.1 340.4 L94.6 330.9 L97.3 316.0 L101.7 301.8 L103.5 299.4 L106.1 297.6 L110.8 295.6 M70.0 411.6 L71.4 407.1 L72.5 404.1 L75.1 397.7 L76.2 395.1 M151.7 -18.5 L149.6 -19.1 L123.6 -26.1 L135.5 -67.8 L135.1 -69.7 L129.1 -90.3 L126.1 -102.9 L120.5 -123.3 L120.2 -125.3 L120.4 -127.3 L121.5 -130.2 L125.7 -134.0 L134.7 -137.7 L136.9 -138.7 L139.8 -139.5 L145.6 -141.0 M408.8 170.1 L407.1 171.8 L402.4 176.3 L399.0 178.4 L396.4 179.4 L392.5 180.0 L386.0 179.9 L384.7 179.8 L382.3 179.8 L378.9 179.2 L374.9 178.1 L372.4 176.5 L360.1 162.9 L359.2 161.5 L358.7 159.9 L358.7 159.0 L359.1 157.3 L359.7 155.1 L360.7 152.8 L363.8 147.5 L368.0 140.9 L371.3 135.5 L371.6 134.9 L372.6 133.3 M86.6 183.1 L84.1 184.8 L69.7 194.4 L66.9 196.3 M241.2 297.5 L245.7 295.0 M160.2 159.7 L156.9 156.9 M156.9 156.9 L142.6 140.2 L132.8 133.0 L125.4 129.0 L115.5 122.6 L109.6 118.9 L101.9 114.0 L95.1 109.7 L88.4 104.4 L81.8 98.4 L74.1 90.9 L45.4 62.1 L36.2 52.8 L28.1 43.5 L20.7 33.3 L16.8 26.7 L14.6 22.3 L8.8 10.4 L2.0 -6.2 L-1.5 -15.2 L-3.9 -22.7 L-5.6 -29.1 L-7.4 -37.9 L-8.7 -42.0 M318.7 257.1 L319.3 258.3 L326.1 271.5 L331.5 282.0 L342.9 304.0 L352.0 320.5 L355.4 327.4 L356.4 333.1 L354.8 343.3 L325.3 343.4 L319.2 342.0 L317.6 341.7 L314.3 339.0 M324.6 0.9 L326.5 -3.0 L327.7 -6.0 L329.6 -10.9 L330.4 -14.9 L330.7 -18.1 L331.3 -21.9 L330.9 -26.5 L330.8 -32.2 L330.4 -35.1 L322.4 -66.1 L322.4 -69.3 L322.9 -71.5 L327.4 -85.9 L328.2 -88.9 L332.1 -102.4 L334.9 -118.3 M-1.2 325.1 L4.2 328.3 L9.1 332.9 L16.5 342.4 L40.0 375.0 L43.8 379.7 L47.3 384.1 L59.7 399.3 L66.8 408.0 L70.0 411.6 M58.7 201.8 L52.3 204.3 L48.6 205.7 L40.8 208.5 L37.7 209.7 L31.2 212.6 L24.6 216.0 L18.3 219.6 L12.5 223.9 L1.2 230.2 L-14.3 238.9 L-19.5 240.0 L-21.4 239.6 L-23.0 237.8 L-22.9 236.0 L-21.9 234.3 L-14.3 221.3 L-10.9 216.6 M439.8 52.3 L440.0 55.4 L440.6 57.3 L442.2 60.0 L457.1 74.8 L458.5 76.5 L462.4 79.7 L465.0 81.3 L467.3 82.5 M369.8 130.5 L368.4 131.7 L367.8 132.0 L365.9 132.5 L363.9 132.6 L327.9 125.5 L315.4 123.8 M-88.9 -289.7 L-78.4 -257.3 L-75.7 -248.7 L-76.0 -243.0 L-76.9 -239.8 L-79.9 -232.5 L-82.4 -225.0 L-84.0 -217.8 L-85.0 -208.2 L-85.0 -201.4 L-84.2 -193.2 L-83.0 -186.9 L-78.5 -160.0 L-77.6 -155.4 L-76.8 -150.9 L-76.3 -143.2 L-74.6 -117.9 L-74.1 -101.7 L-73.8 -97.4 L-73.1 -91.3 L-72.9 -90.2 L-71.9 -85.4 L-64.2 -63.0 L-61.4 -56.1 L-57.1 -47.2 L-47.9 -30.7 L-41.6 -22.9 L-30.5 -8.5 L-5.8 21.9 L2.8 33.9 L14.1 49.8 L51.5 102.3 L87.7 154.8 L90.1 157.5 M309.3 65.7 L313.5 60.4 L315.8 56.7 L317.5 53.2 L321.2 41.2 L323.3 37.2 L326.4 32.6 L329.2 29.6 M120.4 453.6 L114.9 456.8 L110.5 457.8 L105.6 457.7 L91.9 455.0 M250.3 29.8 L230.5 21.6 L233.1 12.7 M345.2 22.5 L356.5 22.7 L361.7 23.4 L365.9 25.9 L369.4 27.7 L375.0 28.0 L381.6 25.5 M284.9 274.2 L283.8 271.8 L281.0 266.0 L277.1 258.0 L275.1 253.8 L273.4 249.2 L263.6 221.8 L260.9 214.0 L259.5 210.1 M284.9 274.2 L289.4 271.8 L316.0 258.4 L318.7 257.1 L331.1 250.0 M465.4 509.9 L439.7 471.9 L437.3 468.5 L435.2 465.5 L434.0 463.7 L428.6 455.9 L422.3 446.8 L409.5 427.3 L408.0 424.8 M245.7 295.0 L267.9 283.3 L280.6 276.7 L284.9 274.2 M303.3 92.4 L301.9 87.3 L299.5 75.7 L303.5 70.2 M304.3 95.7 L303.3 92.4 M331.1 250.0 L332.9 249.1 L353.7 239.0 M91.9 455.0 L87.1 453.7 L82.8 451.9 L77.5 447.9 L71.8 442.0 M71.8 442.0 L64.6 436.0 L60.4 432.1 L59.8 431.4 L58.5 429.5 M58.5 429.5 L64.6 420.1 L70.0 411.6 M330.0 4.3 L330.8 0.4 L331.7 -1.8 L338.6 -20.2 L344.0 -37.8 L345.4 -44.0 L345.8 -50.1 L345.8 -60.0 L346.7 -64.4 L349.7 -69.8 L356.5 -81.2 L361.0 -88.0 M92.8 375.5 L114.6 374.2 L116.1 373.7 L116.7 372.5 L116.5 364.1 M381.6 25.5 L388.4 21.9 L399.1 17.0 M66.9 196.3 L58.7 201.8 M315.4 123.8 L313.7 122.7 L312.1 120.8 L310.6 117.9 L308.6 112.2 L306.9 106.2 L304.3 95.7 M303.5 70.2 L305.3 67.4 M306.9 68.7 L309.3 65.7 M322.5 5.3 L324.6 0.9 M76.2 395.1 L83.6 377.0 M83.6 377.0 L87.4 375.8 L92.8 375.5 M87.3 368.9 L85.0 374.8 L83.6 377.0 M116.5 364.1 L116.0 358.3 L115.4 350.5 M116.5 364.1 L113.8 364.5 L91.9 366.1 L89.5 366.4 L88.2 367.3 L87.3 368.9" fill="none" stroke="rgba(255,253,248,.16)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M208.3 168.8 L208.5 182.6 L209.1 189.2 L210.3 197.9 L212.3 207.3 L214.4 216.5 L216.3 224.0 L221.7 244.3 L222.1 246.0 L223.1 249.7 M213.6 115.7 L213.3 117.3 M300.9 11.3 L303.9 10.4 L308.3 9.2 L313.2 7.6 L319.1 6.2 L322.5 5.3 L326.7 4.6 L330.0 4.3 M213.3 117.3 L209.6 146.5 M288.4 66.0 L283.8 69.2 L280.4 71.0 L276.9 72.3 L270.3 74.7 L267.9 75.5 L264.6 76.6 L248.7 81.4 L243.3 83.0 L234.6 85.6 L230.5 87.3 L227.0 89.4 M563.4 131.1 L572.8 142.2 L582.7 149.9 L604.5 164.7 L620.7 176.0 L628.8 181.8 M223.1 249.7 L222.0 252.2 L220.5 254.5 L219.3 256.3 M227.1 259.3 L225.6 255.9 L224.1 252.7 L223.1 249.7 M227.0 89.4 L224.1 91.7 L221.6 94.4 L218.7 98.5 L216.9 102.6 L215.5 106.2 L214.6 109.4 L213.6 115.7 M342.2 18.4 L345.2 22.5 L351.9 32.0 L384.2 77.9 L416.8 117.4 L433.5 136.7 L450.9 153.2 L454.8 156.7 L457.0 158.0 L459.3 159.2 L460.8 159.7 L462.4 159.8 L464.1 159.7 L465.6 159.3 L467.7 158.1 L469.6 156.8 L470.4 155.4 L470.9 153.9 L471.1 152.1 L471.2 150.3 L469.8 142.5 L468.5 136.1 L467.8 132.6 L467.2 126.7 L467.0 121.6 L467.0 113.7 L466.9 110.4 L466.9 100.7 L466.9 99.9 L467.3 82.5 L467.8 65.8 L468.1 62.7 L468.7 60.0 L469.7 56.7 L470.9 53.8 L472.1 51.9 L473.0 50.3 L474.4 48.9 L475.5 47.7 L477.4 46.4 L479.6 45.3 L482.3 44.5 L484.4 44.2 L486.4 44.2 L488.5 44.5 L490.8 45.3 L493.5 46.5 L508.9 56.0 L516.2 61.6 L523.0 66.8 L529.0 72.6 L531.4 76.1 L536.4 83.6 L539.3 89.3 L541.4 94.1 L543.5 98.4 L547.5 107.8 L552.2 115.9 L563.4 131.1 M339.7 15.1 L342.2 18.4 M209.6 146.5 L208.9 153.6 L208.4 161.1 L208.3 168.8 M330.0 4.3 L331.9 5.7 L335.5 9.1 L336.7 10.8 L339.7 15.1 M297.6 58.7 L294.1 61.9 L288.4 66.0 M70.0 411.6 L95.7 443.2 L99.8 447.5 L101.5 448.8 L104.1 450.3 L106.8 451.2 L109.5 451.7 L112.0 451.9 L114.3 451.7 L118.0 451.4 L120.1 451.0 L123.3 449.7 L125.2 448.7 L127.2 447.5 L130.3 444.7 L132.9 441.3 L134.6 438.7 L137.8 433.0 L148.1 412.2 L156.3 395.4 L163.9 378.8 L165.6 374.7 L167.4 370.7 L172.2 362.5 L175.4 357.5 L178.8 353.7 L182.5 350.5 L186.5 348.6 L188.9 347.8 L191.6 347.2 L193.7 346.7 M447.2 398.3 L454.6 408.9 M454.6 408.9 L472.6 435.4 L479.4 445.0 M479.4 445.0 L499.7 475.0 L504.2 480.8" fill="none" stroke="rgba(255,253,248,.26)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M314.5 75.7 L306.9 68.7 L305.3 67.4 L303.1 65.3 L300.2 62.5 L298.7 60.6 L297.6 58.7 M113.8 150.9 L110.9 150.4 L107.8 150.2 L105.5 150.3 L103.2 150.6 M103.2 150.6 L100.6 151.2 L98.2 152.2 L94.7 154.0 L92.6 155.4 L90.1 157.5 L88.5 159.5 L87.6 160.6 L86.1 163.4 L85.1 166.5 L84.1 170.4 L84.2 174.2 L85.1 179.4 L86.6 183.1 L90.0 187.8 L94.9 193.4 L106.8 202.9 L115.9 209.5 M300.9 11.3 L303.1 24.3 L303.4 29.5 L303.2 33.5 L302.6 38.0 L301.7 42.0 L300.2 47.0 L297.2 54.1 L297.0 55.4 L297.1 56.7 L297.6 58.7 M346.3 430.5 L352.2 430.7 M381.2 430.8 L387.8 430.2 L395.6 428.7 L402.2 427.0 L408.0 424.8 L412.5 422.2 L421.4 416.4 L437.3 405.0 L445.1 399.8 L447.2 398.3 M258.3 330.1 L259.9 333.0 M241.2 297.5 L256.0 325.7 L258.3 330.1 M127.8 221.4 L130.3 224.9 L145.2 247.4 L147.6 251.4 L150.0 255.4 L151.7 258.3 L153.2 261.2 L154.7 264.3 L160.0 275.9 L164.4 285.3 L172.1 297.6 L179.7 308.2 L181.8 311.4 M161.4 211.3 L145.1 186.9 L129.1 162.5 L125.8 158.4 L120.9 153.9 L117.2 151.9 L113.8 150.9 M181.8 311.4 L184.0 315.1 L186.4 319.6 L189.2 325.8 L190.9 331.6 L192.6 339.0 L193.7 346.7 M115.9 209.5 L121.8 214.2 L123.2 215.6 L127.8 221.4 M169.4 223.1 L161.4 211.3 M222.0 270.7 L224.5 271.9 L226.4 273.5 L228.2 276.1 L231.7 279.6 M231.7 279.6 L231.2 275.0 L228.8 268.3 L227.8 266.0 M231.7 279.6 L234.3 284.5 M199.8 261.6 L202.8 264.7 L206.9 266.2 L212.7 266.9 L215.2 267.9 M214.5 259.9 L211.9 261.6 L210.0 262.1 L207.6 262.4 L203.8 261.7 L199.8 261.6 M199.8 261.6 L198.1 260.5 L193.7 255.4 L186.4 246.0 L180.4 238.1 L169.4 223.1 M227.1 259.3 L225.0 257.2 L222.2 256.2 L219.3 256.3 L217.4 257.0 L215.7 258.2 L214.5 259.9 L213.7 262.6 L213.9 265.4 L215.2 267.9 L217.2 269.7 L219.7 270.6 L222.0 270.7 L223.9 270.1 L225.6 269.1 L226.9 267.7 L227.8 266.0 L228.3 263.7 L228.0 261.4 L227.1 259.3 M290.5 391.3 L293.6 397.1 L297.6 404.8 L300.5 410.3 L303.3 415.6 L305.6 419.2 L308.0 422.0 L311.6 425.0 L315.3 427.3 L318.8 429.0 M234.3 284.5 L241.2 297.5 M318.8 429.0 L321.7 430.0 L325.5 430.6 L328.8 430.8 L332.7 430.8 L337.9 430.7 M259.9 333.0 L272.2 356.5 L280.7 372.6 L290.5 391.3 M320.5 81.5 L321.1 82.1 L330.2 91.5 L355.9 116.5 L362.9 123.4 L369.8 130.5 L372.6 133.3 L404.3 164.9 L408.8 170.1 L411.6 173.1 L416.8 179.6 L419.8 184.9 L422.3 190.6 L424.6 197.5 L426.0 204.6 L427.0 213.2 L427.3 215.6 L431.5 252.7 L431.8 254.1 L437.8 291.6 L438.9 298.9 L438.2 313.4 L438.1 315.3 L437.9 318.0 L433.7 350.7 L433.8 352.9 L433.8 360.8 L435.2 370.8 L437.8 378.0 L439.8 383.8 L442.8 388.9 L447.2 398.3 M318.2 79.3 L320.5 81.5 M314.5 75.7 L318.2 79.3 M378.0 430.9 L381.2 430.8 M352.2 430.7 L378.0 430.9 M225.6 -244.3 L226.3 -242.4 L227.3 -239.8 L238.6 -215.4 L242.1 -208.0 L244.7 -202.3 L248.2 -194.5 L251.5 -186.6 L254.0 -180.8 L255.6 -175.3 L258.9 -165.0 L260.1 -161.6 L268.5 -126.0 L269.6 -121.2 L272.7 -108.2 L273.5 -104.6 L275.7 -95.1 L279.1 -79.1 L295.3 -10.8 L300.9 11.3 M197.5 371.4 L204.9 426.9 L211.3 483.4 L212.3 497.0 L212.4 512.5 L212.1 516.7 M337.9 430.7 L346.3 430.5 M193.7 346.7 L197.5 371.4" fill="none" stroke="rgba(255,253,248,.34)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M-65.9 -250.1 L-63.7 -241.2 L-61.7 -232.9 L-57.9 -216.0 L-50.3 -182.1 L-30.5 -92.9 M-30.5 -92.9 L-32.0 -100.2 L-33.4 -107.7 L-34.6 -114.4 L-37.1 -129.7 L-38.4 -137.4 L-39.9 -145.1 L-41.4 -152.6 L-43.1 -160.6 M250.3 369.3 L253.1 374.5 L255.5 378.4 L261.0 387.2 L268.3 398.7 L270.2 401.7 L272.0 404.7 L273.7 407.7 L291.7 442.0 L302.1 461.9 L304.2 466.1 L306.3 470.5 L309.3 476.9 L311.9 482.8 L314.6 489.4 L320.0 503.4 L326.7 520.5 L331.3 532.4 L333.1 537.1 M206.3 322.3 L207.6 325.2 L208.7 327.6 L210.2 331.0 L211.9 335.4 L216.7 348.1 L217.9 351.4 M250.3 369.3 L294.8 454.4 L297.8 460.3 L300.9 466.7 L302.9 470.9 L306.3 478.2 L310.5 488.0 L315.1 499.1 L335.5 551.8 L337.4 556.7 L340.9 565.8 L344.5 574.8 L351.6 592.9 L358.8 610.8 L362.1 619.2 L365.6 628.6 L367.6 634.3 L370.0 641.2 L372.4 648.4 L374.3 654.5 L376.1 660.5 L378.0 667.1 L383.4 686.9 L385.7 697.3 L390.6 720.7 M145.3 200.2 L149.5 206.5 L151.3 209.0 L153.0 211.3 L160.7 221.6 L162.3 223.7 L164.1 226.1 L170.0 234.1 L183.4 252.8 L191.0 263.7 L198.5 274.7 M149.1 213.7 L152.5 219.9 L154.5 223.9 L156.4 228.1 L159.1 233.8 L166.4 249.2 L169.8 256.1 L174.5 265.6 L182.7 280.0 M149.1 213.7 L160.2 233.1 L166.9 244.6 L172.4 254.1 L177.9 263.4 L186.4 277.6 M145.3 200.2 L160.3 223.1 L167.5 233.9 L172.8 241.9 L183.1 257.0 L193.9 272.4 M133.7 187.4 L137.7 193.8 L141.7 200.1 L145.8 206.2 L150.1 212.6 L158.5 225.3 L188.6 275.3 M142.1 195.2 L145.3 200.2 M-43.1 -160.6 L-26.4 -85.6 L-20.4 -59.9 L-16.5 -45.1 L-11.9 -30.1 L-5.2 -11.0 L3.1 8.1 L12.5 27.8 L21.4 43.2 L30.3 57.6 L38.5 69.3 L46.0 79.6 L59.4 95.8 L76.8 114.9 L92.7 131.4 L97.1 136.1 L102.9 142.4 L108.4 148.7 L113.7 155.0 L117.4 159.8 L123.1 167.3 L128.4 174.7 L133.6 182.4 L142.1 195.2 M-30.5 -92.9 L-28.7 -84.6 L-22.6 -58.7 L-18.8 -44.4 L-14.3 -29.2 L-7.3 -10.3 L0.9 9.5 L10.8 29.3 L19.8 45.1 L28.6 59.2 L37.0 71.3 L44.8 82.2 L57.1 97.4 L75.1 116.8 L90.8 132.8 L95.1 137.5 L101.0 143.8 L106.3 149.9 L111.5 156.1 L115.3 161.0 L121.1 168.7 L126.2 175.9 L131.4 183.7 L133.7 187.4 M217.9 351.4 L218.7 353.7 L222.0 362.3 L223.4 366.1 L224.8 370.0 L226.2 373.5 L227.5 376.5 L228.8 379.3 L230.4 382.5 L249.7 419.4 L268.2 454.7 L270.4 458.8 L272.7 462.7 L281.9 477.5 L292.5 494.3 L293.6 496.0 M198.5 274.7 L202.5 280.9 L205.9 286.4 L209.1 291.9 L224.4 319.8 L238.5 347.2 L250.3 369.3 M193.9 272.4 L203.0 287.0 L206.6 293.0 L209.9 298.9 L215.9 309.9 L221.8 321.1 L272.3 417.3 M272.3 417.3 L289.4 449.7 L297.0 464.8 L300.4 471.9 L303.7 479.3 L307.1 487.1 L310.4 495.1 L312.9 501.6 L319.5 518.2 L326.3 535.8 L333.7 554.8 M267.3 420.6 L277.5 440.2 L309.1 500.7 L313.1 508.4 L318.1 518.6 L322.0 527.2 L325.9 535.9 L327.9 540.6 L329.9 545.5 L333.7 554.8 M188.6 275.3 L206.8 306.6 L216.4 324.0 L267.3 420.6 M264.9 422.2 L275.9 443.2 L300.2 489.3 L315.6 519.1 L326.4 542.4 M186.4 277.6 L204.3 307.4 L214.1 325.2 L229.0 353.6 L264.9 422.2 M182.7 280.0 L206.3 322.3 L209.1 327.7 L224.2 356.5 L260.0 425.1 M260.0 425.1 L272.7 449.1 L279.1 460.2 L286.2 472.2 L292.9 483.1 L299.4 493.9 L306.9 506.3 L314.5 519.8 L326.4 542.4 M218.7 353.7 L220.7 358.4 L222.1 361.7 L223.9 365.3 L227.0 371.2 L230.6 377.6 L237.7 390.4 L252.1 418.0 L273.5 458.8 L275.5 462.6 M133.7 187.4 L137.6 193.9 L141.4 200.3 L149.1 213.7 M309.1 500.7 L306.0 494.2 L304.4 490.8 L302.8 486.9 L300.1 480.3 L297.7 474.3 L296.3 470.7 L295.1 468.0 L293.7 465.0 L289.8 457.4 L280.5 439.7 L272.1 423.6 L269.9 419.4 M335.5 551.8 L333.3 546.5 L331.3 541.4 L329.0 536.0 L326.8 530.8 L317.6 510.5 L310.7 494.9 L307.2 487.1 L303.7 479.3" fill="none" stroke="rgba(255,253,248,.3)" stroke-width="2.5" stroke-dasharray="7 6"/>
+        <path id="weg1" class="wk-weg" d="M223.5 306.6 L219.7 299.5 L219.1 298.7 L219.4 298.1 L217.7 294.9 L219.9 293.5 L223.1 291.1 L226.0 289.0 L223.4 283.6 L225.9 277.6 L228.2 276.1 L231.1 275.0 L234.4 273.4 L232.5 267.5 L230.3 259.7 L227.5 248.9 L222.9 230.7 L221.9 227.1 L220.2 225.6 L219.5 222.9 L218.6 219.8 L219.2 217.6 L217.4 209.7 L216.1 203.2 L214.8 196.4 L213.6 188.7 L212.9 181.4 L212.6 175.0 L212.8 162.9 L212.7 155.1 L212.4 148.3 L212.4 146.8 L215.8 117.6 L216.6 116.0 L217.6 110.4 L219.2 109.2 L224.6 98.4 L226.1 96.9 L232.1 92.5 L235.0 90.4 L244.4 86.1 L259.9 81.6 L271.2 78.0 L273.1 85.3 L273.8 89.2 L274.6 91.0"/>
+        <path id="weg2" class="wk-weg" d="M433.1 368.4 L431.9 359.6 L432.3 344.6 L435.3 317.7 L435.4 315.1 L435.6 304.0 L434.6 292.6 L434.5 292.0 L432.8 282.6 L430.4 264.9 L429.5 254.3 L426.5 230.3 L424.5 215.9 L424.3 214.3 L423.2 206.5 L420.6 193.9 L417.1 186.1 L414.0 180.7 L409.9 174.8 L407.1 171.8 L393.6 157.3 L386.9 150.7 L374.1 138.2 L371.3 135.5 L367.9 132.0 L364.9 129.0 L361.4 125.5 L358.8 124.9 L330.3 97.1 L328.3 93.5 L317.1 83.9 L314.7 81.6 L309.4 76.5 L308.9 74.6 L303.5 70.2 L297.2 70.7 L289.8 71.4 L282.8 74.3 L271.2 78.0 L273.1 85.3 L273.8 89.2 L274.6 91.0"/>
+        <g class="wk-ort"><rect x="213" y="292" width="26" height="26" rx="7" fill="#FFFDF8" stroke="#211A14" stroke-width="2.5"/><path d="M220 307h12M221 299h10v9h-10z" fill="none" stroke="#211A14" stroke-width="2.2"/><text x="206" y="310" text-anchor="end" class="wk-label">Bahnhof</text></g>
+        <g class="wk-ort"><rect x="397" y="358" width="26" height="26" rx="13" fill="#FFFDF8" stroke="#211A14" stroke-width="2.5"/><path d="M403 370l7-5 7 5-7 4z M406 372v4c3 2 5 2 8 0v-4" fill="none" stroke="#211A14" stroke-width="2"/><text x="390" y="376" text-anchor="end" class="wk-label">Kantonsschule</text></g>
+        <g class="wk-ziel"><path d="M276 94c-10-14-18-22-18-32a18 18 0 0 1 36 0c0 10-8 18-18 32z" fill="#D23A26" stroke="#211A14" stroke-width="2.5"/><path d="M267 60a9 6 0 0 1 18 0z" fill="#F0A24A" stroke="#211A14" stroke-width="1.6"/><rect x="267" y="61" width="18" height="4" rx="2" fill="#5A3220" stroke="#211A14" stroke-width="1.4"/><path d="M267 66h18v1.5a3 3 0 0 1-3 3h-12a3 3 0 0 1-3-3z" fill="#F0A24A" stroke="#211A14" stroke-width="1.4"/><text x="300" y="68" class="wk-label wk-label-gross">Burger House</text><text x="300" y="84" class="wk-label">Poststrasse 15</text></g>
+        <g class="wk-laeufer" id="wkLaeufer"><circle r="11" fill="#F4B731" stroke="#211A14" stroke-width="2.5"/><path d="M-6 -1a6 4.5 0 0 1 12 0zM-6.5 1.5h13M-6 4h12" stroke="#211A14" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>
+      </svg>
+      <p class="wk-info" id="wkInfo" aria-live="polite"><b>480 m</b> · ca. 6 Min. zu Fuss vom Bahnhof Wattwil</p>
+      <p class="wk-quelle">Fussweg berechnet mit OpenStreetMap-Daten</p>
+    </div>
+<!-- /IDEE 2 -->
   </div>
 </section>
+<!-- IDEE 1: Toggenburg im Tageslauf (Himmel nach Uhrzeit, Schild nach Öffnungszeiten) — zum Entfernen diese Section und den JS-Block «IDEE 1» löschen -->
+<section class="tal" id="tal" data-zeit="tag" aria-label="Wattwil im Tageslauf">
+  <svg class="tal-svg" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <defs><linearGradient id="talHimmel" x1="0" y1="0" x2="0" y2="1"><stop class="h1" offset="0"/><stop class="h2" offset="1"/></linearGradient>
+    <radialGradient id="talSchein" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".9"/><stop offset="1" stop-color="#FFE7A0" stop-opacity="0"/></radialGradient></defs>
+    <rect width="1440" height="300" fill="url(#talHimmel)"/>
+    <g class="sterne"><circle cx="120" cy="40" r="2"/><circle cx="260" cy="90" r="1.5"/><circle cx="420" cy="30" r="2"/><circle cx="560" cy="70" r="1.4"/><circle cx="720" cy="26" r="2"/><circle cx="880" cy="80" r="1.6"/><circle cx="1010" cy="34" r="1.8"/><circle cx="1180" cy="60" r="1.5"/><circle cx="1330" cy="28" r="2"/><circle cx="1390" cy="96" r="1.4"/><circle cx="640" cy="120" r="1.3"/><circle cx="330" cy="140" r="1.2"/></g>
+    <g class="sonne"><circle r="70" fill="url(#talSchein)"/><circle r="30" fill="#FFD36B" stroke="#211A14" stroke-width="3"/></g>
+    <g class="mond"><circle r="24" fill="#F5EFD9" stroke="#211A14" stroke-width="3"/><circle cx="-7" cy="-5" r="4" fill="#E2D8B8"/><circle cx="8" cy="7" r="3" fill="#E2D8B8"/></g>
+    <path class="berg-fern" d="M0 210 L80 150 L150 175 L230 120 L300 165 L380 110 L450 150 L520 105 L600 160 L680 128 L760 170 L840 118 L920 160 L1000 122 L1080 168 L1160 130 L1240 172 L1320 136 L1440 180 V300 H0Z" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
+    <path class="berg-nah" d="M0 250 C120 205 240 215 360 235 C480 255 560 200 700 212 C840 224 920 260 1060 238 C1200 216 1300 222 1440 240 V300 H0Z" stroke="#211A14" stroke-width="3"/>
+    <g class="haeuser">
+      <path d="M150 262v-34l22-18 22 18v34z"/><path d="M230 262v-26l18-14 18 14v26z"/><path d="M1140 262v-30l20-16 20 16v30z"/><path d="M1220 262v-24l16-12 16 12v24z"/>
+      <path d="M318 262v-60h6v-14l6-10 6 10v14h6v60z"/>
+    </g>
+    <g class="laden" transform="translate(720 0)">
+      <path d="M-86 262v-70h172v70z" fill="#E9DCC2" stroke="#211A14" stroke-width="3"/>
+      <path d="M-96 194l96-40 96 40z" fill="#A92A1A" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
+      <rect x="40" y="150" width="16" height="26" fill="#6B5A4A" stroke="#211A14" stroke-width="2.5"/>
+      <g class="dampf-kamin"><path d="M48 144c-8-10 8-16 0-26" /><path d="M56 140c-8-10 8-16 0-26"/></g>
+      <rect class="schild" x="-70" y="200" width="140" height="26" rx="6" stroke="#211A14" stroke-width="2.5"/>
+      <text class="schild-text" x="0" y="219" text-anchor="middle">BURGER HOUSE</text>
+      <rect class="fenster" x="-70" y="232" width="62" height="30" rx="3" stroke="#211A14" stroke-width="2.5"/>
+      <rect class="fenster" x="8" y="232" width="34" height="30" rx="3" stroke="#211A14" stroke-width="2.5"/>
+      <rect x="48" y="232" width="24" height="30" fill="#5A3220" stroke="#211A14" stroke-width="2.5"/>
+    </g>
+    <rect y="262" width="1440" height="38" class="strasse"/>
+    <path d="M0 280h1440" stroke="#FFFDF8" stroke-width="3" stroke-dasharray="26 22" opacity=".35"/>
+  </svg>
+  <div class="wrap tal-leiste">
+    <p class="tal-text" id="talText" aria-live="polite">Wattwil, jetzt</p>
+    <div class="tal-wahl" role="group" aria-label="Tageszeit ansehen">
+      <button type="button" class="tal-btn" data-z="morgen">Morgen</button>
+      <button type="button" class="tal-btn" data-z="tag">Mittag</button>
+      <button type="button" class="tal-btn" data-z="abend">Abend</button>
+      <button type="button" class="tal-btn" data-z="nacht">Nacht</button>
+      <button type="button" class="tal-btn tal-jetzt an" data-z="jetzt">Jetzt</button>
+    </div>
+  </div>
+</section>
+<!-- /IDEE 1 -->
 </main>
 
 <button class="tuete-knopf" id="korbKnopf" type="button" aria-label="Bestellung öffnen" hidden><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 11h18l-1.6 16.2a2 2 0 0 1-2 1.8H10.6a2 2 0 0 1-2-1.8z" fill="currentColor"/><path d="M11.5 13V9.5a4.5 4.5 0 0 1 9 0V13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><span class="zahl" id="korbZahl">0</span></button>
@@ -1061,6 +1227,90 @@ function dankeReset(){
 }
 document.getElementById("dankeFertig").addEventListener("click",function(){vorher=null;korbZu();});
 korbZeigen();
+
+/* ==== IDEE 1: Tal im Tageslauf ==== */
+(function(){
+  var tal=document.getElementById("tal");if(!tal)return;
+  var txt=document.getElementById("talText"),btns=[].slice.call(tal.querySelectorAll(".tal-btn"));
+  function himmel(h){return h<10?"morgen":h<16.5?"tag":h<20.5?"abend":"nacht";}
+  function jetzt(){
+    var j=jetztZH(),h=j.m/60,auf=false;
+    ZEIT[j.t].forEach(function(z){if(j.m>=min(z[0])&&j.m<min(z[1]))auf=true;});
+    tal.dataset.zeit=himmel(h);tal.classList.toggle("offen",auf);
+    var st=document.querySelector("#status span");
+    txt.textContent="Wattwil, jetzt "+("0"+Math.floor(h)).slice(-2)+":"+("0"+j.m%60).slice(-2)+" · "+(st?st.textContent:"");
+  }
+  var VOR={morgen:["morgen",false,"Morgens: noch zu. Mittags ab 11:00 offen, sonntags ab 17:00."],tag:["tag",true,"Mittags: offen von 11:00 bis 13:30 (Montag bis Samstag)."],abend:["abend",true,"Abends: offen ab 17:00, montags abends zu."],nacht:["nacht",false,"Nachts: geschlossen."]};
+  var modus="jetzt";
+  btns.forEach(function(b){b.addEventListener("click",function(){
+    modus=b.dataset.z;btns.forEach(function(x){x.classList.toggle("an",x===b);x.setAttribute("aria-pressed",x===b?"true":"false");});
+    if(modus==="jetzt")jetzt();else{var v=VOR[modus];tal.dataset.zeit=v[0];tal.classList.toggle("offen",v[1]);txt.textContent=v[2];}
+  });});
+  jetzt();setInterval(function(){if(modus==="jetzt")jetzt();},60000);
+})();
+
+/* ==== IDEE 2: Weg-Karte ==== */
+(function(){
+  var k=document.getElementById("wegKarte");if(!k)return;
+  var lauf=document.getElementById("wkLaeufer"),info=document.getElementById("wkInfo");
+  var W={1:{p:document.getElementById("weg1"),t:"<b>480 m</b> · ca. 6 Min. zu Fuss vom Bahnhof Wattwil"},2:{p:document.getElementById("weg2"),t:"<b>650 m</b> · ca. 9 Min. zu Fuss von der Kantonsschule Wattwil"}};
+  var raf=null,gestartet=false;
+  function zeige(n){
+    cancelAnimationFrame(raf);
+    [1,2].forEach(function(i){W[i].p.classList.toggle("an",i==n);});
+    info.innerHTML=W[n].t;
+    var p=W[n].p,L=p.getTotalLength();
+    p.style.strokeDasharray="2 10";
+    if(ruhig){var e=p.getPointAtLength(L);lauf.setAttribute("transform","translate("+e.x+" "+e.y+")");lauf.classList.add("an");return;}
+    var t0=null,dur=2600;lauf.classList.add("an");
+    function f(t){if(!t0)t0=t;var q=Math.min(1,(t-t0)/dur),e=q<.5?2*q*q:1-Math.pow(-2*q+2,2)/2;
+      var pt=p.getPointAtLength(L*e);lauf.setAttribute("transform","translate("+pt.x.toFixed(1)+" "+(pt.y-Math.abs(Math.sin(q*40))*3).toFixed(1)+")");
+      p.style.strokeDasharray=(L*e).toFixed(1)+" "+L;
+      if(q<1)raf=requestAnimationFrame(f);else{p.style.strokeDasharray="2 10";lauf.setAttribute("transform","translate("+pt.x.toFixed(1)+" "+pt.y.toFixed(1)+")");}}
+    raf=requestAnimationFrame(f);
+  }
+  [].forEach.call(k.querySelectorAll(".wk-btn"),function(b){b.addEventListener("click",function(){
+    [].forEach.call(k.querySelectorAll(".wk-btn"),function(x){x.classList.toggle("an",x===b);x.setAttribute("aria-pressed",x===b?"true":"false");});zeige(b.dataset.weg);});});
+  if("IntersectionObserver" in window&&!ruhig){var o=new IntersectionObserver(function(es){if(es[0].isIntersecting&&!gestartet){gestartet=true;o.disconnect();setTimeout(function(){zeige(1);},500);}},{threshold:.4});o.observe(k);}
+  else zeige(1);
+})();
+
+/* ==== IDEE 3: Zisch! (WebAudio, nur nach Einschalten) ==== */
+(function(){
+  var knopf=document.getElementById("tonKnopf");if(!knopf)return;
+  var ctx=null,an=false;
+  function zisch(){
+    try{
+      ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(ctx.state==="suspended")ctx.resume();
+      var dauer=1.6,sr=ctx.sampleRate,buf=ctx.createBuffer(1,sr*dauer,sr),d=buf.getChannelData(0);
+      for(var i=0;i<d.length;i++){var x=Math.random()*2-1;d[i]=x*0.5+(Math.random()<0.0016?(Math.random()*2-1)*2.2:0);}
+      var q=ctx.createBufferSource();q.buffer=buf;
+      var hp=ctx.createBiquadFilter();hp.type="highpass";hp.frequency.value=1800;
+      var bp=ctx.createBiquadFilter();bp.type="peaking";bp.frequency.value=5200;bp.gain.value=6;
+      var g=ctx.createGain(),t=ctx.currentTime;
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.32,t+0.06);g.gain.setValueAtTime(0.32,t+0.5);g.gain.exponentialRampToValueAtTime(0.001,t+dauer);
+      q.connect(hp);hp.connect(bp);bp.connect(g);g.connect(ctx.destination);q.start(t);q.stop(t+dauer);
+    }catch(e){}
+  }
+  knopf.addEventListener("click",function(e){
+    e.stopPropagation();an=!an;knopf.setAttribute("aria-pressed",an?"true":"false");
+    knopf.setAttribute("aria-label",an?"Grillgeräusch ausschalten":"Grillgeräusch einschalten");
+    if(an)zisch();
+  });
+  document.getElementById("heldBurger").addEventListener("click",function(){if(an)zisch();});
+})();
+
+/* ==== IDEE 4: Servietten wischen ==== */
+(function(){
+  var sv=document.getElementById("servietten");if(!sv)return;
+  var x0=0,s0=0,zieht=false,bewegt=false;
+  sv.addEventListener("pointerdown",function(e){if(e.pointerType!=="mouse")return;zieht=true;bewegt=false;x0=e.clientX;s0=sv.scrollLeft;sv.classList.add("zieht");});
+  window.addEventListener("pointermove",function(e){if(!zieht)return;var dx=e.clientX-x0;if(Math.abs(dx)>3)bewegt=true;sv.scrollLeft=s0-dx;});
+  window.addEventListener("pointerup",function(){if(!zieht)return;zieht=false;sv.classList.remove("zieht");});
+  [].forEach.call(document.querySelectorAll(".sv-pfeil"),function(b){b.addEventListener("click",function(){sv.scrollBy({left:(+b.dataset.r)*268,behavior:ruhig?"auto":"smooth"});});});
+  sv.addEventListener("keydown",function(e){if(e.key==="ArrowRight"){sv.scrollBy({left:268,behavior:"smooth"});e.preventDefault();}if(e.key==="ArrowLeft"){sv.scrollBy({left:-268,behavior:"smooth"});e.preventDefault();}});
+})();
 })();
 </script>
 </body>
