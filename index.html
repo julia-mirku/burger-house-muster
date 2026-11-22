@@ -521,7 +521,10 @@ html.fry-zieht,html.fry-zieht *{cursor:grabbing!important}
   .bau-raster,.info-raster{grid-template-columns:1fr}
   .bau-buehne{height:360px;order:-1}
   .abschnitt{padding:60px 0}
-  .pommes{grid-template-columns:auto auto;justify-content:start;gap:18px 20px;align-items:end}
+  .pommes{grid-template-columns:136px minmax(0,1fr);justify-content:start;gap:18px 14px;align-items:end}
+  .pommes .tuete{width:136px;max-width:none}
+  .dips-box{min-width:0}
+  .dip-tipp{white-space:normal;font-size:12px;margin:0 0 2px}
   .pommes>.rv{grid-column:1/-1;order:2}
   .tuete{width:150px}
   .dips{width:170px}
@@ -558,6 +561,7 @@ html.fry-zieht,html.fry-zieht *{cursor:grabbing!important}
 }
 @media (max-width:700px){.held .teller{width:min(262px,66%)}}
 @media (max-width:640px){.bau-buehne .teller{width:min(270px,77%)}}
+@media (max-width:360px){.pommes{grid-template-columns:104px minmax(0,1fr)}.pommes .tuete{width:104px}.dip-feld,.dips{width:160px}}
 @media (max-width:360px){.held .teller{width:66%}}
 @media (orientation:landscape) and (max-height:500px){.held .teller{width:min(222px,72%)}.bau-buehne .teller{width:min(330px,80%)}}
 @media (max-width:640px){.sticker{width:84px;height:84px;right:0;top:10%}.sticker b{font-size:17px}.sticker small{font-size:10.5px}}
@@ -1469,6 +1473,7 @@ korbZeigen();
     sternTimer=setTimeout(funkel,2600+Math.random()*3400);
   }
   sternTimer=setTimeout(funkel,1500);
+  sterne.forEach(function(c){c.addEventListener("animationend",function(){c.classList.remove("blitz");});});glint.addEventListener("animationend",function(e){if(e.target===glint)glint.classList.remove("an");});
   var obs=new MutationObserver(function(){bewege(tal.dataset.zeit);});obs.observe(tal,{attributes:true,attributeFilter:["data-zeit"]});
   function jetzt(){
     var j=jetztZH(),h=j.m/60,auf=false;
