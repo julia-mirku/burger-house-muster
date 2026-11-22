@@ -202,6 +202,8 @@ h2{font-size:clamp(34px,6vw,60px)}
 .dips{width:250px;overflow:visible;display:block}
 .dip-feld{position:relative;width:250px}
 .dips-vorne{position:absolute;left:0;top:0;width:100%;height:auto;pointer-events:none;z-index:2}
+.dips-hinten{position:absolute;left:0;top:0;width:100%;height:auto;pointer-events:none;z-index:0}
+.dip-feld.in3 .dips-hinten{z-index:1}
 .fry{position:absolute;left:0;top:0;z-index:1;touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:grab;padding:10px;margin:-10px}
 .fry svg{display:block;width:100%;height:100%;overflow:visible}
 .fry.zieht{cursor:grabbing}
@@ -454,16 +456,17 @@ h2.mit-umlaut{padding-top:.36em}
 
 
 /* Farbwahl für den Kunden (Entwurf) */
-.farbwahl{display:flex;align-items:center;gap:12px;margin-top:22px;max-width:430px}
-.fw-punkte{display:flex;gap:8px;flex:none;padding:5px;border-radius:999px;background:rgba(255,253,248,.55);border:1.5px solid rgba(33,26,20,.25)}
-.fw-punkt{position:relative;width:26px;height:26px;border-radius:50%;border:2px solid var(--grill);padding:0;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease}
-.fw-punkt::after{content:"";position:absolute;inset:-9px -5px}
+.farbwahl{display:flex;align-items:center;gap:10px;margin-left:auto;margin-right:14px;padding:4px 5px 4px 14px;border-radius:999px;background:rgba(255,253,248,.6);border:2px solid var(--grill)}
+.fw-punkte{display:flex;gap:7px;flex:none}
+.fw-punkt{position:relative;width:24px;height:24px;border-radius:50%;border:2px solid var(--grill);padding:0;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease}
+.fw-punkt::after{content:"";position:absolute;inset:-10px -4px}
 .fw-punkt:focus-visible{outline:3px solid var(--grill);outline-offset:3px;border-radius:50%}
 .fw-punkt[data-farbe="gruen"]{background:#8CC63F}.fw-punkt[data-farbe="senf"]{background:#F4B731}
-.fw-punkt.an{box-shadow:0 0 0 3px var(--weiss),0 0 0 5px var(--grill)}
-@media (hover:hover){.fw-punkt:not(.an):hover{transform:scale(1.1);box-shadow:0 0 0 3px rgba(255,253,248,.8)}}
-.fw-text{margin:0;font-size:13.5px;line-height:1.4;font-weight:600;color:rgba(33,26,20,.78)}
-@media (max-width:560px){.farbwahl{margin-top:16px}.fw-text{font-size:13px}}
+.fw-punkt.an{box-shadow:0 0 0 2px var(--weiss),0 0 0 4px var(--grill)}
+@media (hover:hover){.fw-punkt:not(.an):hover{transform:scale(1.12);box-shadow:0 0 0 3px rgba(255,253,248,.9)}}
+.fw-text{margin:0;font-size:13px;line-height:1.2;font-weight:700;white-space:nowrap}
+.fw-kurz{display:none;font-size:12px;font-weight:800;white-space:nowrap}
+@media (max-width:860px){.fw-text{display:none}.fw-kurz{display:inline}.farbwahl{padding:3px 5px 3px 10px;gap:7px;margin-right:8px}}
 /* ---------- IDEE 1: Tal im Tageslauf ---------- */
 .tal{position:relative;background:#2A221B;border-top:2.5px solid var(--grill)}
 .tal-svg{display:block;width:100%;height:clamp(380px,34vw,500px)}
@@ -655,6 +658,10 @@ h2.mit-umlaut{padding-top:.36em}
       <svg class="marke-zeichen" viewBox="0 0 40 40" aria-hidden="true"><path d="M4 18c0-8 7-13 16-13s16 5 16 13z" fill="#E08A33" stroke="#211A14" stroke-width="2.5" stroke-linejoin="round"/><rect x="3" y="20" width="34" height="6" rx="3" fill="#5A3220" stroke="#211A14" stroke-width="2.5"/><path d="M5 29h30v2a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z" fill="#E08A33" stroke="#211A14" stroke-width="2.5" stroke-linejoin="round"/></svg>
       <b>Burger House</b>
     </a>
+    <div class="farbwahl" role="group" aria-label="Farbe des Entwurfs" title="Für Sie in zwei Farben vorbereitet. Gefällt Ihnen der Entwurf, wählen wir gemeinsam die passende Farbe aus.">
+      <span class="fw-text">Zwei Farben für Sie – wir wählen gemeinsam</span><span class="fw-kurz">2 Farben</span>
+      <div class="fw-punkte"><button type="button" class="fw-punkt an" data-farbe="senf" aria-pressed="true" aria-label="Senfgelb"></button><button type="button" class="fw-punkt" data-farbe="gruen" aria-pressed="false" aria-label="Grün"></button></div>
+    </div>
     <a class="kopf-tel" href="tel:+41719900428" aria-label="Anrufen: 071 990 04 28">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
       <span>071 990 04 28</span>
@@ -682,10 +689,6 @@ h2.mit-umlaut{padding-top:.36em}
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.7 11.3 12.7 2.3a1 1 0 0 0-1.4 0l-9 9a1 1 0 0 0 0 1.4l9 9a1 1 0 0 0 1.4 0l9-9a1 1 0 0 0 0-1.4zM14 14.5V12h-4v3H8v-4a1 1 0 0 1 1-1h5V7.5l3.5 3.5z"/></svg>
           Route
         </a>
-      </div>
-      <div class="farbwahl" role="group" aria-label="Farbe des Entwurfs">
-        <div class="fw-punkte"><button type="button" class="fw-punkt an" data-farbe="senf" aria-pressed="true" aria-label="Senfgelb"></button><button type="button" class="fw-punkt" data-farbe="gruen" aria-pressed="false" aria-label="Grün"></button></div>
-        <p class="fw-text">Für Sie in zwei Farben vorbereitet. Gefällt Ihnen der Entwurf, wählen wir gemeinsam die passende Farbe aus.</p>
       </div>
     </div>
 
@@ -790,6 +793,32 @@ h2.mit-umlaut{padding-top:.36em}
     <div class="dips-box"><p class="dip-tipp" aria-hidden="true"><svg viewBox="0 0 40 30"><path d="M4 4q18 2 26 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M24 22l6 3 1-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Zieh die Pommes in eine Sauce</p>
     <div class="dip-feld" id="dipFeld">
     <svg class="dips" viewBox="0 0 250 210" aria-hidden="true">
+      <g class="topf topf-3">
+        <path d="M100 100h68l-7 32q-2 8-11 8h-32q-9 0-11-8z" fill="#F6EFE2" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
+        <ellipse cx="134" cy="100" rx="34" ry="9" fill="#F6EFE2" stroke="#211A14" stroke-width="3"/>
+        <ellipse id="sauceB" cx="134" cy="101" rx="27" ry="6" fill="#6B2B14"/>
+        <path d="M118 99.5q9-3.5 18-1 7 2 12-.5" fill="none" stroke="#A3502C" stroke-width="2.4" stroke-linecap="round"/>
+        <g id="wellenB"><ellipse cx="134" cy="101" rx="7" ry="1.4" fill="none" stroke="#B7653E" stroke-width="1.8" opacity="0"/><ellipse cx="134" cy="101" rx="7" ry="1.4" fill="none" stroke="#B7653E" stroke-width="1.8" opacity="0"/></g>
+      </g>
+    </svg>
+      <div class="fry" id="fry" role="button" tabindex="0" aria-label="Pommes in die Sauce tunken"><svg viewBox="-2 -2 26 112" aria-hidden="true">
+        <defs><linearGradient id="fryG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FCD772"/><stop offset=".62" stop-color="#F5C04E"/><stop offset=".63" stop-color="#E5A43A"/><stop offset="1" stop-color="#D38E2C"/></linearGradient>
+        <clipPath id="fryCoatA"><path id="fryCoatPA" d="M-2 112H28V112H-2Z"/></clipPath><clipPath id="fryCoatB"><path id="fryCoatPB" d="M-2 112H28V112H-2Z"/></clipPath><clipPath id="fryForm"><path d="M1.2 2.5Q11 .2 20.6 2.2L21.6 105.4Q11 107.6.6 105.6Z"/></clipPath></defs>
+        <path d="M1.2 2.5Q11 .2 20.6 2.2L21.6 105.4Q11 107.6.6 105.6Z" fill="url(#fryG)"/>
+        <g clip-path="url(#fryForm)">
+          <path d="M-1 4Q11 -1 23 4V11Q11 7-1 11Z" fill="#C9822C" opacity=".75"/>
+          <path d="M4 18v64M8.5 30v40" stroke="#FFE7A6" stroke-width="1.8" stroke-linecap="round" opacity=".75"/>
+          <circle cx="6" cy="44" r="1.3" fill="#B9712A" opacity=".55"/><circle cx="11" cy="71" r="1.1" fill="#B9712A" opacity=".5"/><circle cx="5" cy="88" r="1" fill="#B9712A" opacity=".45"/><circle cx="10" cy="22" r=".9" fill="#B9712A" opacity=".5"/>
+          <g clip-path="url(#fryCoatA)"><rect id="fryCoatRA" x="-2" y="0" width="30" height="110" fill="#C8261A"/></g>
+          <g clip-path="url(#fryCoatB)"><rect id="fryCoatRB" x="-2" y="0" width="30" height="110" fill="#C8261A"/><path d="M4.5 60V102" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity=".4"/></g>
+        </g>
+        <path d="M1.2 2.5Q11 .2 20.6 2.2L21.6 105.4Q11 107.6.6 105.6Z" fill="none" stroke="#211A14" stroke-width="2.8" stroke-linejoin="round"/>
+      </svg></div>
+    <svg class="dips dips-hinten" viewBox="0 0 250 210" aria-hidden="true">
+      <path d="M100 102h68l-7 30q-2 8-11 8h-32q-9 0-11-8z" fill="#F6EFE2"/>
+      <path id="sauceBv" d="M107 101A27 6 0 0 0 161 101Z" fill="#6B2B14"/>
+      <path d="M100 100l7 32q2 8 11 8h32q9 0 11-8l7-32" fill="none" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M100 100A34 9 0 0 0 168 100" fill="none" stroke="#211A14" stroke-width="3"/>
       <g class="topf topf-1">
         <ellipse cx="78" cy="196" rx="58" ry="8" fill="#211A14" opacity=".14"/>
         <path d="M24 132h108l-10 52q-2 10-14 10H48q-12 0-14-10z" fill="#FFFDF8" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
@@ -808,25 +837,16 @@ h2.mit-umlaut{padding-top:.36em}
       </g>
       <g id="tropfen"></g>
     </svg>
-      <div class="fry" id="fry" role="button" tabindex="0" aria-label="Pommes in die Sauce tunken"><svg viewBox="-2 -2 21 102" aria-hidden="true">
-        <defs><linearGradient id="fryG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE08A"/><stop offset=".55" stop-color="#F6C14E"/><stop offset="1" stop-color="#E3A034"/></linearGradient><clipPath id="fryCoat"><path id="fryCoatP" d="M-2 102H19V102H-2Z"/></clipPath></defs>
-        <rect x="0" y="0" width="17" height="98" rx="4" fill="url(#fryG)"/>
-        <rect x="11" y="6" width="3.5" height="80" rx="1.7" fill="#D8892A" opacity=".55"/>
-        <path d="M1.5 6q7-7 14 0" fill="none" stroke="#B8661A" stroke-width="3" stroke-linecap="round"/>
-        <rect x="4" y="22" width="2.2" height="2.2" fill="#FFFDF8" transform="rotate(45 5 23)" opacity=".9"/><rect x="9" y="44" width="2.2" height="2.2" fill="#FFFDF8" transform="rotate(45 10 45)" opacity=".9"/>
-        <g clip-path="url(#fryCoat)"><rect id="fryCoatR" x="0" y="0" width="17" height="98" rx="4" fill="#C8261A"/><path d="M3.5 40V94" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity=".45"/></g>
-        <rect x="0" y="0" width="17" height="98" rx="4" fill="none" stroke="#211A14" stroke-width="3"/>
-      </svg></div>
     <svg class="dips dips-vorne" viewBox="0 0 250 210" aria-hidden="true">
-      <path d="M24 132h108l-10 52q-2 10-14 10H48q-12 0-14-10z" fill="#FFFDF8"/>
+      <path d="M24.3 133.5h107.4l-9.7 50.5q-2 10-14 10H48q-12 0-14-10z" fill="#FFFDF8"/>
+      <path id="sauceKv" d="M33 133A45 9.5 0 0 0 123 133Z" fill="#C8261A"/>
       <path d="M24 132l10 52q2 10 14 10h60q12 0 14-10l10-52" fill="none" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M34 150h88" stroke="#E9DCC2" stroke-width="3"/>
-      <path id="sauceKv" d="M33 132.4A45 10 0 0 0 123 132.4Z" fill="#C8261A"/>
+      <path d="M34 152h88" stroke="#E9DCC2" stroke-width="3"/>
       <path d="M24 132A54 14 0 0 0 132 132" fill="none" stroke="#211A14" stroke-width="3"/>
-      <path d="M148 150h84l-8 40q-2 9-12 9h-44q-10 0-12-9z" fill="#FFFDF8"/>
+      <path d="M148.3 151.5h83.4l-7.7 38.5q-2 9-12 9h-44q-10 0-12-9z" fill="#FFFDF8"/>
+      <path id="sauceMv" d="M156 151A34 7 0 0 0 224 151Z" fill="#FBF1C9"/>
       <path d="M148 150l8 40q2 9 12 9h44q10 0 12-9l8-40" fill="none" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M156 166h68" stroke="#E9DCC2" stroke-width="3"/>
-      <path id="sauceMv" d="M156 150.4A34 7.5 0 0 0 224 150.4Z" fill="#FBF1C9"/>
+      <path d="M157 168h66" stroke="#E9DCC2" stroke-width="3"/>
       <path d="M148 150A42 11 0 0 0 232 150" fill="none" stroke="#211A14" stroke-width="3"/>
     </svg>
     </div></div>
@@ -1223,20 +1243,31 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
 /* Pommes in Saucen ziehen und tunken */
 (function(){
   var feld=document.getElementById("dipFeld"),fry=document.getElementById("fry");if(!feld||!fry)return;
-  var coatP=document.getElementById("fryCoatP"),coatR=document.getElementById("fryCoatR");
+  var cPA=document.getElementById("fryCoatPA"),cPB=document.getElementById("fryCoatPB"),cRA=document.getElementById("fryCoatRA"),cRB=document.getElementById("fryCoatRB");
   var schatten=document.createElement("div");schatten.className="fry-schatten";feld.appendChild(schatten);
-  var POT={ketchup:{cx:78,sy:133,rx:45,ry:9.5,rimY:132,rimRx:54,fill:"#C8261A",welle:"wellenK",sauce:"sauceK",vorne:"sauceKv",lean:-14},
-           mayo:{cx:190,sy:151,rx:34,ry:7,rimY:150,rimRx:42,fill:"#F3E6B0",welle:"wellenM",sauce:"sauceM",vorne:"sauceMv",lean:13}};
-  var home="ketchup",st={x:0,y:0,rot:0,sc:1},coat=14,coatFarbe="#C8261A",k=1,busy=false,drag=null,raf=0;
-  function heimPos(p){var P=POT[p];return {x:P.cx+(p==="ketchup"?6:-4),y:P.sy+12,rot:P.lean,sc:1};}
-  function messen(){k=feld.getBoundingClientRect().width/250;fry.style.width=(21*k+20)+"px";fry.style.height=(102*k+20)+"px";fry.style.transformOrigin=(10+10.5*k)+"px "+(10+100*k)+"px";}
+  /* Fritte: 22 breit, 108 lang; Spitze (unten Mitte) bei 11/108, im SVG +2 Rand */
+  var FW=26,FH=112,TX=13,TY=110;
+  var POT={ketchup:{cx:78,sy:133,rx:45,ry:9.5,rimY:132,rimRx:54,tief:14,vorn:true,fill:"#C8261A",welle:"wellenK",sauce:"sauceK",lean:-12},
+           mayo:{cx:190,sy:151,rx:34,ry:7,rimY:150,rimRx:42,tief:13,vorn:true,fill:"#F1E2A6",welle:"wellenM",sauce:"sauceM",lean:11},
+           bbq:{cx:134,sy:101,rx:27,ry:6,rimY:100,rimRx:34,tief:11,vorn:false,fill:"#6B2B14",welle:"wellenB",sauce:"sauceB",lean:-4}};
+  var REIHE=["mayo","ketchup","bbq"],FOLGE={ketchup:"mayo",mayo:"bbq",bbq:"ketchup"};
+  var home="ketchup",st={x:0,y:0,rot:0,sc:1},k=1,busy=false,drag=null,raf=0,drin=null,ziel3=null;
+  var alt={f:"#C8261A",l:0},neu={f:"#C8261A",l:14};
+  function heimPos(p){var P=POT[p];return {x:P.cx+(p==="ketchup"?6:p==="mayo"?-4:-2),y:P.sy+12,rot:P.lean,sc:1};}
+  function messen(){k=feld.getBoundingClientRect().width/250;fry.style.width=(FW*k+20)+"px";fry.style.height=(FH*k+20)+"px";fry.style.transformOrigin=(10+TX*k)+"px "+(10+TY*k)+"px";}
+  function welleD(l){var y=108-Math.max(0,Math.min(44,l));return "M-2 "+y.toFixed(1)+"q3 -1.8 6 0t6 0t6 0t6 0t6 0V112H-2Z";}
   function zeichnen(){
-    fry.style.transform="translate3d("+(st.x*k-10.5*k-10).toFixed(2)+"px,"+(st.y*k-100*k-10).toFixed(2)+"px,0) rotate("+st.rot.toFixed(2)+"deg) scale("+st.sc.toFixed(3)+")";
-    var c=Math.max(0,Math.min(40,coat)),y=98-c;
-    coatP.setAttribute("d","M-2 "+(y).toFixed(1)+"q2.8 -1.8 5.6 0t5.6 0t5.6 0t5.6 0V102H-2Z");
-    coatR.setAttribute("fill",coatFarbe);
-    var lift=drag?1:0;schatten.style.opacity=drag?.9:0;
+    fry.style.transform="translate3d("+(st.x*k-TX*k-10).toFixed(2)+"px,"+(st.y*k-TY*k-10).toFixed(2)+"px,0) rotate("+st.rot.toFixed(2)+"deg) scale("+st.sc.toFixed(3)+")";
+    cPA.setAttribute("d",welleD(alt.l));cRA.setAttribute("fill",alt.f);cPB.setAttribute("d",welleD(neu.l));cRB.setAttribute("fill",neu.f);
+    schatten.style.opacity=drag?.9:0;
     schatten.style.transform="translate("+(st.x*k-17).toFixed(1)+"px,"+(st.y*k+12*k).toFixed(1)+"px) scale("+(drag?1.1:.9)+")";
+    var vorn=drag?drin:(busy?ziel3:home);feld.classList.toggle("in3",vorn==="bbq");
+  }
+  /* Spitze taucht ein: neue Farbe legt sich über die alte */
+  function benetzen(P,tief){
+    if(tief<=0)return;
+    if(neu.f!==P.fill){if(neu.l>0){alt={f:neu.f,l:neu.l};}neu={f:P.fill,l:0};}
+    neu.l=Math.max(neu.l,Math.min(36,tief+6));if(neu.l>=alt.l)alt.l=0;
   }
   function tween(ziel,dur,ease,fertig,proFrame){
     var von={x:st.x,y:st.y,rot:st.rot,sc:st.sc},t0=null;cancelAnimationFrame(raf);
@@ -1253,7 +1284,6 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
     ell.forEach(function(e,n){var t0=null;function f(t){if(!t0)t0=t;var q=Math.min(1,(t-t0-n*140)/700);if(q<0){requestAnimationFrame(f);return;}
       var rr=.3+.7*eOut(q);e.setAttribute("rx",(P.rx*rr).toFixed(1));e.setAttribute("ry",(P.ry*rr).toFixed(1));e.setAttribute("opacity",(.6*(1-q)).toFixed(2));if(q<1)requestAnimationFrame(f);}
       requestAnimationFrame(f);});
-    var sa=document.getElementById(P.sauce),t1=null;function d(t){if(!t1)t1=t;var q=Math.min(1,(t-t1)/600),v=q<.33?q/.33:1-(q-.33)/.67;sa.setAttribute("ry",(P.ry-1.5*v).toFixed(2));if(q<1)requestAnimationFrame(d);}requestAnimationFrame(d);
   }
   function tropf(P){
     if(ruhig)return;var g=document.getElementById("tropfen"),NS="http://www.w3.org/2000/svg",c=document.createElementNS(NS,"path");
@@ -1262,44 +1292,63 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
       if(q<1)requestAnimationFrame(f);else{c.remove();}}
     requestAnimationFrame(f);
   }
+  /* aus der Sauce heben, abtropfen, im Töpfchen abstellen */
+  function abschliessen(name){
+    var P=POT[name];busy=true;ziel3=name;
+    tween({y:P.sy-26,rot:P.lean*.4,sc:1},320,eLift,function(){
+      tropf(P);
+      setTimeout(function(){home=name;tween(heimPos(name),460,eBack,function(){busy=false;ziel3=null;fry.style.willChange="";});},420);
+    });
+  }
   function eintunken(name,vonTopf){
-    var P=POT[name];busy=true;
-    var rotZ=name==="ketchup"?-8:8,maxTief=0,neu=coatFarbe!==P.fill;
-    if(vonTopf){var oben=Math.min(st.y,Math.min(POT.ketchup.rimY,POT.mayo.rimY)-44);tween({y:oben,rot:0,sc:1},260,eOut,function(){eintunken(name,false);});return;}
-    var dist=Math.hypot(P.cx-st.x,(P.sy-6)-st.y),dauer=Math.min(420,120+dist*1.5);
+    var P=POT[name];busy=true;ziel3=name;
+    if(vonTopf){var oben=Math.min(st.y,POT.bbq.rimY-40);tween({y:oben,rot:0,sc:1},260,eOut,function(){eintunken(name,false);});return;}
+    var rotZ=P.lean*.6,dist=Math.hypot(P.cx-st.x,(P.sy-6)-st.y),dauer=Math.min(420,120+dist*1.5);
     tween({x:P.cx,y:P.sy-6,rot:rotZ,sc:1},dauer,eOut,function(){
       var gewellt=false;
-      tween({y:P.sy+24},220,eInOut,function(){
-        setTimeout(function(){
-          tween({y:P.sy-26,rot:rotZ*.5},320,eLift,function(){
-            tropf(P);
-            setTimeout(function(){home=name;var h=heimPos(name);tween(h,460,eBack,function(){busy=false;});},420);
-          });
-        },160);
-      },function(q){var tief=st.y-P.sy;if(tief>0&&!gewellt){gewellt=true;if(neu){coat=0;maxTief=0;}coatFarbe=P.fill;welle(P);}if(tief>maxTief){maxTief=tief;coat=Math.max(coat,Math.min(34,tief+6));}});
+      tween({y:P.sy+P.tief},240,eInOut,function(){setTimeout(function(){abschliessen(name);},160);},
+        function(){var tief=st.y-P.sy;if(tief>0&&!gewellt){gewellt=true;welle(P);}benetzen(P,tief);});
     });
   }
   function treffer(){
     var best=null,bd=1e9;
     Object.keys(POT).forEach(function(n){var P=POT[n],dx=Math.abs(st.x-P.cx),okY=st.y>P.rimY-60&&st.y<P.rimY+110;
-      if(dx<P.rimRx*1.4&&okY&&dx<bd){bd=dx;best=n;}});
+      if(dx<P.rimRx*1.3&&okY&&dx<bd){bd=dx;best=n;}});
     return best;
   }
-  var vx=0,lx=0,lt=0,ziel=0,tilt=0,px=0,py=0;
+  /* Grenzen beim Ziehen: Spitze bleibt in der Sauce, geht nie durch Schale oder Rand */
+  function zwang(tx,ty){
+    var P;
+    if(drin){P=POT[drin];
+      if(ty<P.sy-4){drin=null;}
+      else{var w=P.rx*.82;return {x:Math.max(P.cx-w,Math.min(P.cx+w,tx)),y:Math.min(ty,P.sy+P.tief)};}
+    }
+    for(var i=0;i<REIHE.length;i++){var n=REIHE[i];P=POT[n];var dx=Math.abs(tx-P.cx);
+      if(dx<=P.rx*.82&&ty>=P.sy-1&&(P.vorn||ty<=P.sy+P.tief+22)){drin=n;welle(P);return {x:tx,y:Math.min(ty,P.sy+P.tief)};}
+      if(P.vorn&&dx<=P.rimRx+3&&ty>P.rimY-5)return {x:tx,y:P.rimY-5};
+    }
+    return {x:tx,y:ty};
+  }
+  var vx=0,lx=0,lt=0,zielR=0,tilt=0,px=0,py=0;
   fry.addEventListener("pointerdown",function(e){
     if(busy||drag||e.button!==0||!e.isPrimary||!pm.classList.contains("fertig"))return;
     e.preventDefault();messen();fry.setPointerCapture(e.pointerId);
     var r=feld.getBoundingClientRect();
     drag={id:e.pointerId,ox:(e.clientX-r.left)/k-st.x,oy:(e.clientY-r.top)/k-st.y,r:r};
+    drin=home;
     vx=0;lx=e.clientX;lt=performance.now();tilt=st.rot;px=e.clientX;py=e.clientY;
     var lastT=performance.now();(function loop(t){if(!drag)return;var dt=Math.min(32,Math.max(1,t-lastT));lastT=t;
       var r2=feld.getBoundingClientRect();
-      st.x=Math.max(-30,Math.min(280,(px-r2.left)/k-drag.ox));st.y=Math.max(10,Math.min(240,(py-r2.top)/k-drag.oy));
-      vx*=Math.exp(-dt/120);ziel=ruhig?0:Math.max(-14,Math.min(14,vx*12));tilt+=(ziel-tilt)*(1-Math.exp(-dt/90));st.rot=tilt;zeichnen();
+      var tx=Math.max(-30,Math.min(280,(px-r2.left)/k-drag.ox)),ty=Math.max(10,Math.min(240,(py-r2.top)/k-drag.oy));
+      var c=zwang(tx,ty),a=ruhig?1:1-Math.exp(-dt/26);st.x+=(c.x-st.x)*a;st.y+=(c.y-st.y)*a;
+      vx*=Math.exp(-dt/120);
+      zielR=ruhig?0:(drin?POT[drin].lean*.5:Math.max(-14,Math.min(14,vx*12)));tilt+=(zielR-tilt)*(1-Math.exp(-dt/90));st.rot=tilt;
+      if(drin)benetzen(POT[drin],st.y-POT[drin].sy);
+      zeichnen();
       requestAnimationFrame(loop);})(performance.now());
     fry.classList.add("zieht");document.documentElement.classList.add("fry-zieht");fry.style.willChange="transform";
     cancelAnimationFrame(raf);
-    var t0=null,sc0=st.sc;function lift(t){if(!t0)t0=t;var q=Math.min(1,(t-t0)/140);st.sc=sc0+(1.06-sc0)*eOut(q);zeichnen();if(q<1&&drag)requestAnimationFrame(lift);}requestAnimationFrame(lift);
+    var t0=null,sc0=st.sc;function lift(t){if(!t0)t0=t;var q=Math.min(1,(t-t0)/140);st.sc=sc0+(1.05-sc0)*eOut(q);zeichnen();if(q<1&&drag)requestAnimationFrame(lift);}requestAnimationFrame(lift);
     dip.classList.add("weg");
   });
   fry.addEventListener("pointermove",function(e){
@@ -1311,15 +1360,17 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
     try{fry.releasePointerCapture(drag.id);}catch(x){}
     if(abbruch===undefined)abbruch=false;
     drag=null;fry.classList.remove("zieht");document.documentElement.classList.remove("fry-zieht");
-    var t=abbruch?null:treffer();
-    if(t)eintunken(t);else tween(heimPos(home),ruhig?150:440,function(q){return 1-Math.pow(1-q,4);},function(){fry.style.willChange="";});
+    var schon=drin;drin=null;
+    if(!abbruch&&schon&&st.y>POT[schon].sy-2){abschliessen(schon);}
+    else{var t=abbruch?null:treffer();
+      if(t)eintunken(t);else tween(heimPos(home),ruhig?150:440,function(q){return 1-Math.pow(1-q,4);},function(){fry.style.willChange="";});}
     zeichnen();
   }
   fry.addEventListener("pointerup",function(e){loslassen(e,false);});
   fry.addEventListener("pointercancel",function(e){loslassen(e,true);});
   fry.addEventListener("lostpointercapture",function(e){if(drag)loslassen(e,true);});
   fry.addEventListener("contextmenu",function(e){e.preventDefault();});
-  fry.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&!busy&&!drag){e.preventDefault();eintunken(home==="ketchup"?"mayo":"ketchup",true);}});
+  fry.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&!busy&&!drag){e.preventDefault();eintunken(FOLGE[home],true);}});
   var dip=document.querySelector(".dip-tipp");
   window.addEventListener("resize",function(){if(drag)loslassen(null,true);messen();zeichnen();});
   var h=heimPos(home);st.x=h.x;st.y=h.y;st.rot=h.rot;messen();zeichnen();
@@ -1606,7 +1657,7 @@ korbZeigen();
       var hp=ctx.createBiquadFilter();hp.type="highpass";hp.frequency.value=1800;
       var bp=ctx.createBiquadFilter();bp.type="peaking";bp.frequency.value=5200;bp.gain.value=6;
       var g=ctx.createGain(),t=ctx.currentTime;
-      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.32,t+0.06);g.gain.setValueAtTime(0.32,t+0.5);g.gain.exponentialRampToValueAtTime(0.001,t+dauer);
+      g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(0.16,t+0.06);g.gain.setValueAtTime(0.16,t+0.5);g.gain.exponentialRampToValueAtTime(0.001,t+dauer);
       q.connect(hp);hp.connect(bp);bp.connect(g);g.connect(ctx.destination);q.start(t);q.stop(t+dauer);
     }catch(e){}
   }
