@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="google" content="notranslate">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#F4B731">
+<meta name="theme-color" content="#8CC63F" id="themeFarbe">
 <title>Burger House – Wattwil</title>
 <meta name="description" content="Burger House, Poststrasse 15, 9630 Wattwil. Burger, Rösti-Burger und knusprige Pommes. Öffnungszeiten, Telefon 071 990 04 28, Route.">
 <meta property="og:title" content="Burger House – Wattwil">
@@ -16,17 +16,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --senf:#F4B731; --senf-hell:#FFD36B; --grill:#211A14; --grill-2:#2E241C;
+  --senf:#8CC63F; --senf-hell:#B5E07A; --senf-rgb:140,198,63; --senf-hell-rgb:181,224,122; --senf-blass:#ECF7DD; --grill:#211A14; --grill-2:#2E241C;
   --ketchup:#D23A26; --ketchup-dunkel:#A92A1A; --gurke:#4E7A2E;
   --weiss:#FFFDF8; --papier:#FFF6E2; --text:#211A14; --grau:#5E5247; --linie:#E9DCC2;
   --roesti:#E9A23B;
   --r:18px;
 }
+html[data-farbe="senf"]{--senf:#F4B731;--senf-hell:#FFD36B;--senf-rgb:244,183,49;--senf-hell-rgb:255,211,107;--senf-blass:#FFF1C9}
+html.farbwechsel *,html.farbwechsel *::before,html.farbwechsel *::after{transition:background-color .7s ease,color .7s ease,border-color .7s ease,fill .7s ease,stroke .7s ease,box-shadow .7s ease,outline-color .7s ease!important}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 *{-webkit-tap-highlight-color:transparent}
 :focus:not(:focus-visible){outline:none}
-:focus-visible{outline:3px solid #F4B731;outline-offset:3px;border-radius:10px}
+:focus-visible{outline:3px solid var(--senf);outline-offset:3px;border-radius:10px}
 .korb-form input:focus-visible,.korb-form select:focus-visible,.korb-form textarea:focus-visible{outline:none}
 svg:focus,g:focus{outline:none}
 .rv:not(.live) :is(.btn,.plus,.zutat,.dazu-btn,.leer,.wk-btn,.sv-pfeil),.rv.gericht:not(.live){pointer-events:none}
@@ -44,19 +46,19 @@ h2{font-size:clamp(34px,6vw,60px)}
 .btn-call{background:var(--ketchup);color:#fff;border-color:var(--grill);box-shadow:0 5px 0 var(--grill)}
 .btn-ghost{background:var(--weiss);color:var(--grill);box-shadow:0 5px 0 var(--grill)}
 @media (hover:hover){
-  .btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--grill),0 0 0 5px rgba(255,211,107,.45)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 7px 0 var(--grill),0 0 0 5px rgba(var(--senf-hell-rgb),.45)}
   .btn-call:hover{background:#E8503A}
-  .btn-ghost:hover{background:#FFF1C9}
+  .btn-ghost:hover{background:var(--senf-blass)}
   .leer:hover{color:var(--ketchup-dunkel)}
   .held-sterne a:hover,.karte-fuss a:hover,.fuss a:hover,.kopfzeile a:hover{color:var(--ketchup-dunkel)}
   .chips span{transition:background-color .2s ease,color .2s ease}
   .marke{transition:opacity .2s ease}.marke:hover{opacity:.8}
   .status{transition:box-shadow .2s ease}.status:hover{box-shadow:0 0 0 4px rgba(255,253,248,.55)}
-  .chips.live span:hover{background:rgba(244,183,49,.18)}
+  .chips.live span:hover{background:rgba(var(--senf-rgb),.18)}
   .lob blockquote{transition:border-color .2s ease,background-color .2s ease}
   .note .zahl{transition:color .2s ease,text-shadow .2s ease}
-  .note.live:hover .zahl{color:var(--senf-hell);text-shadow:0 0 18px rgba(255,211,107,.35)}
-  .lob blockquote.live:hover{border-color:rgba(244,183,49,.6);background:rgba(244,183,49,.05)}
+  .note.live:hover .zahl{color:var(--senf-hell);text-shadow:0 0 18px rgba(var(--senf-hell-rgb),.35)}
+  .lob blockquote.live:hover{border-color:rgba(var(--senf-rgb),.6);background:rgba(var(--senf-rgb),.05)}
 }
 .btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--grill)}
 
@@ -240,27 +242,27 @@ h2.mit-umlaut{padding-top:.36em}
 .zeiten .tag{font-weight:800}
 .zeiten .zz{display:flex;flex-wrap:wrap;gap:6px}
 .zeiten .zz span{border:1.5px solid rgba(255,253,248,.28);border-radius:8px;padding:2px 9px;font-variant-numeric:tabular-nums;font-size:16px;transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease}
-.zeiten .zz span.an{border-color:var(--senf);box-shadow:0 0 0 3px rgba(244,183,49,.28);background:rgba(244,183,49,.12)}
+.zeiten .zz span.an{border-color:var(--senf);box-shadow:0 0 0 3px rgba(var(--senf-rgb),.28);background:rgba(var(--senf-rgb),.12)}
 .zeiten li.gewaehlt .zz span.an{border-color:var(--grill);box-shadow:0 0 0 3px rgba(33,26,20,.2);background:rgba(255,253,248,.45)}
 @media (hover:hover){
-.zeiten.live .zz span:hover{border-color:var(--senf);box-shadow:0 0 0 3px rgba(244,183,49,.28);background:rgba(244,183,49,.12)}
+.zeiten.live .zz span:hover{border-color:var(--senf);box-shadow:0 0 0 3px rgba(var(--senf-rgb),.28);background:rgba(var(--senf-rgb),.12)}
 .zeiten.live li.gewaehlt .zz span:hover{border-color:var(--grill);box-shadow:0 0 0 3px rgba(33,26,20,.2);background:rgba(255,253,248,.45)}
 .zeiten.live li:not(.gewaehlt):hover:has(.zz span:hover){border-color:transparent;box-shadow:none}
-.live .tw-z:hover{border-color:var(--senf);box-shadow:0 0 0 3px rgba(244,183,49,.22)}
+.live .tw-z:hover{border-color:var(--senf);box-shadow:0 0 0 3px rgba(var(--senf-rgb),.22)}
 }
 .zeiten li{position:relative;border:2px solid transparent;transition:border-color .2s ease,box-shadow .2s ease,background-color .2s ease}
 .zeiten li.gewaehlt{background:var(--senf);color:var(--grill)}
 .zeiten li.gewaehlt .zz span{border-color:var(--grill)}
 .zeiten.live li{cursor:pointer}
-@media (hover:hover){.zeiten.live li:not(.gewaehlt):hover{border-color:rgba(244,183,49,.75);box-shadow:0 0 0 4px rgba(244,183,49,.12)}}
-.zeiten li:focus-visible{outline:none;border-color:var(--senf);box-shadow:0 0 0 4px rgba(244,183,49,.25)}
+@media (hover:hover){.zeiten.live li:not(.gewaehlt):hover{border-color:rgba(var(--senf-rgb),.75);box-shadow:0 0 0 4px rgba(var(--senf-rgb),.12)}}
+.zeiten li:focus-visible{outline:none;border-color:var(--senf);box-shadow:0 0 0 4px rgba(var(--senf-rgb),.25)}
 .tag-wahl{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;padding:4px 12px 16px;margin-bottom:10px;border-bottom:1.5px solid rgba(255,253,248,.14)}
 .tw-tag{font-family:"Bowlby One SC",sans-serif;font-size:24px;color:var(--senf)}
 .tw-tag em{font-style:normal;font-family:Figtree,sans-serif;font-weight:800;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--senf);color:var(--grill);border-radius:999px;padding:3px 9px;vertical-align:middle}
 .tw-zeit{font-weight:800;font-size:20px;font-variant-numeric:tabular-nums;display:flex;flex-wrap:wrap;gap:6px}
 .tw-z{border:2px solid transparent;border-radius:9px;padding:1px 8px;margin-left:-8px;transition:border-color .2s ease,box-shadow .2s ease}
 .tw-z+.tw-z{margin-left:0}
-.tw-z.an{border-color:var(--senf);box-shadow:0 0 0 3px rgba(244,183,49,.22)}
+.tw-z.an{border-color:var(--senf);box-shadow:0 0 0 3px rgba(var(--senf-rgb),.22)}
 .zeiten li.heute:not(.gewaehlt) .zz::after{background:var(--senf)!important;color:var(--grill)!important}
 .zeiten li.heute .zz::after{content:"heute";align-self:center;font-weight:800;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--grill);color:var(--senf);border-radius:999px;padding:3px 9px}
 .adresse{font-size:24px;font-weight:800;line-height:1.3;margin:6px 0 4px}
@@ -268,7 +270,7 @@ h2.mit-umlaut{padding-top:.36em}
 .weg-knoepfe{display:flex;flex-direction:column;gap:12px}
 .info .btn-ghost{box-shadow:0 5px 0 #000}
 .info .btn-call{border-color:#000;box-shadow:0 5px 0 #000}
-@media (hover:hover){.info .btn:hover{box-shadow:0 7px 0 #000,0 0 0 5px rgba(255,211,107,.35)}}
+@media (hover:hover){.info .btn:hover{box-shadow:0 7px 0 #000,0 0 0 5px rgba(var(--senf-hell-rgb),.35)}}
 .tel-gross{display:block;font-family:"Bowlby One SC",sans-serif;font-size:clamp(30px,4vw,40px);color:var(--senf);text-decoration:none;margin:18px 0 4px}
 @media (hover:hover){.tel-gross:hover{color:var(--senf-hell)}}
 
@@ -297,11 +299,11 @@ h2.mit-umlaut{padding-top:.36em}
 .plus{margin-top:6px;width:40px;height:40px;border-radius:50%;border:2px solid var(--grill);background:var(--senf);color:var(--grill);font:800 24px/1 Figtree,sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:transform .18s ease,box-shadow .2s ease,background-color .2s ease}
 .g-text{padding-right:36px}
 .gericht .plus{position:absolute;right:14px;bottom:14px;margin:0}
-@media (hover:hover){.plus:hover{background:var(--senf-hell);box-shadow:0 0 0 5px rgba(255,211,107,.45);transform:scale(1.06)}}
+@media (hover:hover){.plus:hover{background:var(--senf-hell);box-shadow:0 0 0 5px rgba(var(--senf-hell-rgb),.45);transform:scale(1.06)}}
 .plus:active{transform:scale(.92)}
 .dazu{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .dazu-btn{min-height:44px;padding:0 16px;border-radius:999px;border:2px solid var(--grill);background:var(--weiss);font:800 15.5px/1 Figtree,sans-serif;color:var(--grill);cursor:pointer;transition:background-color .2s ease,box-shadow .2s ease,transform .15s ease}
-@media (hover:hover){.dazu-btn:hover{background:#FFF1C9;box-shadow:0 0 0 5px rgba(255,211,107,.4)}}
+@media (hover:hover){.dazu-btn:hover{background:var(--senf-blass);box-shadow:0 0 0 5px rgba(var(--senf-hell-rgb),.4)}}
 .dazu-btn:active{transform:translateY(2px)}
 .tuete-knopf{position:fixed;right:18px;top:76px;z-index:30;width:64px;height:64px;border-radius:50%;border:2.5px solid var(--grill);background:var(--senf);color:var(--grill);box-shadow:0 5px 0 var(--grill);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease}
 .tuete-knopf svg{width:30px;height:30px}
@@ -310,7 +312,7 @@ h2.mit-umlaut{padding-top:.36em}
 @keyframes korbErscheint{from{transform:scale(0)}to{transform:scale(1)}}
 .tuete-knopf.stups{animation:stups .45s cubic-bezier(.3,1.6,.5,1)}
 @keyframes stups{0%{transform:scale(1)}35%{transform:scale(1.18) rotate(-6deg)}100%{transform:scale(1)}}
-@media (hover:hover){.tuete-knopf:hover{background:var(--senf-hell);box-shadow:0 7px 0 var(--grill),0 0 0 6px rgba(255,211,107,.45)}}
+@media (hover:hover){.tuete-knopf:hover{background:var(--senf-hell);box-shadow:0 7px 0 var(--grill),0 0 0 6px rgba(var(--senf-hell-rgb),.45)}}
 .flieger{position:fixed;z-index:60;pointer-events:none;display:flex;flex-direction:column;filter:drop-shadow(0 8px 10px rgba(0,0,0,.25))}
 .flieger .etikett{display:none}
 .korb-hintergrund{position:fixed;inset:0;z-index:70;background:rgba(33,26,20,.45);opacity:0;transition:opacity .3s ease}
@@ -320,7 +322,7 @@ h2.mit-umlaut{padding-top:.36em}
 .korb-kopf{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;background:var(--senf);border-bottom:2.5px solid var(--grill)}
 .korb-kopf h2{font-size:28px}
 .korb-zu{width:44px;height:44px;border-radius:50%;border:2px solid var(--grill);background:var(--weiss);font:800 26px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,box-shadow .2s ease}
-@media (hover:hover){.korb-zu:hover{background:#FFF1C9;box-shadow:0 0 0 5px rgba(255,253,248,.6)}}
+@media (hover:hover){.korb-zu:hover{background:var(--senf-blass);box-shadow:0 0 0 5px rgba(255,253,248,.6)}}
 .korb-inhalt,.korb-danke{overflow-y:auto;padding:16px 20px calc(24px + env(safe-area-inset-bottom));flex:1}
 .korb-liste{list-style:none;margin:0;padding:0}
 .korb-liste li{display:grid;grid-template-columns:58px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1.5px solid var(--linie)}
@@ -332,7 +334,7 @@ h2.mit-umlaut{padding-top:.36em}
 .k-sub{display:block;font-weight:500;font-size:13.5px;color:var(--grau);margin-top:2px}
 .k-menge{display:flex;align-items:center;gap:6px}
 .k-menge button{width:34px;height:34px;border-radius:50%;border:2px solid var(--grill);background:var(--weiss);font:800 18px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,box-shadow .2s ease}
-@media (hover:hover){.k-menge button:hover{background:#FFF1C9;box-shadow:0 0 0 4px rgba(255,211,107,.4)}.k-weg:hover{color:var(--ketchup-dunkel)}}
+@media (hover:hover){.k-menge button:hover{background:var(--senf-blass);box-shadow:0 0 0 4px rgba(var(--senf-hell-rgb),.4)}.k-weg:hover{color:var(--ketchup-dunkel)}}
 .k-menge b{min-width:22px;text-align:center;font-variant-numeric:tabular-nums}
 .k-weg{display:block;margin-top:2px;background:none;border:none;padding:2px 0;font:700 13.5px Figtree,sans-serif;color:var(--grau);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .korb-leer{color:var(--grau);font-weight:500}
@@ -340,7 +342,7 @@ h2.mit-umlaut{padding-top:.36em}
 .korb-form{display:grid;gap:12px;margin-top:14px}
 .korb-form label{display:grid;gap:5px;font-weight:800;font-size:14px}
 .korb-form input,.korb-form select,.korb-form textarea{font:500 16px Figtree,sans-serif;padding:11px 12px;border:2px solid var(--grill);border-radius:12px;background:#fff;color:var(--grill);transition:box-shadow .2s ease}
-.korb-form input:focus,.korb-form select:focus,.korb-form textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(244,183,49,.45)}
+.korb-form input:focus,.korb-form select:focus,.korb-form textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(var(--senf-rgb),.45)}
 .senden{width:100%;margin-top:4px}
 .senden:disabled{opacity:.45;cursor:not-allowed;transform:none!important;box-shadow:0 5px 0 var(--grill)!important}
 .korb-entwurf{margin:14px 0 0;font-size:12.5px;color:var(--grau);line-height:1.4}
@@ -373,7 +375,7 @@ h2.mit-umlaut{padding-top:.36em}
 .servietten{--sp:18px;display:flex;gap:var(--sp);overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 10px;padding:16px 10px 20px;scrollbar-width:none;cursor:grab;outline:none}
 .servietten::-webkit-scrollbar{display:none}
 .servietten.zieht{cursor:grabbing;scroll-snap-type:none}
-.servietten:focus-visible{box-shadow:0 0 0 3px rgba(244,183,49,.6);border-radius:12px}
+.servietten:focus-visible{box-shadow:0 0 0 3px rgba(var(--senf-rgb),.6);border-radius:12px}
 .serviette{position:relative;flex:0 0 auto;width:calc((100% - 2*var(--sp))/3);min-height:200px;margin:0;padding:24px 22px 18px;scroll-snap-align:start;background:#FFFDF8;color:var(--grill);border-radius:4px;
   background-image:linear-gradient(90deg,transparent 49.6%,rgba(33,26,20,.06) 50%,transparent 50.4%),linear-gradient(0deg,transparent 49.6%,rgba(33,26,20,.06) 50%,transparent 50.4%),repeating-linear-gradient(45deg,rgba(33,26,20,.025) 0 2px,transparent 2px 7px);
   box-shadow:0 1px 0 rgba(0,0,0,.08),0 10px 22px rgba(0,0,0,.28);transform:rotate(var(--dreh,0deg));transition:transform .25s ease,box-shadow .25s ease;display:flex;flex-direction:column;justify-content:space-between}
@@ -388,7 +390,7 @@ h2.mit-umlaut{padding-top:.36em}
 .sv-pfeil[data-r="1"]{right:-6px}
 .sv-pfeil:disabled{opacity:.3;cursor:default}
 .sv-pfeil{width:40px;height:40px;border-radius:50%;border:2px solid var(--senf);background:transparent;color:var(--senf);font:800 22px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,box-shadow .2s ease}
-@media (hover:hover){.sv-pfeil:hover{background:rgba(244,183,49,.18);box-shadow:0 0 0 5px rgba(244,183,49,.18)}}
+@media (hover:hover){.sv-pfeil:hover{background:rgba(var(--senf-rgb),.18);box-shadow:0 0 0 5px rgba(var(--senf-rgb),.18)}}
 @media (max-width:1060px){.serviette{width:calc((100% - var(--sp))/2)}}
 @media (max-width:640px){.serviette{width:100%}.servietten-rahmen{padding:0 26px}.sv-pfeil{width:36px;height:36px}}
 
@@ -436,7 +438,7 @@ h2.mit-umlaut{padding-top:.36em}
 .wk-wahl{display:flex;flex-wrap:wrap;gap:8px}
 .wk-btn{min-height:40px;padding:0 14px;border-radius:999px;border:2px solid rgba(255,253,248,.35);background:transparent;color:var(--weiss);font:700 14.5px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,border-color .2s ease,box-shadow .2s ease}
 .wk-btn.an{background:var(--senf);border-color:var(--senf);color:var(--grill)}
-@media (hover:hover){.wk-btn:not(.an):hover{border-color:var(--senf);box-shadow:0 0 0 4px rgba(244,183,49,.18)}}
+@media (hover:hover){.wk-btn:not(.an):hover{border-color:var(--senf);box-shadow:0 0 0 4px rgba(var(--senf-rgb),.18)}}
 .wk-svg{width:100%;height:auto;border-radius:14px;background:#2A221B}
 .wk-weg{fill:none;stroke:var(--senf);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .3s ease}
 .wk-weg.an{opacity:1}
@@ -449,10 +451,20 @@ h2.mit-umlaut{padding-top:.36em}
 .wk-info b{color:var(--senf)}
 .wk-quelle{margin:4px 0 0;font-size:12.5px;color:rgba(255,253,248,.55)}
 
+
+/* Farbwahl für den Kunden (Entwurf) */
+.farbwahl{display:flex;align-items:center;gap:12px;margin-top:22px;max-width:430px}
+.fw-punkte{display:flex;gap:8px;flex:none;padding:5px;border-radius:999px;background:rgba(255,253,248,.55);border:1.5px solid rgba(33,26,20,.25)}
+.fw-punkt{width:26px;height:26px;border-radius:50%;border:2px solid var(--grill);padding:0;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease}
+.fw-punkt[data-farbe="gruen"]{background:#8CC63F}.fw-punkt[data-farbe="senf"]{background:#F4B731}
+.fw-punkt.an{box-shadow:0 0 0 3px var(--weiss),0 0 0 5px var(--grill)}
+@media (hover:hover){.fw-punkt:not(.an):hover{transform:scale(1.1);box-shadow:0 0 0 3px rgba(255,253,248,.8)}}
+.fw-text{margin:0;font-size:13.5px;line-height:1.4;font-weight:600;color:rgba(33,26,20,.78)}
+@media (max-width:560px){.farbwahl{margin-top:16px}.fw-text{font-size:13px}}
 /* ---------- IDEE 1: Tal im Tageslauf ---------- */
 .tal{position:relative;background:#2A221B;border-top:2.5px solid var(--grill)}
 .tal-svg{display:block;width:100%;height:clamp(380px,34vw,500px)}
-.tal .ww-brett{fill:#F4B731}.tal .ww-brett2{fill:#FFFDF8}
+.tal .ww-brett{fill:var(--senf)}.tal .ww-brett2{fill:#FFFDF8}
 .tal .ww-text,.tal .ww-text2{font:400 12.5px "Bowlby One SC",sans-serif;fill:#211A14;letter-spacing:.02em}
 .tal-finale{position:absolute;left:0;right:0;top:0;pointer-events:none}
 .tal-karte{pointer-events:auto;display:inline-block;margin-top:clamp(18px,2.4vw,34px);padding:18px 22px 22px;border-radius:18px;background:rgba(33,26,20,.82);border:2px solid rgba(255,253,248,.16);color:var(--weiss);box-shadow:0 12px 30px rgba(0,0,0,.25);max-width:440px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
@@ -504,7 +516,7 @@ h2.mit-umlaut{padding-top:.36em}
 .tal-wahl{display:flex;flex-wrap:wrap;gap:6px}
 .tal-btn{min-height:36px;padding:0 12px;border-radius:999px;border:2px solid rgba(255,253,248,.3);background:transparent;color:var(--weiss);font:700 13.5px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,border-color .2s ease,box-shadow .2s ease}
 .tal-btn.an{background:var(--senf);border-color:var(--senf);color:var(--grill)}
-@media (hover:hover){.tal-btn:not(.an):hover{border-color:var(--senf);box-shadow:0 0 0 4px rgba(244,183,49,.18)}}
+@media (hover:hover){.tal-btn:not(.an):hover{border-color:var(--senf);box-shadow:0 0 0 4px rgba(var(--senf-rgb),.18)}}
 @media (prefers-reduced-motion:reduce){.tal-svg *{transition:none}}
 
 /* Tal: Haus-Details, Rauch, Sterne */
@@ -668,7 +680,10 @@ h2.mit-umlaut{padding-top:.36em}
           Route
         </a>
       </div>
-      
+      <div class="farbwahl" role="group" aria-label="Farbe des Entwurfs">
+        <div class="fw-punkte"><button type="button" class="fw-punkt an" data-farbe="gruen" aria-pressed="true" aria-label="Grün"></button><button type="button" class="fw-punkt" data-farbe="senf" aria-pressed="false" aria-label="Senfgelb"></button></div>
+        <p class="fw-text">Für Sie in zwei Farben vorbereitet. Gefällt Ihnen der Entwurf, wählen wir gemeinsam die passende.</p>
+      </div>
     </div>
 
     <div class="buehne">
@@ -1461,6 +1476,22 @@ function dankeReset(){
 document.getElementById("dankeFertig").addEventListener("click",function(){vorher=null;korbZu();});
 korbZeigen();
 
+
+/* ---- Farbwahl (Entwurf): Grün oder Senfgelb ---- */
+(function(){
+  var pk=[].slice.call(document.querySelectorAll(".fw-punkt")),root=document.documentElement,meta=document.getElementById("themeFarbe"),t=null;
+  function setze(f,weich){
+    if(weich&&!ruhig){root.classList.add("farbwechsel");clearTimeout(t);t=setTimeout(function(){root.classList.remove("farbwechsel");},800);}
+    if(f==="senf")root.setAttribute("data-farbe","senf");else root.removeAttribute("data-farbe");
+    pk.forEach(function(b){var an=b.dataset.farbe===f;b.classList.toggle("an",an);b.setAttribute("aria-pressed",an?"true":"false");});
+    if(meta)meta.setAttribute("content",f==="senf"?"#F4B731":"#8CC63F");
+    try{localStorage.setItem("bhFarbe",f);}catch(e){}
+  }
+  var f0="gruen";try{f0=localStorage.getItem("bhFarbe")||"gruen";}catch(e){}
+  var q=/farbe=(senf|gruen)/.exec(location.search);if(q)f0=q[1];
+  setze(f0,false);
+  pk.forEach(function(b){b.addEventListener("click",function(){setze(b.dataset.farbe,true);});});
+})();
 /* ==== IDEE 1: Tal im Tageslauf ==== */
 (function(){var sv=document.getElementById("talSvg");if(!sv||!window.matchMedia)return;var mq=window.matchMedia("(max-width:700px)"),mt=window.matchMedia("(max-width:1100px)");
   function vb(){var v=mq.matches?["616 -300 410 600",[630,380]]:mt.matches?["300 -300 840 600",[330,780]]:["0 -300 1440 600",[160,1120]];sv.setAttribute("viewBox",v[0]);window.talBogen=v[1];if(window.talNeu)window.talNeu();}vb();
