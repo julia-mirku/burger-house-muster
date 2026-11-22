@@ -1251,7 +1251,7 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
   }
   function treffer(){
     var best=null,bd=1e9;
-    Object.keys(POT).forEach(function(n){var P=POT[n],dx=Math.abs(st.x-P.cx),okY=st.y>P.rimY-60&&st.y<P.rimY+50;
+    Object.keys(POT).forEach(function(n){var P=POT[n],dx=Math.abs(st.x-P.cx),okY=st.y>P.rimY-60&&st.y<P.rimY+110;
       if(dx<P.rimRx*1.4&&okY&&dx<bd){bd=dx;best=n;}});
     return best;
   }
