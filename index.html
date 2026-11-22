@@ -1340,7 +1340,8 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
     var lastT=performance.now();(function loop(t){if(!drag)return;var dt=Math.min(32,Math.max(1,t-lastT));lastT=t;
       var r2=feld.getBoundingClientRect();
       var tx=Math.max(-30,Math.min(280,(px-r2.left)/k-drag.ox)),ty=Math.max(10,Math.min(240,(py-r2.top)/k-drag.oy));
-      var c=zwang(tx,ty),a=ruhig?1:1-Math.exp(-dt/26);st.x+=(c.x-st.x)*a;st.y+=(c.y-st.y)*a;
+      var c=zwang(tx,ty),a=ruhig?1:1-Math.exp(-dt/26);
+      if(c.x!==tx||c.y!==ty){drag.ox=Math.max(-30,Math.min(30,drag.ox+(tx-c.x)));drag.oy=Math.max(-108,Math.min(10,drag.oy+(ty-c.y)));}st.x+=(c.x-st.x)*a;st.y+=(c.y-st.y)*a;
       vx*=Math.exp(-dt/120);
       zielR=ruhig?0:(drin?POT[drin].lean*.5:Math.max(-14,Math.min(14,vx*12)));tilt+=(zielR-tilt)*(1-Math.exp(-dt/90));st.rot=tilt;
       if(drin)benetzen(POT[drin],st.y-POT[drin].sy);
