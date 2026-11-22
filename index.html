@@ -196,31 +196,31 @@ h2{font-size:clamp(34px,6vw,60px)}
 /* Pommes */
 .pommes{display:grid;grid-template-columns:auto 1fr auto;gap:44px;align-items:center}
 .tuete{width:220px}
-.dips{width:250px;overflow:visible}
+.dips{width:250px;overflow:visible;display:block}
+.dip-feld{position:relative;width:250px}
+.dips-vorne{position:absolute;left:0;top:0;width:100%;height:auto;pointer-events:none;z-index:2}
+.fry{position:absolute;left:0;top:0;z-index:1;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:grab;padding:10px;margin:-10px}
+.fry svg{display:block;width:100%;height:100%;overflow:visible}
+.fry.zieht{cursor:grabbing}
+html.fry-zieht,html.fry-zieht *{cursor:grabbing!important}
+.fry-schatten{position:absolute;left:0;top:0;width:34px;height:10px;border-radius:50%;background:rgba(33,26,20,.18);pointer-events:none;opacity:0;z-index:0}
 .dips-box{position:relative}
 .dip-tipp{display:flex;align-items:center;gap:6px;margin:0 0 -6px 18px;font-weight:800;font-size:14px;color:var(--ketchup);opacity:0;transition:opacity .4s ease}
 .dip-tipp svg{width:30px;height:24px;order:2}
 .dip-tipp{white-space:nowrap}
 @media (max-width:640px){.dip-tipp{font-size:12.5px;margin:0 0 -2px 0}}
 .pommes.fertig .dip-tipp{opacity:1}
-.pommes.fertig .topf{cursor:pointer}
-.dipstab{transform-box:fill-box;transform-origin:50% 100%;transform:translateY(-34px);opacity:0}
-.pommes.an .dipstab{animation:dippen 1.6s cubic-bezier(.45,0,.3,1) .9s both}
-@keyframes dippen{0%{transform:translateY(-34px);opacity:0}15%{opacity:1}55%{transform:translateY(22px)}75%{transform:translateY(16px)}100%{transform:translateY(0);opacity:1}}
-.pommes.an .ketchupspitze{animation:spitze .01s linear 1.8s both}
-@keyframes spitze{to{opacity:1}}
+.pommes.fertig .dip-tipp.weg{opacity:0}
 .topf{transition:transform .25s ease}
 .tuete{overflow:visible}
 .wack.hoch{animation:note .45s cubic-bezier(.3,1.5,.5,1) both}
 @keyframes note{0%{transform:translateY(0)}45%{transform:translateY(-14px)}100%{transform:translateY(0)}}
 .topf{transform-box:fill-box;transform-origin:50% 100%}
 @media (hover:hover){
-  .pommes.fertig .topf:hover{transform:translateY(-6px) rotate(-2deg)}
   .pommes.fertig .tuete{cursor:pointer}
 }
 .tuete .stab{transform-box:fill-box;transform-origin:bottom center}
 .pommes.an .tuete .stab{animation:huepf .7s cubic-bezier(.3,1.6,.5,1) both}
-.pommes.ruhig .dipstab{transform:none;opacity:1}.pommes.ruhig .ketchupspitze{opacity:1}
 @keyframes huepf{0%{transform:translateY(46px)}100%{transform:translateY(0)}}
 .pommes h2{margin-bottom:14px}
 .pommes p{font-size:19px;font-weight:500;max-width:30em;margin:0}
@@ -437,26 +437,39 @@ h2{font-size:clamp(34px,6vw,60px)}
 /* ---------- IDEE 1: Tal im Tageslauf ---------- */
 .tal{position:relative;background:#2A221B;border-top:2.5px solid var(--grill)}
 .tal-svg{display:block;width:100%;height:clamp(170px,22vw,300px)}
-.tal-svg *{transition:fill .7s ease,stop-color .7s ease,opacity .7s ease,transform .9s cubic-bezier(.4,0,.2,1)}
+.tal-svg *{transition:fill 1.6s ease,opacity 1.6s ease}
+.tal .himmel{opacity:0;transition:opacity 1.8s ease}
+.tal[data-zeit="morgen"] .h-morgen,.tal[data-zeit="tag"] .h-tag,.tal[data-zeit="abend"] .h-abend,.tal[data-zeit="nacht"] .h-nacht{opacity:1}
+.tal .sterne{opacity:0;transition:opacity 2s ease}
+.tal[data-zeit="nacht"] .sterne{opacity:1}
+.tal .sterne circle{opacity:.55;transform-box:fill-box;transform-origin:50% 50%}
+.tal .sterne circle.blitz{animation:sternBlitz 2.2s ease-in-out both}
+@keyframes sternBlitz{0%,100%{opacity:.55;transform:scale(1)}45%{opacity:1;transform:scale(1.7)}}
+.tal .glint{opacity:0;pointer-events:none}
+.tal .glint.an{animation:glint 2.2s ease-in-out both}
+@keyframes glint{0%,100%{opacity:0}45%{opacity:1}}
+.tal .glint path{transform-box:fill-box;transform-origin:50% 50%}
+.tal .glint.an path{animation:glintDreh 2.2s ease-in-out both}
+@keyframes glintDreh{0%{transform:scale(.2) rotate(0)}45%{transform:scale(1) rotate(30deg)}100%{transform:scale(.2) rotate(60deg)}}
 .tal .h1{stop-color:#5DB8EA}.tal .h2{stop-color:#CDEBFA}
 .tal .berg-fern{fill:#7FA36A}.tal .berg-nah{fill:#4E8A3A}.tal .haeuser{fill:#D9C9AC;stroke:#211A14;stroke-width:3}
 .tal .strasse{fill:#5E5247}
-.tal .sterne{fill:#FFF6D8;opacity:0}
-.tal .sonne{transform:translate(1080px,70px)}.tal .mond{transform:translate(1180px,330px);opacity:0}
+.tal .sterne{fill:#FFF6D8}
+
 .tal .schild{fill:#5E5247;transition:fill .6s ease,filter .6s ease}.tal .schild-text{fill:#B9AA90;font:400 15px "Bowlby One SC",sans-serif}
 .tal .fenster{fill:#9FB7C6}
 .tal .dampf-kamin path{fill:none;stroke:#FFFDF8;stroke-width:4;stroke-linecap:round;opacity:0}
 .tal.offen .schild{fill:#D23A26;filter:drop-shadow(0 0 10px rgba(255,120,80,.8))}.tal.offen .schild-text{fill:#FFF3C4}
 .tal.offen .dampf-kamin path{opacity:.7}
 .tal[data-zeit="morgen"] .h1{stop-color:#9CCFEF}.tal[data-zeit="morgen"] .h2{stop-color:#FFD9A8}
-.tal[data-zeit="morgen"] .sonne{transform:translate(250px,92px)}
+
 .tal[data-zeit="abend"] .h1{stop-color:#E9774A}.tal[data-zeit="abend"] .h2{stop-color:#FFD28A}
-.tal[data-zeit="abend"] .sonne{transform:translate(1250px,100px)}
+
 .tal[data-zeit="abend"] .berg-fern{fill:#7A7A5A}.tal[data-zeit="abend"] .berg-nah{fill:#465E33}
 .tal[data-zeit="abend"].offen .fenster,.tal[data-zeit="nacht"].offen .fenster{fill:#FFD36B}
 .tal[data-zeit="nacht"] .h1{stop-color:#121A33}.tal[data-zeit="nacht"] .h2{stop-color:#34416E}
-.tal[data-zeit="nacht"] .sonne{transform:translate(1300px,360px);opacity:0}
-.tal[data-zeit="nacht"] .mond{transform:translate(1160px,70px);opacity:1}
+
+
 .tal[data-zeit="nacht"] .sterne{opacity:1}
 .tal[data-zeit="nacht"] .berg-fern{fill:#26324A}.tal[data-zeit="nacht"] .berg-nah{fill:#1A2436}.tal[data-zeit="nacht"] .haeuser{fill:#3A4256}
 .tal[data-zeit="nacht"] .fenster{fill:#2D3550}.tal[data-zeit="nacht"] .strasse{fill:#2A2A33}
@@ -482,29 +495,13 @@ h2{font-size:clamp(34px,6vw,60px)}
 .tal .lampe{fill:#B9AA90}.tal.offen .lampe{fill:#FFE08A}
 .tal .lichtschein{fill:#FFE08A;opacity:0;transition:opacity .7s ease}
 .tal.offen[data-zeit="abend"] .lichtschein,.tal.offen[data-zeit="nacht"] .lichtschein{opacity:.35}
-.tal[data-zeit="nacht"] .glanz{fill:#FFF6D8}
-.tal .sterne .glanz,.tal .sterne circle{transform-box:fill-box;transform-origin:50% 50%}
-.tal[data-zeit="nacht"] .sterne circle,.tal[data-zeit="nacht"] .sterne .glanz{opacity:.45;animation:funkeln 11s ease-in-out infinite}
-.tal[data-zeit="nacht"] .sterne .glanz{opacity:0}
-@keyframes funkeln{0%,86%,100%{opacity:.45;transform:scale(1)}90%{opacity:1;transform:scale(1.9)}94%{opacity:.6;transform:scale(1.1)}}
-.tal[data-zeit="nacht"] .sterne .glanz{animation-name:glanz}
-@keyframes glanz{0%,84%,100%{opacity:0;transform:scale(.4) rotate(0)}90%{opacity:1;transform:scale(1.15) rotate(20deg)}96%{opacity:0;transform:scale(.6) rotate(40deg)}}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(1){animation-delay:0.0s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(2){animation-delay:4.3s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(3){animation-delay:8.1s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(4){animation-delay:1.7s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(5){animation-delay:6.2s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(6){animation-delay:2.9s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(7){animation-delay:9.4s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(8){animation-delay:5.1s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(9){animation-delay:0.9s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(10){animation-delay:7.3s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(11){animation-delay:3.6s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(12){animation-delay:10.2s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(13){animation-delay:1.3s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(14){animation-delay:5.8s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(15){animation-delay:8.8s}
-.tal[data-zeit="nacht"] .sterne>*:nth-child(16){animation-delay:3.1s}
+
+
+
+
+
+
+
 @media (prefers-reduced-motion:reduce){.tal .rauch circle,.tal .sterne *{animation:none!important}}
 /* ---------- Breiten ---------- */
 @media (max-width:1060px){
@@ -528,6 +525,7 @@ h2{font-size:clamp(34px,6vw,60px)}
   .pommes>.rv{grid-column:1/-1;order:2}
   .tuete{width:150px}
   .dips{width:170px}
+  .dip-feld{width:170px}
 }
 @media (max-width:700px){
   .held .wrap{grid-template-columns:1fr;gap:6px;padding-top:14px;padding-bottom:36px}
@@ -598,7 +596,7 @@ h2{font-size:clamp(34px,6vw,60px)}
   html{scroll-behavior:auto}
   .korb,.korb-hintergrund,.sticker,.schicht .etikett{transition:none}
   .tuete-knopf.neu,.tuete-knopf.stups,.wack.hoch{animation:none}
-  .burger .schicht.faellt,.rv.da,.pommes.an .tuete .stab,.pommes.an .dipstab,.burger.bereit .tropfen{animation:none}
+  .burger .schicht.faellt,.rv.da,.pommes.an .tuete .stab,.burger.bereit .tropfen{animation:none}
   .rv{opacity:1;transform:none}
   .schicht{transition:none}
 }
@@ -741,32 +739,49 @@ h2{font-size:clamp(34px,6vw,60px)}
         <button class="dazu-btn" type="button" data-art="mayo">+ Mayo</button>
       </div>
     </div>
-    <div class="dips-box"><p class="dip-tipp" aria-hidden="true"><svg viewBox="0 0 40 30"><path d="M4 4q18 2 26 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M24 22l6 3 1-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Tippe auf eine Sauce</p>
+    <div class="dips-box"><p class="dip-tipp" aria-hidden="true"><svg viewBox="0 0 40 30"><path d="M4 4q18 2 26 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M24 22l6 3 1-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Zieh die Pommes in eine Sauce</p>
+    <div class="dip-feld" id="dipFeld">
     <svg class="dips" viewBox="0 0 250 210" aria-hidden="true">
-      <defs><linearGradient id="pf2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE08A"/><stop offset=".55" stop-color="#F6C14E"/><stop offset="1" stop-color="#E3A034"/></linearGradient></defs>
       <g class="topf topf-1">
         <ellipse cx="78" cy="196" rx="58" ry="8" fill="#211A14" opacity=".14"/>
         <path d="M24 132h108l-10 52q-2 10-14 10H48q-12 0-14-10z" fill="#FFFDF8" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M34 150h88" stroke="#E9DCC2" stroke-width="3"/>
         <ellipse cx="78" cy="132" rx="54" ry="14" fill="#FFFDF8" stroke="#211A14" stroke-width="3"/>
-        <ellipse cx="78" cy="133" rx="45" ry="9.5" fill="#C8261A"/>
+        <ellipse id="sauceK" cx="78" cy="133" rx="45" ry="9.5" fill="#C8261A"/>
         <path d="M52 131q14-6 30-2 12 3 22-1" fill="none" stroke="#F07A64" stroke-width="3" stroke-linecap="round"/>
+        <g id="wellenK"><ellipse cx="78" cy="133" rx="10" ry="2" fill="none" stroke="#F49A86" stroke-width="2" opacity="0"/><ellipse cx="78" cy="133" rx="10" ry="2" fill="none" stroke="#F49A86" stroke-width="2" opacity="0"/></g>
       </g>
-      <g class="dipstab"><g class="dipzug"><g transform="rotate(-18 92 120)">
-        <rect x="84" y="30" width="17" height="98" rx="4" fill="url(#pf2)" stroke="#211A14" stroke-width="3"/>
-        <rect x="95" y="36" width="3.5" height="80" rx="1.7" fill="#D8892A" opacity=".55"/>
-        <path d="M85.5 36q7-7 14 0" fill="none" stroke="#B8661A" stroke-width="3" stroke-linecap="round"/>
-        <path class="ketchupspitze" d="M85.5 114h14v10q-7 6-14 0z" fill="#C8261A" opacity="0"/>
-      </g></g></g>
       <g class="topf topf-2">
         <ellipse cx="190" cy="202" rx="46" ry="7" fill="#211A14" opacity=".14"/>
         <path d="M148 150h84l-8 40q-2 9-12 9h-44q-10 0-12-9z" fill="#FFFDF8" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M156 166h68" stroke="#E9DCC2" stroke-width="3"/>
         <ellipse cx="190" cy="150" rx="42" ry="11" fill="#FFFDF8" stroke="#211A14" stroke-width="3"/>
-        <ellipse cx="190" cy="151" rx="34" ry="7" fill="#FBF1C9"/>
+        <ellipse id="sauceM" cx="190" cy="151" rx="34" ry="7" fill="#FBF1C9"/>
         <path d="M172 150q10-5 20-1 9 3 16 0" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+        <g id="wellenM"><ellipse cx="190" cy="151" rx="8" ry="1.6" fill="none" stroke="#E6D79E" stroke-width="2" opacity="0"/><ellipse cx="190" cy="151" rx="8" ry="1.6" fill="none" stroke="#E6D79E" stroke-width="2" opacity="0"/></g>
       </g>
-    </svg></div>
+      <g id="tropfen"></g>
+    </svg>
+      <div class="fry" id="fry" role="button" tabindex="0" aria-label="Pommes in die Sauce tunken"><svg viewBox="-2 -2 21 102" aria-hidden="true">
+        <defs><linearGradient id="fryG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFE08A"/><stop offset=".55" stop-color="#F6C14E"/><stop offset="1" stop-color="#E3A034"/></linearGradient><clipPath id="fryCoat"><path id="fryCoatP" d="M-2 102H19V102H-2Z"/></clipPath></defs>
+        <rect x="0" y="0" width="17" height="98" rx="4" fill="url(#fryG)"/>
+        <rect x="11" y="6" width="3.5" height="80" rx="1.7" fill="#D8892A" opacity=".55"/>
+        <path d="M1.5 6q7-7 14 0" fill="none" stroke="#B8661A" stroke-width="3" stroke-linecap="round"/>
+        <rect x="4" y="22" width="2.2" height="2.2" fill="#FFFDF8" transform="rotate(45 5 23)" opacity=".9"/><rect x="9" y="44" width="2.2" height="2.2" fill="#FFFDF8" transform="rotate(45 10 45)" opacity=".9"/>
+        <g clip-path="url(#fryCoat)"><rect id="fryCoatR" x="0" y="0" width="17" height="98" rx="4" fill="#C8261A"/><path d="M3.5 40V94" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity=".45"/></g>
+        <rect x="0" y="0" width="17" height="98" rx="4" fill="none" stroke="#211A14" stroke-width="3"/>
+      </svg></div>
+    <svg class="dips dips-vorne" viewBox="0 0 250 210" aria-hidden="true">
+      <path d="M24 132h108l-10 52q-2 10-14 10H48q-12 0-14-10z" fill="#FFFDF8"/>
+      <path d="M24 132l10 52q2 10 14 10h60q12 0 14-10l10-52" fill="none" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M34 150h88" stroke="#E9DCC2" stroke-width="3"/>
+      <path id="sauceKv" d="M33 132.4A45 10 0 0 0 123 132.4Z" fill="#C8261A"/>
+      <path d="M24 132A54 14 0 0 0 132 132" fill="none" stroke="#211A14" stroke-width="3"/>
+      <path d="M148 150h84l-8 40q-2 9-12 9h-44q-10 0-12-9z" fill="#FFFDF8"/>
+      <path d="M148 150l8 40q2 9 12 9h44q10 0 12-9l8-40" fill="none" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M156 166h68" stroke="#E9DCC2" stroke-width="3"/>
+      <path id="sauceMv" d="M156 150.4A34 7.5 0 0 0 224 150.4Z" fill="#FBF1C9"/>
+      <path d="M148 150A42 11 0 0 0 232 150" fill="none" stroke="#211A14" stroke-width="3"/>
+    </svg>
+    </div></div>
   </div>
 </section>
 
@@ -825,8 +840,13 @@ h2{font-size:clamp(34px,6vw,60px)}
   <svg class="tal-svg" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
     <defs><linearGradient id="talHimmel" x1="0" y1="0" x2="0" y2="1"><stop class="h1" offset="0"/><stop class="h2" offset="1"/></linearGradient>
     <radialGradient id="talSchein" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFE7A0" stop-opacity=".9"/><stop offset="1" stop-color="#FFE7A0" stop-opacity="0"/></radialGradient></defs>
-    <rect width="1440" height="300" fill="url(#talHimmel)"/>
-    <g class="sterne"><circle cx="120" cy="40" r="2"/><circle cx="260" cy="90" r="1.5"/><circle cx="420" cy="30" r="2"/><circle cx="560" cy="70" r="1.4"/><circle cx="720" cy="26" r="2"/><circle cx="880" cy="80" r="1.6"/><circle cx="1010" cy="34" r="1.8"/><circle cx="1180" cy="60" r="1.5"/><circle cx="1330" cy="28" r="2"/><circle cx="1390" cy="96" r="1.4"/><circle cx="640" cy="120" r="1.3"/><circle cx="330" cy="140" r="1.2"/><path class="glanz" d="M190 70l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/><path class="glanz" d="M800 46l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/><path class="glanz" d="M1260 110l2 7 7 2-7 2-2 7-2-7-7-2 7-2z"/><path class="glanz" d="M500 104l1.6 5.6 5.6 1.6-5.6 1.6-1.6 5.6-1.6-5.6-5.6-1.6 5.6-1.6z"/></g>
+    <linearGradient id="hMorgen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8EC8EE"/><stop offset=".7" stop-color="#F8D9B0"/><stop offset="1" stop-color="#FFC98E"/></linearGradient>
+    <linearGradient id="hTag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4FB0E8"/><stop offset="1" stop-color="#CDEBFA"/></linearGradient>
+    <linearGradient id="hAbend" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5E5A9A"/><stop offset=".45" stop-color="#E07B5A"/><stop offset="1" stop-color="#FFCB80"/></linearGradient>
+    <linearGradient id="hNacht" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E1530"/><stop offset="1" stop-color="#2F3C6A"/></linearGradient>
+    <rect class="himmel h-morgen" width="1440" height="300" fill="url(#hMorgen)"/><rect class="himmel h-tag" width="1440" height="300" fill="url(#hTag)"/><rect class="himmel h-abend" width="1440" height="300" fill="url(#hAbend)"/><rect class="himmel h-nacht" width="1440" height="300" fill="url(#hNacht)"/>
+    <g class="sterne"><circle cx="120" cy="40" r="2"/><circle cx="260" cy="90" r="1.5"/><circle cx="420" cy="30" r="2"/><circle cx="560" cy="70" r="1.4"/><circle cx="720" cy="26" r="2"/><circle cx="880" cy="80" r="1.6"/><circle cx="1010" cy="34" r="1.8"/><circle cx="1180" cy="60" r="1.5"/><circle cx="1330" cy="28" r="2"/><circle cx="1390" cy="96" r="1.4"/><circle cx="640" cy="120" r="1.3"/><circle cx="330" cy="140" r="1.2"/></g>
+    <g class="glint" id="glint"><circle r="9" fill="#FFF6D8" opacity=".35"/><path d="M0-16L2.4-2.4 16 0 2.4 2.4 0 16-2.4 2.4-16 0-2.4-2.4z" fill="#FFF9E6"/></g>
     <g class="sonne"><circle r="70" fill="url(#talSchein)"/><circle r="30" fill="#FFD36B" stroke="#211A14" stroke-width="3"/></g>
     <g class="mond"><circle r="24" fill="#F5EFD9" stroke="#211A14" stroke-width="3"/><circle cx="-7" cy="-5" r="4" fill="#E2D8B8"/><circle cx="8" cy="7" r="3" fill="#E2D8B8"/></g>
     <path class="berg-fern" d="M0 210 L80 150 L150 175 L230 120 L300 165 L380 110 L450 150 L520 105 L600 160 L680 128 L760 170 L840 118 L920 160 L1000 122 L1080 168 L1160 130 L1240 172 L1320 136 L1440 180 V300 H0Z" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
@@ -1164,23 +1184,108 @@ tuete.addEventListener("pointermove",function(e){if(!pm.classList.contains("fert
 tuete.addEventListener("pointerleave",function(){letzter=-1;});
 tuete.addEventListener("pointerdown",function(e){if(e.pointerType==="mouse")return;if(!pm.classList.contains("fertig")||ruhig)return;var k=stabBei(e);if(k>-1)hebe(k);});
 wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classList.remove("hoch");});});
-/* Pommes in Saucen tunken */
-var zug=pm.querySelector(".dipzug"),spitze=pm.querySelector(".ketchupspitze"),wo="ketchup",tunkt=false;
-var ZIEL={ketchup:{x:0,y:0,f:"#C8261A"},mayo:{x:112,y:17,f:"#F3E6B0"}};
-function tunken(ziel){
-  if(!pm.classList.contains("fertig")||tunkt||!zug.animate)return;
-  tunkt=true;var a=ZIEL[wo],b=ZIEL[ziel];
-  var t=function(x,y){return "translate("+x+"px,"+y+"px)";};
-  var kf=[{transform:t(a.x,a.y)},{transform:t(a.x,a.y-46),offset:.2}];
-  if(ziel!==wo)kf.push({transform:t(b.x,b.y-46),offset:.5});
-  kf.push({transform:t(b.x,b.y+20),offset:.72},{transform:t(b.x,b.y+14),offset:.84},{transform:t(b.x,b.y)});
-  var an=zug.animate(kf,{duration:ziel!==wo?1500:1000,easing:"cubic-bezier(.45,0,.3,1)",fill:"forwards"});
-  setTimeout(function(){spitze.setAttribute("fill",b.f);spitze.setAttribute("opacity","1");},(ziel!==wo?1500:1000)*.72);
-  an.onfinish=function(){wo=ziel;tunkt=false;};
-}
-[["topf-1","ketchup"],["topf-2","mayo"]].forEach(function(p){var g=pm.querySelector("."+p[0]);if(!g)return;
-  g.addEventListener("click",function(){tunken(p[1]);});
-  g.addEventListener("mouseenter",function(){if(window.matchMedia("(hover: hover)").matches)tunken(p[1]);});});
+/* Pommes in Saucen ziehen und tunken */
+(function(){
+  var feld=document.getElementById("dipFeld"),fry=document.getElementById("fry");if(!feld||!fry)return;
+  var coatP=document.getElementById("fryCoatP"),coatR=document.getElementById("fryCoatR");
+  var schatten=document.createElement("div");schatten.className="fry-schatten";feld.appendChild(schatten);
+  var POT={ketchup:{cx:78,sy:133,rx:45,ry:9.5,rimY:132,rimRx:54,fill:"#C8261A",welle:"wellenK",sauce:"sauceK",vorne:"sauceKv",lean:-14},
+           mayo:{cx:190,sy:151,rx:34,ry:7,rimY:150,rimRx:42,fill:"#F3E6B0",welle:"wellenM",sauce:"sauceM",vorne:"sauceMv",lean:13}};
+  var home="ketchup",st={x:0,y:0,rot:0,sc:1},coat=14,coatFarbe="#C8261A",k=1,busy=false,drag=null,raf=0;
+  function heimPos(p){var P=POT[p];return {x:P.cx+(p==="ketchup"?6:-4),y:P.sy+12,rot:P.lean,sc:1};}
+  function messen(){k=feld.getBoundingClientRect().width/250;fry.style.width=(21*k+20)+"px";fry.style.height=(102*k+20)+"px";fry.style.transformOrigin=(10+10.5*k)+"px "+(10+100*k)+"px";}
+  function zeichnen(){
+    fry.style.transform="translate3d("+(st.x*k-10.5*k-10).toFixed(2)+"px,"+(st.y*k-100*k-10).toFixed(2)+"px,0) rotate("+st.rot.toFixed(2)+"deg) scale("+st.sc.toFixed(3)+")";
+    var c=Math.max(0,Math.min(40,coat)),y=98-c;
+    coatP.setAttribute("d","M-2 "+(y).toFixed(1)+"q2.8 -1.8 5.6 0t5.6 0t5.6 0t5.6 0V102H-2Z");
+    coatR.setAttribute("fill",coatFarbe);
+    var lift=drag?1:0;schatten.style.opacity=drag?.9:0;
+    schatten.style.transform="translate("+(st.x*k-17).toFixed(1)+"px,"+(st.y*k+12*k).toFixed(1)+"px) scale("+(drag?1.1:.9)+")";
+  }
+  function tween(ziel,dur,ease,fertig,proFrame){
+    var von={x:st.x,y:st.y,rot:st.rot,sc:st.sc},t0=null;cancelAnimationFrame(raf);
+    function f(t){if(!t0)t0=t;var q=Math.min(1,(t-t0)/dur),e=ease(q);
+      ["x","y","rot","sc"].forEach(function(n){if(ziel[n]!==undefined)st[n]=von[n]+(ziel[n]-von[n])*e;});
+      if(proFrame)proFrame(q);zeichnen();
+      if(q<1)raf=requestAnimationFrame(f);else if(fertig)fertig();}
+    raf=requestAnimationFrame(f);
+  }
+  var eOut=function(q){return 1-Math.pow(1-q,3);},eInOut=function(q){return q<.5?4*q*q*q:1-Math.pow(-2*q+2,3)/2;},eLift=function(q){return 1-Math.pow(1-q,2.4);};
+  var eBack=function(q){var c1=1.2,c3=c1+1;return 1+c3*Math.pow(q-1,3)+c1*Math.pow(q-1,2);};
+  function welle(P){
+    if(ruhig)return;var g=document.getElementById(P.welle),ell=[].slice.call(g.children);
+    ell.forEach(function(e,n){var t0=null;function f(t){if(!t0)t0=t;var q=Math.min(1,(t-t0-n*140)/700);if(q<0){requestAnimationFrame(f);return;}
+      var rr=.3+.7*eOut(q);e.setAttribute("rx",(P.rx*rr).toFixed(1));e.setAttribute("ry",(P.ry*rr).toFixed(1));e.setAttribute("opacity",(.6*(1-q)).toFixed(2));if(q<1)requestAnimationFrame(f);}
+      requestAnimationFrame(f);});
+    var sa=document.getElementById(P.sauce),t1=null;function d(t){if(!t1)t1=t;var q=Math.min(1,(t-t1)/600),v=q<.33?q/.33:1-(q-.33)/.67;sa.setAttribute("ry",(P.ry-1.5*v).toFixed(2));if(q<1)requestAnimationFrame(d);}requestAnimationFrame(d);
+  }
+  function tropf(P){
+    if(ruhig)return;var g=document.getElementById("tropfen"),NS="http://www.w3.org/2000/svg",c=document.createElementNS(NS,"path");
+    var x0=st.x,y0=st.y-2;c.setAttribute("fill",P.fill);c.setAttribute("stroke","#211A14");c.setAttribute("stroke-width","1.4");g.appendChild(c);
+    var t0=null;function f(t){if(!t0)t0=t;var q=Math.min(1,(t-t0)/380),y=y0+(P.sy-y0)*q*q;c.setAttribute("d","M"+x0+" "+(y-4)+"q2.4 3.4 2.4 5a2.4 2.4 0 0 1-4.8 0q0-1.6 2.4-5z");
+      if(q<1)requestAnimationFrame(f);else{c.remove();}}
+    requestAnimationFrame(f);
+  }
+  function eintunken(name){
+    var P=POT[name];busy=true;
+    if(coatFarbe!==P.fill&&coat>0){coat=0;}
+    var rotZ=name==="ketchup"?-8:8,maxTief=0;
+    tween({x:P.cx,y:P.sy-6,rot:rotZ,sc:1},180,eOut,function(){
+      var gewellt=false;
+      tween({y:P.sy+24},220,eInOut,function(){
+        setTimeout(function(){
+          tween({y:P.sy-26,rot:rotZ*.5},320,eLift,function(){
+            tropf(P);
+            setTimeout(function(){home=name;var h=heimPos(name);tween(h,460,eBack,function(){busy=false;});},420);
+          });
+        },160);
+      },function(q){var tief=st.y-P.sy;if(tief>0&&!gewellt){gewellt=true;coatFarbe=P.fill;welle(P);}if(tief>maxTief){maxTief=tief;coat=Math.max(coat,Math.min(34,tief+6));}});
+    });
+  }
+  function treffer(){
+    var best=null,bd=1e9;
+    Object.keys(POT).forEach(function(n){var P=POT[n],dx=Math.abs(st.x-P.cx),okY=st.y>P.rimY-60&&st.y<P.rimY+50;
+      if(dx<P.rimRx*1.4&&okY&&dx<bd){bd=dx;best=n;}});
+    return best;
+  }
+  var vx=0,lx=0,lt=0,ziel=0,tilt=0;
+  fry.addEventListener("pointerdown",function(e){
+    if(busy||!pm.classList.contains("fertig"))return;
+    e.preventDefault();messen();fry.setPointerCapture(e.pointerId);
+    var r=feld.getBoundingClientRect();
+    drag={id:e.pointerId,ox:(e.clientX-r.left)/k-st.x,oy:(e.clientY-r.top)/k-st.y,r:r};
+    vx=0;lx=e.clientX;lt=performance.now();tilt=st.rot;
+    fry.classList.add("zieht");document.documentElement.classList.add("fry-zieht");fry.style.willChange="transform";
+    cancelAnimationFrame(raf);
+    var t0=null,sc0=st.sc;function lift(t){if(!t0)t0=t;var q=Math.min(1,(t-t0)/140);st.sc=sc0+(1.06-sc0)*eOut(q);zeichnen();if(q<1&&drag)requestAnimationFrame(lift);}requestAnimationFrame(lift);
+    dip.classList.add("weg");
+  });
+  fry.addEventListener("pointermove",function(e){
+    if(!drag||e.pointerId!==drag.id)return;
+    var now=performance.now(),dt=Math.min(32,Math.max(1,now-lt));vx=vx*.8+((e.clientX-lx)/dt)*.2;lx=e.clientX;lt=now;
+    st.x=(e.clientX-drag.r.left)/k-drag.ox;st.y=(e.clientY-drag.r.top)/k-drag.oy;
+    ziel=ruhig?0:Math.max(-14,Math.min(14,vx*12));tilt+=(ziel-tilt)*(1-Math.exp(-dt/90));st.rot=tilt;
+    zeichnen();
+  });
+  function loslassen(e,abbruch){
+    if(!drag||(e&&e.pointerId!==drag.id))return;
+    try{fry.releasePointerCapture(drag.id);}catch(x){}
+    drag=null;fry.classList.remove("zieht");document.documentElement.classList.remove("fry-zieht");
+    var t=abbruch?null:treffer();
+    if(t)eintunken(t);else tween(heimPos(home),ruhig?150:440,function(q){return 1-Math.pow(1-q,4);},function(){fry.style.willChange="";});
+    zeichnen();
+  }
+  fry.addEventListener("pointerup",function(e){loslassen(e,false);});
+  fry.addEventListener("pointercancel",function(e){loslassen(e,true);});
+  fry.addEventListener("lostpointercapture",function(e){if(drag)loslassen(e,true);});
+  fry.addEventListener("contextmenu",function(e){e.preventDefault();});
+  fry.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&!busy&&!drag){e.preventDefault();eintunken(home==="ketchup"?"mayo":"ketchup");}});
+  var dip=document.querySelector(".dip-tipp");
+  window.addEventListener("resize",function(){messen();zeichnen();});
+  var h=heimPos(home);st.x=h.x;st.y=h.y;st.rot=h.rot;messen();zeichnen();
+  /* einmaliger Hinweis: die Pommes hebt sich kurz */
+  if(!ruhig&&"IntersectionObserver" in window){var io2=new IntersectionObserver(function(es){if(es[0].isIntersecting){io2.disconnect();setTimeout(function(){if(drag||busy)return;var y0=st.y;tween({y:y0-6},300,eOut,function(){tween({y:y0},300,eInOut);});},2600);}},{threshold:.6});io2.observe(feld);}
+})();
 
 /* Telefon-Leiste: nur wenn der Anruf-Knopf oben und unten nicht sichtbar ist */
 var leiste=document.getElementById("leiste"),sicht={held:true,besuch:false};
@@ -1338,7 +1443,33 @@ korbZeigen();
 (function(){
   var tal=document.getElementById("tal");if(!tal)return;
   var txt=document.getElementById("talText"),btns=[].slice.call(tal.querySelectorAll(".tal-btn"));
-  function himmel(h){return h<10?"morgen":h<16.5?"tag":h<20.5?"abend":"nacht";}
+  function himmel(h){return (h<5.5||h>=21)?"nacht":h<10?"morgen":h<17?"tag":"abend";}
+  /* Sonne und Mond auf einem Bogen, weich animiert */
+  var sonne=tal.querySelector(".sonne"),mond=tal.querySelector(".mond"),glint=document.getElementById("glint");
+  var POS={morgen:[.2,-.2],tag:[.6,-.2],abend:[.84,-.2],nacht:[1.12,.7]},akt=null,raf2=null;
+  function bogen(t,hoch){return [160+1120*t, 235-(hoch||190)*Math.sin(Math.PI*Math.max(0,Math.min(1,t)))+(t>1||t<0?80:0)];}
+  function setze(el,t,hoch){var p=bogen(t,hoch);el.setAttribute("transform","translate("+p[0].toFixed(1)+" "+p[1].toFixed(1)+")");el.style.opacity=(t<-.05||t>1.05)?0:1;}
+  function bewege(z){
+    var ziel=POS[z];if(!ziel)return;
+    if(!akt||ruhig){akt=ziel.slice();setze(sonne,akt[0]);setze(mond,akt[1],180);return;}
+    var von=akt.slice(),t0=null,dur=1800;cancelAnimationFrame(raf2);
+    function f(ts){if(!t0)t0=ts;var q=Math.min(1,(ts-t0)/dur),e=q<.5?4*q*q*q:1-Math.pow(-2*q+2,3)/2;
+      akt=[von[0]+(ziel[0]-von[0])*e,von[1]+(ziel[1]-von[1])*e];setze(sonne,akt[0]);setze(mond,akt[1],180);if(q<1)raf2=requestAnimationFrame(f);}
+    raf2=requestAnimationFrame(f);
+  }
+  /* Sterne: selten, einer nach dem anderen */
+  var sterne=[].slice.call(tal.querySelectorAll(".sterne circle")),letzterStern=-1,sternTimer=null;
+  function funkel(){
+    if(tal.dataset.zeit==="nacht"&&!ruhig&&!document.hidden){
+      var k;do{k=Math.floor(Math.random()*sterne.length);}while(k===letzterStern&&sterne.length>1);letzterStern=k;
+      var st=sterne[k];st.classList.remove("blitz");void st.getBoundingClientRect();st.classList.add("blitz");
+      glint.setAttribute("transform","translate("+st.getAttribute("cx")+" "+st.getAttribute("cy")+")");
+      glint.classList.remove("an");void glint.getBoundingClientRect();glint.classList.add("an");
+    }
+    sternTimer=setTimeout(funkel,2600+Math.random()*3400);
+  }
+  sternTimer=setTimeout(funkel,1500);
+  var obs=new MutationObserver(function(){bewege(tal.dataset.zeit);});obs.observe(tal,{attributes:true,attributeFilter:["data-zeit"]});
   function jetzt(){
     var j=jetztZH(),h=j.m/60,auf=false;
     ZEIT[j.t].forEach(function(z){if(j.m>=min(z[0])&&j.m<min(z[1]))auf=true;});
@@ -1360,7 +1491,7 @@ korbZeigen();
     b.addEventListener("focus",function(){zeigeModus(b.dataset.z);});
     b.addEventListener("blur",function(){zeigeModus(modus);});
   });
-  jetzt();setInterval(function(){if(modus==="jetzt")jetzt();},60000);
+  jetzt();bewege(tal.dataset.zeit);setInterval(function(){if(modus==="jetzt")jetzt();},60000);
 })();
 
 /* ==== IDEE 2: Weg-Karte ==== */
