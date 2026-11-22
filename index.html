@@ -6,8 +6,8 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="google" content="notranslate">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#8CC63F" id="themeFarbe">
-<script>try{var _f=(/farbe=(senf|gruen)/.exec(location.search)||[])[1]||localStorage.getItem("bhFarbe");if(_f==="senf")document.documentElement.setAttribute("data-farbe","senf");}catch(e){}</script>
+<meta name="theme-color" content="#F4B731" id="themeFarbe">
+<script>(function(){var _f="senf";try{_f=(/farbe=(senf|gruen)/.exec(location.search)||[])[1]||localStorage.getItem("bhFarbe2")||"senf";}catch(e){}if(_f==="senf")document.documentElement.setAttribute("data-farbe","senf");})();</script>
 <title>Burger House – Wattwil</title>
 <meta name="description" content="Burger House, Poststrasse 15, 9630 Wattwil. Burger, Rösti-Burger und knusprige Pommes. Öffnungszeiten, Telefon 071 990 04 28, Route.">
 <meta property="og:title" content="Burger House – Wattwil">
@@ -684,7 +684,7 @@ h2.mit-umlaut{padding-top:.36em}
         </a>
       </div>
       <div class="farbwahl" role="group" aria-label="Farbe des Entwurfs">
-        <div class="fw-punkte"><button type="button" class="fw-punkt an" data-farbe="gruen" aria-pressed="true" aria-label="Grün"></button><button type="button" class="fw-punkt" data-farbe="senf" aria-pressed="false" aria-label="Senfgelb"></button></div>
+        <div class="fw-punkte"><button type="button" class="fw-punkt an" data-farbe="senf" aria-pressed="true" aria-label="Senfgelb"></button><button type="button" class="fw-punkt" data-farbe="gruen" aria-pressed="false" aria-label="Grün"></button></div>
         <p class="fw-text">Für Sie in zwei Farben vorbereitet. Gefällt Ihnen der Entwurf, wählen wir gemeinsam die passende Farbe aus.</p>
       </div>
     </div>
@@ -1488,9 +1488,9 @@ korbZeigen();
     if(f==="senf")root.setAttribute("data-farbe","senf");else root.removeAttribute("data-farbe");
     pk.forEach(function(b){var an=b.dataset.farbe===f;b.classList.toggle("an",an);b.setAttribute("aria-pressed",an?"true":"false");});
     if(meta)meta.setAttribute("content",f==="senf"?"#F4B731":"#8CC63F");
-    try{localStorage.setItem("bhFarbe",f);}catch(e){}
+    try{localStorage.setItem("bhFarbe2",f);}catch(e){}
   }
-  var f0="gruen";try{f0=localStorage.getItem("bhFarbe")||"gruen";}catch(e){}
+  var f0="senf";try{f0=localStorage.getItem("bhFarbe2")||"senf";}catch(e){}
   var q=/farbe=(senf|gruen)/.exec(location.search);if(q)f0=q[1];
   setze(f0,false);
   pk.forEach(function(b){b.addEventListener("click",function(){setze(b.dataset.farbe,true);});});
