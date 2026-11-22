@@ -199,9 +199,11 @@ h2{font-size:clamp(34px,6vw,60px)}
 .dips{width:250px;overflow:visible;display:block}
 .dip-feld{position:relative;width:250px}
 .dips-vorne{position:absolute;left:0;top:0;width:100%;height:auto;pointer-events:none;z-index:2}
-.fry{position:absolute;left:0;top:0;z-index:1;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:grab;padding:10px;margin:-10px}
+.fry{position:absolute;left:0;top:0;z-index:1;touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:grab;padding:10px;margin:-10px}
 .fry svg{display:block;width:100%;height:100%;overflow:visible}
 .fry.zieht{cursor:grabbing}
+.pommes.fertig .fry{touch-action:none}
+html{overflow-x:clip}
 html.fry-zieht,html.fry-zieht *{cursor:grabbing!important}
 .fry-schatten{position:absolute;left:0;top:0;width:34px;height:10px;border-radius:50%;background:rgba(33,26,20,.18);pointer-events:none;opacity:0;z-index:0}
 .dips-box{position:relative}
@@ -444,7 +446,7 @@ html.fry-zieht,html.fry-zieht *{cursor:grabbing!important}
 .tal[data-zeit="nacht"] .sterne{opacity:1}
 .tal .sterne circle{opacity:.55;transform-box:fill-box;transform-origin:50% 50%}
 .tal .sterne circle.blitz{animation:sternBlitz 2.2s ease-in-out both}
-@keyframes sternBlitz{0%,100%{opacity:.55;transform:scale(1)}45%{opacity:1;transform:scale(1.7)}}
+@keyframes sternBlitz{0%,100%{opacity:.55;transform:scale(1)}45%{opacity:1;transform:scale(2.2)}}
 .tal .glint{opacity:0;pointer-events:none}
 .tal .glint.an{animation:glint 2.2s ease-in-out both}
 @keyframes glint{0%,100%{opacity:0}45%{opacity:1}}
@@ -850,7 +852,7 @@ html.fry-zieht,html.fry-zieht *{cursor:grabbing!important}
     <linearGradient id="hNacht" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0E1530"/><stop offset="1" stop-color="#2F3C6A"/></linearGradient>
     <rect class="himmel h-morgen" width="1440" height="300" fill="url(#hMorgen)"/><rect class="himmel h-tag" width="1440" height="300" fill="url(#hTag)"/><rect class="himmel h-abend" width="1440" height="300" fill="url(#hAbend)"/><rect class="himmel h-nacht" width="1440" height="300" fill="url(#hNacht)"/>
     <g class="sterne"><circle cx="120" cy="40" r="2"/><circle cx="260" cy="90" r="1.5"/><circle cx="420" cy="30" r="2"/><circle cx="560" cy="70" r="1.4"/><circle cx="720" cy="26" r="2"/><circle cx="880" cy="80" r="1.6"/><circle cx="1010" cy="34" r="1.8"/><circle cx="1180" cy="60" r="1.5"/><circle cx="1330" cy="28" r="2"/><circle cx="1390" cy="96" r="1.4"/><circle cx="640" cy="120" r="1.3"/><circle cx="330" cy="140" r="1.2"/></g>
-    <g class="glint" id="glint"><circle r="9" fill="#FFF6D8" opacity=".35"/><path d="M0-16L2.4-2.4 16 0 2.4 2.4 0 16-2.4 2.4-16 0-2.4-2.4z" fill="#FFF9E6"/></g>
+    <defs><radialGradient id="glintSchein"><stop offset="0" stop-color="#FFF6D8" stop-opacity=".75"/><stop offset="1" stop-color="#FFF6D8" stop-opacity="0"/></radialGradient></defs><g class="glint" id="glint"><circle r="14" fill="url(#glintSchein)"/><path d="M0-18L2.4-2.4 18 0 2.4 2.4 0 18-2.4 2.4-18 0-2.4-2.4z" fill="#FFF9E6"/><circle r="2.6" fill="#FFFFFF"/></g>
     <g class="sonne"><circle r="70" fill="url(#talSchein)"/><circle r="30" fill="#FFD36B" stroke="#211A14" stroke-width="3"/></g>
     <g class="mond"><circle r="24" fill="#F5EFD9" stroke="#211A14" stroke-width="3"/><circle cx="-7" cy="-5" r="4" fill="#E2D8B8"/><circle cx="8" cy="7" r="3" fill="#E2D8B8"/></g>
     <path class="berg-fern" d="M0 210 L80 150 L150 175 L230 120 L300 165 L380 110 L450 150 L520 105 L600 160 L680 128 L760 170 L840 118 L920 160 L1000 122 L1080 168 L1160 130 L1240 172 L1320 136 L1440 180 V300 H0Z" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
@@ -1230,11 +1232,12 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
       if(q<1)requestAnimationFrame(f);else{c.remove();}}
     requestAnimationFrame(f);
   }
-  function eintunken(name){
+  function eintunken(name,vonTopf){
     var P=POT[name];busy=true;
-    if(coatFarbe!==P.fill&&coat>0){coat=0;}
-    var rotZ=name==="ketchup"?-8:8,maxTief=0;
-    tween({x:P.cx,y:P.sy-6,rot:rotZ,sc:1},180,eOut,function(){
+    var rotZ=name==="ketchup"?-8:8,maxTief=0,neu=coatFarbe!==P.fill;
+    if(vonTopf){var oben=Math.min(st.y,Math.min(POT.ketchup.rimY,POT.mayo.rimY)-44);tween({y:oben,rot:0,sc:1},260,eOut,function(){eintunken(name,false);});return;}
+    var dist=Math.hypot(P.cx-st.x,(P.sy-6)-st.y),dauer=Math.min(420,120+dist*1.5);
+    tween({x:P.cx,y:P.sy-6,rot:rotZ,sc:1},dauer,eOut,function(){
       var gewellt=false;
       tween({y:P.sy+24},220,eInOut,function(){
         setTimeout(function(){
@@ -1243,7 +1246,7 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
             setTimeout(function(){home=name;var h=heimPos(name);tween(h,460,eBack,function(){busy=false;});},420);
           });
         },160);
-      },function(q){var tief=st.y-P.sy;if(tief>0&&!gewellt){gewellt=true;coatFarbe=P.fill;welle(P);}if(tief>maxTief){maxTief=tief;coat=Math.max(coat,Math.min(34,tief+6));}});
+      },function(q){var tief=st.y-P.sy;if(tief>0&&!gewellt){gewellt=true;if(neu){coat=0;maxTief=0;}coatFarbe=P.fill;welle(P);}if(tief>maxTief){maxTief=tief;coat=Math.max(coat,Math.min(34,tief+6));}});
     });
   }
   function treffer(){
@@ -1252,13 +1255,18 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
       if(dx<P.rimRx*1.4&&okY&&dx<bd){bd=dx;best=n;}});
     return best;
   }
-  var vx=0,lx=0,lt=0,ziel=0,tilt=0;
+  var vx=0,lx=0,lt=0,ziel=0,tilt=0,px=0,py=0;
   fry.addEventListener("pointerdown",function(e){
-    if(busy||!pm.classList.contains("fertig"))return;
+    if(busy||drag||e.button!==0||!e.isPrimary||!pm.classList.contains("fertig"))return;
     e.preventDefault();messen();fry.setPointerCapture(e.pointerId);
     var r=feld.getBoundingClientRect();
     drag={id:e.pointerId,ox:(e.clientX-r.left)/k-st.x,oy:(e.clientY-r.top)/k-st.y,r:r};
-    vx=0;lx=e.clientX;lt=performance.now();tilt=st.rot;
+    vx=0;lx=e.clientX;lt=performance.now();tilt=st.rot;px=e.clientX;py=e.clientY;
+    var lastT=performance.now();(function loop(t){if(!drag)return;var dt=Math.min(32,Math.max(1,t-lastT));lastT=t;
+      var r2=feld.getBoundingClientRect();
+      st.x=Math.max(-30,Math.min(280,(px-r2.left)/k-drag.ox));st.y=Math.max(10,Math.min(240,(py-r2.top)/k-drag.oy));
+      vx*=Math.exp(-dt/120);ziel=ruhig?0:Math.max(-14,Math.min(14,vx*12));tilt+=(ziel-tilt)*(1-Math.exp(-dt/90));st.rot=tilt;zeichnen();
+      requestAnimationFrame(loop);})(performance.now());
     fry.classList.add("zieht");document.documentElement.classList.add("fry-zieht");fry.style.willChange="transform";
     cancelAnimationFrame(raf);
     var t0=null,sc0=st.sc;function lift(t){if(!t0)t0=t;var q=Math.min(1,(t-t0)/140);st.sc=sc0+(1.06-sc0)*eOut(q);zeichnen();if(q<1&&drag)requestAnimationFrame(lift);}requestAnimationFrame(lift);
@@ -1266,14 +1274,12 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
   });
   fry.addEventListener("pointermove",function(e){
     if(!drag||e.pointerId!==drag.id)return;
-    var now=performance.now(),dt=Math.min(32,Math.max(1,now-lt));vx=vx*.8+((e.clientX-lx)/dt)*.2;lx=e.clientX;lt=now;
-    st.x=(e.clientX-drag.r.left)/k-drag.ox;st.y=(e.clientY-drag.r.top)/k-drag.oy;
-    ziel=ruhig?0:Math.max(-14,Math.min(14,vx*12));tilt+=(ziel-tilt)*(1-Math.exp(-dt/90));st.rot=tilt;
-    zeichnen();
+    var now=performance.now(),dt=Math.min(32,Math.max(1,now-lt));vx=vx*.8+((e.clientX-lx)/dt)*.2;lx=e.clientX;lt=now;px=e.clientX;py=e.clientY;
   });
   function loslassen(e,abbruch){
     if(!drag||(e&&e.pointerId!==drag.id))return;
     try{fry.releasePointerCapture(drag.id);}catch(x){}
+    if(abbruch===undefined)abbruch=false;
     drag=null;fry.classList.remove("zieht");document.documentElement.classList.remove("fry-zieht");
     var t=abbruch?null:treffer();
     if(t)eintunken(t);else tween(heimPos(home),ruhig?150:440,function(q){return 1-Math.pow(1-q,4);},function(){fry.style.willChange="";});
@@ -1283,9 +1289,9 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
   fry.addEventListener("pointercancel",function(e){loslassen(e,true);});
   fry.addEventListener("lostpointercapture",function(e){if(drag)loslassen(e,true);});
   fry.addEventListener("contextmenu",function(e){e.preventDefault();});
-  fry.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&!busy&&!drag){e.preventDefault();eintunken(home==="ketchup"?"mayo":"ketchup");}});
+  fry.addEventListener("keydown",function(e){if((e.key==="Enter"||e.key===" ")&&!busy&&!drag){e.preventDefault();eintunken(home==="ketchup"?"mayo":"ketchup",true);}});
   var dip=document.querySelector(".dip-tipp");
-  window.addEventListener("resize",function(){messen();zeichnen();});
+  window.addEventListener("resize",function(){if(drag)loslassen(null,true);messen();zeichnen();});
   var h=heimPos(home);st.x=h.x;st.y=h.y;st.rot=h.rot;messen();zeichnen();
   /* einmaliger Hinweis: die Pommes hebt sich kurz */
   if(!ruhig&&"IntersectionObserver" in window){var io2=new IntersectionObserver(function(es){if(es[0].isIntersecting){io2.disconnect();setTimeout(function(){if(drag||busy)return;var y0=st.y;tween({y:y0-6},300,eOut,function(){tween({y:y0},300,eInOut);});},2600);}},{threshold:.6});io2.observe(feld);}
@@ -1450,15 +1456,24 @@ korbZeigen();
   function himmel(h){return (h<5.5||h>=21)?"nacht":h<10?"morgen":h<17?"tag":"abend";}
   /* Sonne und Mond auf einem Bogen, weich animiert */
   var sonne=tal.querySelector(".sonne"),mond=tal.querySelector(".mond"),glint=document.getElementById("glint");
-  var POS={morgen:[.2,-.2],tag:[.6,-.2],abend:[.84,-.2],nacht:[1.12,.7]},akt=null,raf2=null;
-  function bogen(t,hoch){return [160+1120*t, 235-(hoch||190)*Math.sin(Math.PI*Math.max(0,Math.min(1,t)))+(t>1||t<0?80:0)];}
-  function setze(el,t,hoch){var p=bogen(t,hoch);el.setAttribute("transform","translate("+p[0].toFixed(1)+" "+p[1].toFixed(1)+")");el.style.opacity=(t<-.05||t>1.05)?0:1;}
+  var TS={morgen:.2,tag:.6,abend:.84,nacht:1.16},TM={nacht:.7},aktS=null,aktM=null,raf2=null,laeuft=false;
+  sonne.style.transition="none";mond.style.transition="none";
+  function bogen(t,hoch){var c=Math.max(0,Math.min(1,t)),aus=t>1?Math.min(1,(t-1)/.12):t<0?Math.min(1,-t/.12):0;
+    return [160+1120*t, 235-(hoch||190)*Math.sin(Math.PI*c)+80*aus];}
+  function setze(el,t,hoch){var p=bogen(t,hoch);el.setAttribute("transform","translate("+p[0].toFixed(1)+" "+p[1].toFixed(1)+")");
+    var o=t>1?1-Math.min(1,(t-1)/.12):t<0?1-Math.min(1,-t/.12):1;el.style.opacity=o.toFixed(3);}
+  /* Weg eines Himmelskörpers: immer vorwärts; muss er zurück, geht er unter und kommt links wieder hoch */
+  function plan(von,ziel){if(ziel>=von-.001)return [[von,ziel]];return [[von,1.16],[-.16,ziel]];}
   function bewege(z){
-    var ziel=POS[z];if(!ziel)return;
-    if(!akt||ruhig){akt=ziel.slice();setze(sonne,akt[0]);setze(mond,akt[1],180);return;}
-    var von=akt.slice(),t0=null,dur=1800;cancelAnimationFrame(raf2);
-    function f(ts){if(!t0)t0=ts;var q=Math.min(1,(ts-t0)/dur),e=q<.5?4*q*q*q:1-Math.pow(-2*q+2,3)/2;
-      akt=[von[0]+(ziel[0]-von[0])*e,von[1]+(ziel[1]-von[1])*e];setze(sonne,akt[0]);setze(mond,akt[1],180);if(q<1)raf2=requestAnimationFrame(f);}
+    var zs=TS[z],zm=TM[z]!==undefined?TM[z]:(aktM!==null&&aktM>-.1&&aktM<1.1?1.16:-.16);
+    if(aktS===null||ruhig){aktS=zs;aktM=TM[z]!==undefined?TM[z]:-.16;setze(sonne,aktS);setze(mond,aktM,180);return;}
+    var ps=plan(aktS,zs),pm=plan(aktM,zm),t0=null,mitten=laeuft;cancelAnimationFrame(raf2);laeuft=true;
+    var dur=1800;
+    function wert(pl,q){var n=pl.length,seg=Math.min(n-1,Math.floor(q*n)),lq=n===1?q:(q*n-seg);var a=pl[seg][0],b=pl[seg][1];return a+(b-a)*lq;}
+    function f(ts){if(!t0)t0=ts;var q=Math.min(1,(ts-t0)/dur);
+      var e=mitten?1-Math.pow(1-q,3):(q<.5?4*q*q*q:1-Math.pow(-2*q+2,3)/2);
+      aktS=wert(ps,e);aktM=wert(pm,e);setze(sonne,aktS);setze(mond,aktM,180);
+      if(q<1)raf2=requestAnimationFrame(f);else{laeuft=false;if(aktM>1.1)aktM=-.16;}}
     raf2=requestAnimationFrame(f);
   }
   /* Sterne: selten, einer nach dem anderen */
@@ -1474,7 +1489,7 @@ korbZeigen();
   }
   sternTimer=setTimeout(funkel,1500);
   sterne.forEach(function(c){c.addEventListener("animationend",function(){c.classList.remove("blitz");});});glint.addEventListener("animationend",function(e){if(e.target===glint)glint.classList.remove("an");});
-  var obs=new MutationObserver(function(){bewege(tal.dataset.zeit);});obs.observe(tal,{attributes:true,attributeFilter:["data-zeit"]});
+  var obs=new MutationObserver(function(){bewege(tal.dataset.zeit);if(tal.dataset.zeit!=="nacht"){glint.classList.remove("an");sterne.forEach(function(c){c.classList.remove("blitz");});}});obs.observe(tal,{attributes:true,attributeFilter:["data-zeit"]});
   function jetzt(){
     var j=jetztZH(),h=j.m/60,auf=false;
     ZEIT[j.t].forEach(function(z){if(j.m>=min(z[0])&&j.m<min(z[1]))auf=true;});
@@ -1485,18 +1500,18 @@ korbZeigen();
   var VOR={morgen:["morgen",false,"Morgens: noch zu. Mittags ab 11:00 offen, sonntags ab 17:00."],tag:["tag",true,"Mittags: offen von 11:00 bis 13:30 (Montag bis Samstag)."],abend:["abend",true,"Abends: offen ab 17:00, montags abends zu."],nacht:["nacht",false,"Nachts: geschlossen."]};
   var modus="jetzt";
   function zeigeModus(m){if(m==="jetzt")jetzt();else{var v=VOR[m];tal.dataset.zeit=v[0];tal.classList.toggle("offen",v[1]);txt.textContent=v[2];}}
-  var mausTal=window.matchMedia&&window.matchMedia("(hover: hover)");
+  var mausTal=window.matchMedia&&window.matchMedia("(hover: hover)"),vorTimer=null,vorschau=false;
   btns.forEach(function(b){
     b.addEventListener("click",function(){
       modus=b.dataset.z;btns.forEach(function(x){x.classList.toggle("an",x===b);x.setAttribute("aria-pressed",x===b?"true":"false");});
       zeigeModus(modus);
     });
-    b.addEventListener("mouseenter",function(){if(mausTal&&mausTal.matches)zeigeModus(b.dataset.z);});
-    b.addEventListener("mouseleave",function(){if(mausTal&&mausTal.matches)zeigeModus(modus);});
+    b.addEventListener("mouseenter",function(){if(!(mausTal&&mausTal.matches))return;clearTimeout(vorTimer);vorTimer=setTimeout(function(){vorschau=true;zeigeModus(b.dataset.z);},120);});
+    b.addEventListener("mouseleave",function(){if(!(mausTal&&mausTal.matches))return;clearTimeout(vorTimer);vorTimer=setTimeout(function(){vorschau=false;zeigeModus(modus);},120);});
     b.addEventListener("focus",function(){zeigeModus(b.dataset.z);});
     b.addEventListener("blur",function(){zeigeModus(modus);});
   });
-  jetzt();bewege(tal.dataset.zeit);setInterval(function(){if(modus==="jetzt")jetzt();},60000);
+  jetzt();bewege(tal.dataset.zeit);setInterval(function(){if(modus==="jetzt"&&!vorschau)jetzt();},60000);
 })();
 
 /* ==== IDEE 2: Weg-Karte ==== */
