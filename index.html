@@ -813,7 +813,7 @@ h2.mit-umlaut{padding-top:.36em}
           <path d="M4 18v64M8.5 30v40" stroke="#FFE7A6" stroke-width="1.8" stroke-linecap="round" opacity=".75"/>
           <circle cx="6" cy="44" r="1.3" fill="#B9712A" opacity=".55"/><circle cx="11" cy="71" r="1.1" fill="#B9712A" opacity=".5"/><circle cx="5" cy="88" r="1" fill="#B9712A" opacity=".45"/><circle cx="10" cy="22" r=".9" fill="#B9712A" opacity=".5"/>
           <g clip-path="url(#fryCoatA)"><rect id="fryCoatRA" x="-2" y="0" width="30" height="110" fill="#C8261A"/></g>
-          <g clip-path="url(#fryCoatB)"><rect id="fryCoatRB" x="-2" y="0" width="30" height="110" fill="#C8261A"/><path d="M4.5 60V102" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity=".4"/></g>
+          <g clip-path="url(#fryCoatB)"><rect id="fryCoatRB" x="-2" y="0" width="30" height="110" fill="#C8261A"/></g>
         </g>
         <path d="M1.2 2.5Q11 .2 20.6 2.2L21.6 105.4Q11 107.6.6 105.6Z" fill="none" stroke="#211A14" stroke-width="2.8" stroke-linejoin="round"/>
       </svg></div>
@@ -1365,7 +1365,7 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
   var REIHE=["mayo","ketchup","bbq"],FOLGE={ketchup:"mayo",mayo:"bbq",bbq:"ketchup"};
   var home="ketchup",st={x:0,y:0,rot:0,sc:1},k=1,busy=false,drag=null,raf=0,drin=null,ziel3=null;
   var alt={f:"#C8261A",l:0},neu={f:"#C8261A",l:14};
-  function heimPos(p){var P=POT[p];return {x:P.cx+(p==="ketchup"?6:p==="mayo"?-4:-2),y:P.sy+12,rot:P.lean,sc:1};}
+  function heimPos(p){var P=POT[p];return {x:P.cx+(p==="ketchup"?6:p==="mayo"?-4:-2),y:P.sy+Math.min(12,P.tief-1),rot:P.lean,sc:1};}
   function messen(){k=feld.getBoundingClientRect().width/250;fry.style.width=(FW*k+20)+"px";fry.style.height=(FH*k+20)+"px";fry.style.transformOrigin=(10+TX*k)+"px "+(10+TY*k)+"px";}
   function welleD(l){var y=108-Math.max(0,Math.min(44,l));return "M-2 "+y.toFixed(1)+"q3 -1.8 6 0t6 0t6 0t6 0t6 0V112H-2Z";}
   function zeichnen(){
@@ -1373,7 +1373,7 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
     cPA.setAttribute("d",welleD(alt.l));cRA.setAttribute("fill",alt.f);cPB.setAttribute("d",welleD(neu.l));cRB.setAttribute("fill",neu.f);
     schatten.style.opacity=drag?.9:0;
     schatten.style.transform="translate("+(st.x*k-17).toFixed(1)+"px,"+(st.y*k+12*k).toFixed(1)+"px) scale("+(drag?1.1:.9)+")";
-    var vorn=drag?drin:(busy?ziel3:home);feld.classList.toggle("in3",vorn==="bbq");
+    var B=POT.bbq,in3=drag?drin==="bbq":(Math.abs(st.x-B.cx)<=B.rimRx+4&&st.y>B.rimY-6&&st.y<B.rimY+46);feld.classList.toggle("in3",in3);
   }
   /* Spitze taucht ein: neue Farbe legt sich über die alte */
   function benetzen(P,tief){
@@ -1404,6 +1404,16 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
       if(q<1)requestAnimationFrame(f);else{c.remove();}}
     requestAnimationFrame(f);
   }
+  /* Weg ohne Abkürzung durch andere Schälchen: erst hoch, dann hinüber, dann hinunter */
+  var OBEN=54;
+  function reise(z,fertig,schnell){
+    var f=schnell?.7:1;
+    function runter(){tween(z,Math.round(240*f),eOut,fertig);}
+    function rueber(){var dx=Math.abs(z.x-st.x);tween({x:z.x,rot:z.rot*.5},Math.round(Math.min(380,140+dx*1.4)*f),eInOut,runter);}
+    var weit=Math.abs(z.x-st.x)>10;
+    if(!weit){tween(z,Math.round(320*f),eOut,fertig);return;}
+    if(st.y>OBEN)tween({y:OBEN,rot:0,sc:1},Math.round(220*f),eOut,rueber);else rueber();
+  }
   /* aus der Sauce heben, abtropfen, im Töpfchen abstellen */
   function abschliessen(name){
     var P=POT[name];busy=true;ziel3=name;
@@ -1414,9 +1424,8 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
   }
   function eintunken(name,vonTopf){
     var P=POT[name];busy=true;ziel3=name;
-    if(vonTopf){var oben=Math.min(st.y,POT.bbq.rimY-40);tween({y:oben,rot:0,sc:1},260,eOut,function(){eintunken(name,false);});return;}
-    var rotZ=P.lean*.6,dist=Math.hypot(P.cx-st.x,(P.sy-6)-st.y),dauer=Math.min(420,120+dist*1.5);
-    tween({x:P.cx,y:P.sy-6,rot:rotZ,sc:1},dauer,eOut,function(){
+    var rotZ=P.lean*.6;
+    reise({x:P.cx,y:P.sy-6,rot:rotZ,sc:1},function(){
       var gewellt=false;
       tween({y:P.sy+P.tief},240,eInOut,function(){setTimeout(function(){abschliessen(name);},160);},
         function(){var tief=st.y-P.sy;if(tief>0&&!gewellt){gewellt=true;welle(P);}benetzen(P,tief);});
@@ -1433,11 +1442,12 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
     var P;
     if(drin){P=POT[drin];
       if(ty<P.sy-4){drin=null;}
-      else{var w=P.rx*.82;return {x:Math.max(P.cx-w,Math.min(P.cx+w,tx)),y:Math.min(ty,P.sy+P.tief)};}
+      else{var w=Math.max(4,P.rx*.82-9);return {x:Math.max(P.cx-w,Math.min(P.cx+w,tx)),y:Math.min(ty,P.sy+P.tief)};}
     }
     for(var i=0;i<REIHE.length;i++){var n=REIHE[i];P=POT[n];var dx=Math.abs(tx-P.cx);
-      if(dx<=P.rx*.82&&ty>=P.sy-1&&(P.vorn||ty<=P.sy+P.tief+22)){drin=n;welle(P);return {x:tx,y:Math.min(ty,P.sy+P.tief)};}
-      if(P.vorn&&dx<=P.rimRx+3&&ty>P.rimY-5)return {x:tx,y:P.rimY-5};
+      var w2=Math.max(4,P.rx*.82-9);
+      if(dx<=P.rx*.82&&ty>=P.sy-1&&(P.vorn||ty<=P.sy+P.tief+22||st.y<P.sy)){drin=n;welle(P);return {x:Math.max(P.cx-w2,Math.min(P.cx+w2,tx)),y:Math.min(ty,P.sy+P.tief)};}
+      if(dx<=P.rimRx+3&&ty>P.rimY-5&&(P.vorn||(st.y<=P.rimY-3&&ty<P.rimY+40)))return {x:tx,y:P.rimY-5};
     }
     return {x:tx,y:ty};
   }
@@ -1446,14 +1456,15 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
     if(busy||drag||e.button!==0||!e.isPrimary||!pm.classList.contains("fertig"))return;
     e.preventDefault();messen();fry.setPointerCapture(e.pointerId);
     var r=feld.getBoundingClientRect();
-    drag={id:e.pointerId,ox:(e.clientX-r.left)/k-st.x,oy:(e.clientY-r.top)/k-st.y,r:r};
+    drag={id:e.pointerId,ox:(e.clientX-r.left)/k-st.x,oy:(e.clientY-r.top)/k-st.y,r:r};drag.ox0=drag.ox;drag.oy0=drag.oy;
     drin=home;
     vx=0;lx=e.clientX;lt=performance.now();tilt=st.rot;px=e.clientX;py=e.clientY;
     var lastT=performance.now();(function loop(t){if(!drag)return;var dt=Math.min(32,Math.max(1,t-lastT));lastT=t;
       var r2=feld.getBoundingClientRect();
       var tx=Math.max(-30,Math.min(280,(px-r2.left)/k-drag.ox)),ty=Math.max(10,Math.min(240,(py-r2.top)/k-drag.oy));
       var c=zwang(tx,ty),a=ruhig?1:1-Math.exp(-dt/26);
-      if(c.x!==tx||c.y!==ty){drag.ox=Math.max(-30,Math.min(30,drag.ox+(tx-c.x)));drag.oy=Math.max(-108,Math.min(10,drag.oy+(ty-c.y)));}st.x+=(c.x-st.x)*a;st.y+=(c.y-st.y)*a;
+      if(c.x!==tx||c.y!==ty){drag.ox=Math.max(-30,Math.min(30,drag.ox+(tx-c.x)));drag.oy=Math.max(-108,Math.min(10,drag.oy+(ty-c.y)));}
+      else{var rb=1-Math.exp(-dt/240);drag.ox+=(drag.ox0-drag.ox)*rb;drag.oy+=(drag.oy0-drag.oy)*rb;}st.x+=(c.x-st.x)*a;st.y+=(c.y-st.y)*a;
       vx*=Math.exp(-dt/120);
       zielR=ruhig?0:(drin?POT[drin].lean*.5:Math.max(-14,Math.min(14,vx*12)));tilt+=(zielR-tilt)*(1-Math.exp(-dt/90));st.rot=tilt;
       if(drin)benetzen(POT[drin],st.y-POT[drin].sy);
@@ -1476,7 +1487,7 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
     var schon=drin;drin=null;
     if(!abbruch&&schon&&st.y>POT[schon].sy-2){abschliessen(schon);}
     else{var t=abbruch?null:treffer();
-      if(t)eintunken(t);else tween(heimPos(home),ruhig?150:440,function(q){return 1-Math.pow(1-q,4);},function(){fry.style.willChange="";});}
+      if(t)eintunken(t);else{busy=true;reise(heimPos(home),function(){busy=false;fry.style.willChange="";},true);}}
     zeichnen();
   }
   fry.addEventListener("pointerup",function(e){loslassen(e,false);});
