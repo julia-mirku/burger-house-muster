@@ -326,44 +326,60 @@ h2.mit-umlaut{padding-top:.36em}
 .korb-kopf h2{font-size:28px}
 .korb-zu{width:44px;height:44px;border-radius:50%;border:2px solid var(--grill);background:var(--weiss);font:800 26px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,box-shadow .2s ease}
 @media (hover:hover){.korb-zu:hover{background:var(--senf-blass);box-shadow:0 0 0 5px rgba(255,253,248,.6)}}
-.korb-inhalt,.korb-danke{overflow-y:auto;padding:16px 20px calc(24px + env(safe-area-inset-bottom));flex:1}
+.korb-kopf{position:relative;background:#D9B37A;border-bottom:none;padding:18px 20px 26px}
+.korb-kopf::after{content:"";position:absolute;left:0;right:0;bottom:-11px;height:12px;background:linear-gradient(-45deg,transparent 8px,#D9B37A 0) 0 0/16px 12px repeat-x,linear-gradient(45deg,transparent 8px,#D9B37A 0) 0 0/16px 12px repeat-x;filter:drop-shadow(0 2px 0 var(--grill))}
+.korb-kopf::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:repeating-linear-gradient(90deg,rgba(33,26,20,.12) 0 2px,transparent 2px 9px)}
+.korb-kicker{display:block;font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(33,26,20,.7);margin-bottom:2px}
+.korb-inhalt{overflow-y:auto;padding:26px 20px 16px;flex:1}
+.korb-intro{margin:0 0 6px;font-weight:600;color:var(--grau);font-size:15px}
 .korb-liste{list-style:none;margin:0;padding:0}
-.korb-liste li{display:grid;grid-template-columns:58px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1.5px solid var(--linie)}
+.korb-liste li{display:grid;grid-template-columns:58px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1.5px dashed var(--linie)}
+.korb-liste li.frisch{animation:reinRutschen .45s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes reinRutschen{from{transform:translateY(-14px) scale(.96);opacity:0}to{transform:none;opacity:1}}
 .k-bild{display:flex;flex-direction:column;justify-content:center;width:58px}
 .k-bild .etikett{display:none}
 .k-stapel{display:flex;flex-direction:column;width:100%}
 .k-bild svg.k-icon{width:52px;height:52px}
-.k-name{font-weight:800;line-height:1.25}
+.k-name{font-weight:800;line-height:1.25;overflow-wrap:anywhere}
 .k-sub{display:block;font-weight:500;font-size:13.5px;color:var(--grau);margin-top:2px}
-.k-menge{display:flex;align-items:center;gap:6px}
-.k-menge button{width:34px;height:34px;border-radius:50%;border:2px solid var(--grill);background:var(--weiss);font:800 18px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,box-shadow .2s ease}
-@media (hover:hover){.k-menge button:hover{background:var(--senf-blass);box-shadow:0 0 0 4px rgba(var(--senf-hell-rgb),.4)}.k-weg:hover{color:var(--ketchup-dunkel)}}
+.k-menge{display:flex;align-items:center;gap:4px}
+.k-menge button{width:40px;height:40px;border-radius:50%;border:2px solid var(--grill);background:var(--weiss);font:800 18px/1 Figtree,sans-serif;cursor:pointer;transition:background-color .2s ease,box-shadow .2s ease}
+@media (hover:hover){.k-menge button:hover{background:var(--senf-blass);box-shadow:0 0 0 4px rgba(var(--senf-hell-rgb),.4)}}
 .k-menge b{min-width:22px;text-align:center;font-variant-numeric:tabular-nums}
-.k-weg{display:block;margin-top:2px;background:none;border:none;padding:2px 0;font:700 13.5px Figtree,sans-serif;color:var(--grau);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.k-menge b.hops{animation:hops .35s cubic-bezier(.3,1.6,.5,1)}
+@keyframes hops{40%{transform:scale(1.45)}}
+.k-weg{display:inline-flex;align-items:center;min-height:40px;margin:-4px 0 -8px;background:none;border:none;padding:0;font:700 13.5px Figtree,sans-serif;color:var(--grau);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+@media (hover:hover){.k-weg:hover{color:var(--ketchup-dunkel)}}
+.k-name+.k-weg,.k-sub+.k-weg{display:flex}
 .korb-leer{color:var(--grau);font-weight:500}
-.korb-preis{margin:14px 0 4px;padding:10px 12px;border-radius:12px;background:var(--papier);font-weight:700;font-size:15px}
-.korb-form{display:grid;gap:12px;margin-top:14px}
-.korb-form label{display:grid;gap:5px;font-weight:800;font-size:14px}
-.korb-form input,.korb-form select,.korb-form textarea{font:500 16px Figtree,sans-serif;padding:11px 12px;border:2px solid var(--grill);border-radius:12px;background:#fff;color:var(--grill);transition:box-shadow .2s ease}
-.korb-form input:focus,.korb-form select:focus,.korb-form textarea:focus{outline:none;box-shadow:0 0 0 4px rgba(var(--senf-rgb),.45)}
-.senden{width:100%;margin-top:4px}
-.senden:disabled{opacity:.45;cursor:not-allowed;transform:none!important;box-shadow:0 5px 0 var(--grill)!important}
-.korb-entwurf{margin:14px 0 0;font-size:12.5px;color:var(--grau);line-height:1.4}
-.korb-danke{text-align:center}
-.korb-danke h3{font-size:34px;margin:6px 0 8px}
-.korb-danke p{font-weight:600;margin:0 auto;max-width:24em}
-.korb-danke .btn{margin-top:18px}
-.packen{position:relative;width:240px;height:230px;margin:10px auto 0}
-.pk-burger{position:absolute;left:50%;top:0;width:130px;margin-left:-65px;display:flex;flex-direction:column}
-.pk-burger .etikett{display:none}
-.pk-tuete{position:absolute;left:0;bottom:0;width:240px;height:170px}
-.pk-falz{position:absolute;left:0;top:62px;width:240px;height:40px;transform-origin:50% 100%;transform:scaleY(-1);opacity:0}
-.packen.los .pk-burger{animation:reinTuete .9s cubic-bezier(.5,0,.6,1.2) .15s both}
-.packen.los .pk-falz{animation:falzen .45s cubic-bezier(.3,1.4,.5,1) 1.05s both}
-@keyframes reinTuete{0%{transform:translateY(-10px)}100%{transform:translateY(120px) scale(.92)}}
-@keyframes falzen{0%{opacity:0;transform:scaleY(-1)}1%{opacity:1}100%{opacity:1;transform:scaleY(1)}}
+.korb-preis{margin:14px 0 0;padding:10px 12px;border-radius:12px;background:var(--papier);font-weight:700;font-size:14.5px}
+.korb-fuss{display:grid;gap:10px;padding:14px 20px calc(16px + env(safe-area-inset-bottom));border-top:2.5px solid var(--grill);background:var(--weiss)}
+.korb-fuss .btn{width:100%;min-height:54px}
+.korb-fuss .btn svg{width:20px;height:20px;flex:none}
+.korb-anruf span{display:flex;flex-direction:column;align-items:flex-start;line-height:1.1}
+.korb-anruf small{font-weight:700;font-size:13px;opacity:.9;margin-top:3px}
+.korb-kopie.ok{background:var(--senf-blass)}
+.korb.leer .korb-fuss{display:none}
+/* Minus dort, wo man hinzufügt */
+.gericht .minus{position:absolute;right:14px;bottom:80px;width:40px;height:40px;border-radius:50%;border:2px solid var(--grill);background:var(--weiss);color:var(--grill);font:800 22px/1 Figtree,sans-serif;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:transform .18s ease,box-shadow .2s ease,background-color .2s ease}
+.gericht .minus:not([hidden]){animation:korbErscheint .3s cubic-bezier(.3,1.6,.5,1) both}
+@media (hover:hover){.gericht .minus:hover{background:var(--senf-blass);box-shadow:0 0 0 5px rgba(var(--senf-hell-rgb),.4)}}
+.plus{position:relative}
+.plus[data-n]::after{content:attr(data-n);position:absolute;left:50%;bottom:calc(100% + 1px);transform:translateX(-50%);min-width:24px;height:22px;padding:0 6px;border-radius:11px;background:var(--ketchup);color:#fff;border:2px solid var(--grill);font:800 12px/18px Figtree,sans-serif;text-align:center}
+.gericht.hat-minus .g-text{padding-right:40px}
+.g-text p{overflow-wrap:break-word;-webkit-hyphens:auto;hyphens:auto}
+.gericht{min-height:136px}
+.dazu-gruppe{display:inline-flex;align-items:center;gap:6px}
+.dazu-minus{width:44px;height:44px;border-radius:50%;border:2px solid var(--grill);background:var(--weiss);font:800 20px/1 Figtree,sans-serif;color:var(--grill);cursor:pointer;transition:background-color .2s ease,box-shadow .2s ease}
+.dazu-minus:not([hidden]){animation:korbErscheint .3s cubic-bezier(.3,1.6,.5,1) both}
+@media (hover:hover){.dazu-minus:hover{background:var(--senf-blass);box-shadow:0 0 0 5px rgba(var(--senf-hell-rgb),.4)}}
+.dazu-btn[data-n]{background:var(--senf-blass)}
+.bau-raus{min-height:44px;padding:0 16px;border-radius:999px;border:2px dashed var(--grill);background:transparent;font:800 15px/1 Figtree,sans-serif;color:var(--grill);cursor:pointer;transition:background-color .2s ease}
+@media (hover:hover){.bau-raus:hover{background:var(--senf-blass)}}
+.tuete-knopf.weg{opacity:0;transform:scale(.6);pointer-events:none}
+.tuete-knopf{transition:transform .25s ease,box-shadow .2s ease,background-color .2s ease,opacity .25s ease}
 @media (max-width:640px){
-  .tuete-knopf{top:auto;bottom:calc(84px + env(safe-area-inset-bottom));right:14px;width:58px;height:58px}
+  .tuete-knopf{top:auto;bottom:calc(84px + env(safe-area-inset-bottom));right:auto;left:12px;width:54px;height:54px}
   .korb{border-left:none}
   .bau-knoepfe .btn{flex:1 1 100%}
 }
@@ -731,12 +747,12 @@ h2.mit-umlaut{padding-top:.36em}
       <p>Eine Auswahl aus der Karte.</p>
     </div>
     <div class="karte">
-      <article class="gericht star rv"><div class="mini" data-schichten="deckel,salat,kaese,roesti,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">01</span><h3>Rösti-Burger</h3><p>Mit knuspriger Rösti.</p><span class="marke-tag tag-liebling">Liebling</span><button class="plus" type="button" data-name="Rösti-Burger" data-schichten="deckel,salat,kaese,roesti,fleisch,boden" aria-label="Rösti-Burger in die Bestellung">+</button></div></article>
-      <article class="gericht rv"><div class="mini" data-schichten="deckel,salat,curry,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">02</span><h3>Curry-Burger</h3><p>Mit Currysauce.</p><button class="plus" type="button" data-name="Curry-Burger" data-schichten="deckel,salat,curry,fleisch,boden" aria-label="Curry-Burger in die Bestellung">+</button></div></article>
-      <article class="gericht rv"><div class="mini" data-schichten="deckel,zwiebel,teriyaki,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">03</span><h3>Teriyaki-Burger</h3><p>Mit Teriyaki-Sauce.</p><button class="plus" type="button" data-name="Teriyaki-Burger" data-schichten="deckel,zwiebel,teriyaki,fleisch,boden" aria-label="Teriyaki-Burger in die Bestellung">+</button></div></article>
-      <article class="gericht rv"><div class="mini" data-schichten="deckel,salat,blau,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">04</span><h3>Blue-Cheese-Burger</h3><p>Mit Blauschimmelkäse.</p><button class="plus" type="button" data-name="Blue-Cheese-Burger" data-schichten="deckel,salat,blau,fleisch,boden" aria-label="Blue-Cheese-Burger in die Bestellung">+</button></div></article>
-      <article class="gericht rv"><div class="mini" data-schichten="deckel,tomate,zucchini,salat,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">05</span><h3>Zucchini-Burger</h3><p>Mit Zucchini.</p><span class="marke-tag tag-vegi">Vegi</span><button class="plus" type="button" data-name="Zucchini-Burger" data-schichten="deckel,tomate,zucchini,salat,boden" aria-label="Zucchini-Burger in die Bestellung">+</button></div></article>
-      <article class="gericht rv"><div class="mini" data-schichten="deckel,salat,falafel,tomate,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">06</span><h3>Falafel-Burger</h3><p>Mit Falafel.</p><span class="marke-tag tag-vegi">Vegi</span><button class="plus" type="button" data-name="Falafel-Burger" data-schichten="deckel,salat,falafel,tomate,boden" aria-label="Falafel-Burger in die Bestellung">+</button></div></article>
+      <article class="gericht star rv"><div class="mini" data-schichten="deckel,salat,kaese,roesti,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">01</span><h3>Rösti-Burger</h3><p>Mit knuspriger Rösti.</p><span class="marke-tag tag-liebling">Liebling</span><button class="minus" type="button" hidden aria-label="Ein Rösti-Burger weniger">−</button><button class="plus" type="button" data-name="Rösti-Burger" data-schichten="deckel,salat,kaese,roesti,fleisch,boden" aria-label="Rösti-Burger in die Bestellung">+</button></div></article>
+      <article class="gericht rv"><div class="mini" data-schichten="deckel,salat,curry,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">02</span><h3>Curry-Burger</h3><p>Mit Currysauce.</p><button class="minus" type="button" hidden aria-label="Ein Curry-Burger weniger">−</button><button class="plus" type="button" data-name="Curry-Burger" data-schichten="deckel,salat,curry,fleisch,boden" aria-label="Curry-Burger in die Bestellung">+</button></div></article>
+      <article class="gericht rv"><div class="mini" data-schichten="deckel,zwiebel,teriyaki,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">03</span><h3>Teriyaki-Burger</h3><p>Mit Teriyaki-Sauce.</p><button class="minus" type="button" hidden aria-label="Ein Teriyaki-Burger weniger">−</button><button class="plus" type="button" data-name="Teriyaki-Burger" data-schichten="deckel,zwiebel,teriyaki,fleisch,boden" aria-label="Teriyaki-Burger in die Bestellung">+</button></div></article>
+      <article class="gericht rv"><div class="mini" data-schichten="deckel,salat,blau,fleisch,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">04</span><h3>Blue-Cheese-Burger</h3><p>Mit Blauschimmelkäse.</p><button class="minus" type="button" hidden aria-label="Ein Blue-Cheese-Burger weniger">−</button><button class="plus" type="button" data-name="Blue-Cheese-Burger" data-schichten="deckel,salat,blau,fleisch,boden" aria-label="Blue-Cheese-Burger in die Bestellung">+</button></div></article>
+      <article class="gericht rv"><div class="mini" data-schichten="deckel,tomate,zucchini,salat,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">05</span><h3>Zucchini-Burger</h3><p>Mit Zucchini.</p><span class="marke-tag tag-vegi">Vegi</span><button class="minus" type="button" hidden aria-label="Ein Zucchini-Burger weniger">−</button><button class="plus" type="button" data-name="Zucchini-Burger" data-schichten="deckel,tomate,zucchini,salat,boden" aria-label="Zucchini-Burger in die Bestellung">+</button></div></article>
+      <article class="gericht rv"><div class="mini" data-schichten="deckel,salat,falafel,tomate,boden" aria-hidden="true"></div><div class="g-text"><span class="nr">06</span><h3>Falafel-Burger</h3><p>Mit Falafel.</p><span class="marke-tag tag-vegi">Vegi</span><button class="minus" type="button" hidden aria-label="Ein Falafel-Burger weniger">−</button><button class="plus" type="button" data-name="Falafel-Burger" data-schichten="deckel,salat,falafel,tomate,boden" aria-label="Falafel-Burger in die Bestellung">+</button></div></article>
     </div>
     <p class="karte-fuss rv">Aktuelle Preise am Telefon: <a href="tel:+41719900428"><b>071 990 04 28</b></a></p>
   </div>
@@ -759,6 +775,7 @@ h2.mit-umlaut{padding-top:.36em}
       </div>
       <div class="bau-knoepfe">
         <button class="btn btn-call" type="button" id="bauRein"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 11h18l-1.6 16.2a2 2 0 0 1-2 1.8H10.6a2 2 0 0 1-2-1.8z" fill="currentColor"/><path d="M11.5 13V9.5a4.5 4.5 0 0 1 9 0V13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>In die Bestellung</button>
+        <button class="bau-raus" type="button" id="bauRaus" hidden>− Wieder raus</button>
         <a class="btn btn-ghost" href="tel:+41719900428">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg>
           071 990 04 28
@@ -788,9 +805,9 @@ h2.mit-umlaut{padding-top:.36em}
       <h2 id="pommesTitel">Knusprige Pommes</h2>
       <p>In den Google-Bewertungen steht es immer wieder: Die Pommes sind knusprig. Dazu ein Burger: Zmittag oder Znacht – erledigt.</p>
       <div class="dazu">
-        <button class="dazu-btn" type="button" data-art="pommes">+ Pommes</button>
-        <button class="dazu-btn" type="button" data-art="ketchup">+ Ketchup</button>
-        <button class="dazu-btn" type="button" data-art="mayo">+ Mayo</button>
+        <span class="dazu-gruppe"><button class="dazu-btn" type="button" data-art="pommes">+ Pommes</button><button class="dazu-minus" type="button" hidden data-art="pommes" aria-label="Pommes: eins weniger">−</button></span>
+        <span class="dazu-gruppe"><button class="dazu-btn" type="button" data-art="ketchup">+ Ketchup</button><button class="dazu-minus" type="button" hidden data-art="ketchup" aria-label="Ketchup: eins weniger">−</button></span>
+        <span class="dazu-gruppe"><button class="dazu-btn" type="button" data-art="mayo">+ Mayo</button><button class="dazu-minus" type="button" hidden data-art="mayo" aria-label="Mayo: eins weniger">−</button></span>
       </div>
     </div>
     <div class="dips-box"><p class="dip-tipp" aria-hidden="true"><svg viewBox="0 0 40 30"><path d="M4 4q18 2 26 20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M24 22l6 3 1-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Zieh die Pommes in eine Sauce</p>
@@ -961,37 +978,18 @@ h2.mit-umlaut{padding-top:.36em}
 <div class="korb-hintergrund" id="korbHg" hidden></div>
 <aside class="korb" id="korb" role="dialog" aria-modal="true" aria-labelledby="korbTitel" hidden>
   <div class="korb-kopf">
-    <h2 id="korbTitel">Deine Bestellung</h2>
+    <div><span class="korb-kicker">Burger House · Wattwil</span><h2 id="korbTitel">Zum Abholen</h2></div>
     <button class="korb-zu" id="korbZu" type="button" aria-label="Schliessen">×</button>
   </div>
   <div class="korb-inhalt" id="korbInhalt">
+    <p class="korb-intro">Deine Liste fürs Telefon. Ruf an, lies sie vor – und hol alles frisch ab.</p>
     <ul class="korb-liste" id="korbListe"></ul>
-    <p class="korb-leer" id="korbLeer">Noch nichts drin. Bau dir einen Burger oder wähle einen aus der Karte.</p>
-    <p class="korb-preis">Preis bei Abholung oder am Telefon: <a href="tel:+41719900428">071 990 04 28</a></p>
-    <form class="korb-form" id="korbForm" novalidate>
-      <label>Abholen um<select id="fAbhol" required></select></label>
-      <label>Name<input id="fName" type="text" autocomplete="name" required placeholder="Vorname"></label>
-      <label>Telefon<input id="fTel" type="tel" autocomplete="tel" required placeholder="079 …"></label>
-      <label>Bemerkung<textarea id="fNotiz" rows="2" placeholder="z. B. ohne Zwiebeln"></textarea></label>
-      <button class="btn btn-call senden" id="fSenden" type="submit" disabled>Bestellung senden</button>
-    </form>
-    <p class="korb-entwurf">Entwurf: In der fertigen Website geht die Bestellung direkt an Burger House (E-Mail/SMS/Bestellsystem). Hier wird nichts gesendet.</p>
+    <p class="korb-leer" id="korbLeer">Noch nichts drin. Tipp in der Karte auf <b>+</b>.</p>
+    <p class="korb-preis">Preise und Abholzeit sagt dir das Team am Telefon.</p>
   </div>
-  <div class="korb-danke" id="korbDanke" hidden>
-    <div class="packen" aria-hidden="true">
-      <div class="pk-burger" id="pkBurger"></div>
-      <svg class="pk-tuete" viewBox="0 0 240 170">
-        <path d="M30 40h180l-14 124H44z" fill="#D9B37A" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/>
-        <path d="M44 164L30 40M196 164l14-124" stroke="#B8935A" stroke-width="3"/>
-        <text x="120" y="112" text-anchor="middle" font-family="Bowlby One SC, Impact, sans-serif" font-size="18" fill="#211A14">BURGER HOUSE</text>
-        <path d="M86 128q8-6 16 0t16 0 16 0 16 0" fill="none" stroke="#D23A26" stroke-width="3" stroke-linecap="round"/>
-      </svg>
-      <svg class="pk-falz" viewBox="0 0 240 40"><path d="M30 38h180l-8-30H38z" fill="#E6C48C" stroke="#211A14" stroke-width="3" stroke-linejoin="round"/></svg>
-    </div>
-    <h3 id="dankeTitel">Danke!</h3>
-    <p id="dankeText"></p>
-    <p class="korb-entwurf">Entwurf: Es wurde nichts gesendet.</p>
-    <button class="btn btn-ghost" id="dankeFertig" type="button">Fertig</button>
+  <div class="korb-fuss">
+    <a class="btn btn-call korb-anruf" href="tel:+41719900428"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></svg><span>Anrufen und bestellen<small>071 990 04 28</small></span></a>
+    <button class="btn btn-ghost korb-kopie" id="korbKopie" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 3h9a2 2 0 0 1 2 2v11h-2V5H8zM5 7h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zm0 2v11h9V9z"/></svg><span id="korbKopieText">Liste kopieren</span></button>
   </div>
 </aside>
 
@@ -1418,7 +1416,7 @@ function stapel(schichten,cls){var d=document.createElement("div");d.className=c
 function anzahl(){return korb.reduce(function(a,x){return a+x.n;},0);}
 function korbZeigen(fokus){
   var n=anzahl();korbZahl.textContent=n;
-  korbKnopf.setAttribute("aria-label","Bestellung öffnen, "+n+" Artikel");
+  korbKnopf.setAttribute("aria-label","Abholliste öffnen, "+n+" Artikel");
   korbListe.innerHTML="";
   korb.forEach(function(it,i){
     var li=document.createElement("li");
@@ -1434,15 +1432,36 @@ function korbZeigen(fokus){
     m.innerHTML='<button type="button" aria-label="Eins weniger">−</button><b>'+it.n+'</b><button type="button" aria-label="Eins mehr">+</button>';
     m.children[0].dataset.f="m"+i;m.children[2].dataset.f="p"+i;
     m.children[0].addEventListener("click",function(){it.n--;if(it.n<1){korb.splice(i,1);korbZeigen(korb.length?"w"+Math.min(i,korb.length-1):"zu");}else korbZeigen("m"+i);});
-    m.children[2].addEventListener("click",function(){it.n++;korbZeigen("p"+i);});
+    m.children[2].addEventListener("click",function(){it.n++;frischKey=it.key;korbZeigen("p"+i);});
     li.appendChild(m);korbListe.appendChild(li);
   });
-  document.getElementById("korbLeer").hidden=korb.length>0;
-  pruefen();
+  document.getElementById("korbLeer").hidden=korb.length>0;korbEl.classList.toggle("leer",korb.length===0);
+  if(frischKey){var fi=-1;korb.forEach(function(x,ii){if(x.key===frischKey)fi=ii;});var fl=korbListe.children[fi];if(fl&&!ruhig){fl.classList.add("frisch");var fb=fl.querySelector(".k-menge b");if(fb&&korb[fi].n>1){fl.classList.remove("frisch");fb.classList.add("hops");}}frischKey=null;}
+  abgleichen();
   if(fokus){var z=fokus==="zu"?document.getElementById("korbZu"):korbListe.querySelector('[data-f="'+fokus+'"]');if(z)z.focus();}
 }
+var frischKey=null;
+function schluessel(name,sch){return name+"|"+(sch||[]).join(",");}
+function menge(key){var d=korb.filter(function(x){return x.key===key;})[0];return d?d.n:0;}
+function eins_weniger(key){for(var i=0;i<korb.length;i++){if(korb[i].key===key){korb[i].n--;if(korb[i].n<1)korb.splice(i,1);break;}}korbZeigen();if(!korb.length)korbKnopf.hidden=true;else stupsen();}
+/* Zähler und Minus dort, wo man hinzufügt */
+function bauSchichten(){var mitte=[].slice.call(bb.children).slice(1,-1).filter(function(c){return !c.dataset.weg;});return ["deckel"].concat(mitte.map(function(c){return c.dataset.art;})).concat(["boden"]);}
+function abgleichen(){
+  [].forEach.call(document.querySelectorAll(".gericht .plus"),function(b){
+    var n=menge(schluessel(b.dataset.name,b.dataset.schichten.split(","))),mi=b.parentNode.querySelector(".minus"),g=b.closest(".gericht");
+    if(n>0)b.setAttribute("data-n",n);else b.removeAttribute("data-n");
+    if(mi)mi.hidden=n<1;if(g)g.classList.toggle("hat-minus",n>0);
+    b.setAttribute("aria-label",b.dataset.name+(n?" – "+n+" auf der Liste, noch eins dazu":" auf die Abholliste"));
+  });
+  [].forEach.call(document.querySelectorAll(".dazu-btn"),function(b){
+    var n=menge(schluessel(DAZU[b.dataset.art])),mi=b.parentNode.querySelector(".dazu-minus");
+    if(n>0){b.setAttribute("data-n",n);b.textContent="+ "+DAZU[b.dataset.art]+" · "+n;}else{b.removeAttribute("data-n");b.textContent="+ "+DAZU[b.dataset.art];}
+    if(mi)mi.hidden=n<1;
+  });
+  var br=document.getElementById("bauRaus");if(br&&typeof bb!=="undefined"){var n2=menge(schluessel("Dein Burger",bauSchichten()));br.hidden=n2<1;}
+}
 function rein(it){
-  var key=it.name+"|"+(it.schichten||[]).join(",");
+  var key=schluessel(it.name,it.schichten);frischKey=key;
   var da=korb.filter(function(x){return x.key===key;})[0];
   if(da)da.n++;else{it.key=key;it.n=1;korb.push(it);}
   if(korbKnopf.hidden){korbKnopf.hidden=false;korbKnopf.classList.add("neu");korbKnopf.addEventListener("animationend",function(){korbKnopf.classList.remove("neu");},{once:true});}
@@ -1481,42 +1500,46 @@ document.getElementById("bauRein").addEventListener("click",function(){
     fliegen(b,d,function(){rein({name:DAZU[art],art:art});});
   });
 });
-/* Abholzeiten */
-function zeiten(){
-  var sel=document.getElementById("fAbhol"),alt=sel.value;sel.innerHTML="";
-  var j=jetztZH(),start=Math.ceil((j.m+20)/15)*15,gefunden=0;
-  for(var d=0;d<3&&gefunden<16;d++){
-    var t=(j.t+d)%7,lab=d===0?"Heute":d===1?"Morgen":TAGE[t];
-    ZEIT[t].forEach(function(z){
-      var a=min(z[0])+15,e=min(z[1])-15;
-      for(var m=Math.max(a,d===0?start:a);m<=e&&gefunden<16;m+=15){
-        var o=document.createElement("option");var hh=("0"+Math.floor(m/60)).slice(-2)+":"+("0"+m%60).slice(-2);
-        o.value=lab+" "+hh;o.textContent=lab+", "+hh+" Uhr";sel.appendChild(o);gefunden++;
-      }
-    });
-  }
-  if(alt&&[].some.call(sel.options,function(o){return o.value===alt;}))sel.value=alt;
+[].forEach.call(document.querySelectorAll(".gericht .minus"),function(mi){
+  mi.addEventListener("click",function(e){e.stopPropagation();var b=mi.parentNode.querySelector(".plus");eins_weniger(schluessel(b.dataset.name,b.dataset.schichten.split(",")));if(mi.hidden)b.focus();});
+});
+[].forEach.call(document.querySelectorAll(".dazu-minus"),function(mi){
+  mi.addEventListener("click",function(){eins_weniger(schluessel(DAZU[mi.dataset.art]));if(mi.hidden)mi.parentNode.querySelector(".dazu-btn").focus();});
+});
+(function(){var br=document.getElementById("bauRaus");if(!br)return;br.addEventListener("click",function(){eins_weniger(schluessel("Dein Burger",bauSchichten()));if(br.hidden)document.getElementById("bauRein").focus();});
+  new MutationObserver(abgleichen).observe(bb,{childList:true,subtree:false,attributes:true,attributeFilter:["data-weg"],subtree:true});})();
+/* Liste kopieren (zum Vorlesen am Telefon) */
+function listeText(){
+  return "Zum Abholen – Burger House Wattwil\n"+korb.map(function(x){return x.n+"× "+x.name+(x.sub?" ("+x.sub+")":"");}).join("\n");
 }
-function pruefen(){
-  var ok=korb.length>0&&document.getElementById("fName").value.trim()&&document.getElementById("fTel").value.trim().length>=7;
-  document.getElementById("fSenden").disabled=!ok;
-}
-["fName","fTel"].forEach(function(id){document.getElementById(id).addEventListener("input",pruefen);});
+document.getElementById("korbKopie").addEventListener("click",function(){
+  var t=listeText(),b=this,txt=document.getElementById("korbKopieText");
+  function ok(){b.classList.add("ok");txt.textContent="Kopiert ✓";setTimeout(function(){b.classList.remove("ok");txt.textContent="Liste kopieren";},1800);}
+  function alt(){var ta=document.createElement("textarea");ta.value=t;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();try{document.execCommand("copy");ok();}catch(e){}ta.remove();}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,alt);else alt();
+});
+/* Tüte nie über Startbild, Burger-Knöpfen und dem Tal unten */
+(function(){
+  var schutz=[document.querySelector(".held"),document.getElementById("tal")],tick=false;
+  function pruefe(){tick=false;if(korbKnopf.hidden)return;var k=korbKnopf.getBoundingClientRect(),weg=false;
+    schutz.forEach(function(el){if(!el)return;var r=el.getBoundingClientRect();if(r.bottom>k.top-8&&r.top<k.bottom+8)weg=true;});
+    korbKnopf.classList.toggle("weg",weg);}
+  addEventListener("scroll",function(){if(!tick){tick=true;requestAnimationFrame(pruefe);}},{passive:true});addEventListener("resize",pruefe);
+  new MutationObserver(pruefe).observe(korbKnopf,{attributes:true,attributeFilter:["hidden"]});
+})();
 var vorher=null,zuTimer=null,AUSSEN=[document.querySelector("main"),document.querySelector(".kopf"),document.querySelector(".fuss"),document.getElementById("leiste"),korbKnopf];
 function aussen(an){AUSSEN.forEach(function(el){if(!el)return;if(an){el.setAttribute("inert","");}else{el.removeAttribute("inert");}});}
 function korbAuf(){
   clearTimeout(zuTimer);
-  if(!document.getElementById("korbDanke").hidden)dankeReset();
-  vorher=document.activeElement;zeiten();aussen(true);
+  vorher=document.activeElement;aussen(true);
   korbHg.hidden=false;korbEl.hidden=false;document.documentElement.style.overflow="hidden";
   requestAnimationFrame(function(){requestAnimationFrame(function(){korbHg.classList.add("an");korbEl.classList.add("an");});});
-  setTimeout(function(){document.getElementById("korbZu").focus();},50);
+  setTimeout(function(){try{document.getElementById("korbZu").focus({focusVisible:false});}catch(e){document.getElementById("korbZu").focus();}},50);
 }
 function korbZu(){
-  var danke=!document.getElementById("korbDanke").hidden;
   korbHg.classList.remove("an");korbEl.classList.remove("an");document.documentElement.style.overflow="";aussen(false);
   clearTimeout(zuTimer);
-  zuTimer=setTimeout(function(){if(korbEl.classList.contains("an"))return;korbHg.hidden=true;korbEl.hidden=true;if(danke)dankeReset();},400);
+  zuTimer=setTimeout(function(){if(korbEl.classList.contains("an"))return;korbHg.hidden=true;korbEl.hidden=true;},400);
   if(vorher&&vorher.focus)vorher.focus();
 }
 korbKnopf.addEventListener("click",korbAuf);
@@ -1528,23 +1551,6 @@ document.addEventListener("keydown",function(e){
   if(e.key==="Tab"){var f=[].filter.call(korbEl.querySelectorAll("button,input,select,textarea,a[href]"),function(x){return !x.disabled&&x.offsetParent!==null;});if(!f.length)return;var a=f[0],z=f[f.length-1];
     if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}
 });
-document.getElementById("korbForm").addEventListener("submit",function(e){
-  e.preventDefault();if(document.getElementById("fSenden").disabled)return;
-  var name=document.getElementById("fName").value.trim(),zeit=document.getElementById("fAbhol").value;
-  var b=korb.filter(function(x){return x.schichten;})[0],sch=b?b.schichten:["deckel","salat","kaese","roesti","fleisch","boden"];
-  var pk=document.getElementById("pkBurger");pk.innerHTML="";var st=stapel(sch,"k-stapel");while(st.firstChild)pk.appendChild(st.firstChild);dicht(pk);
-  document.getElementById("dankeTitel").textContent="Danke, "+name+"!";
-  document.getElementById("dankeText").textContent="Deine Bestellung ("+anzahl()+" Artikel) liegt "+zeit.replace(/^Heute /,"heute um ").replace(/^Morgen /,"morgen um ").replace(/^([A-Z]\w+) /,"am $1 um ")+" Uhr bereit. Bezahlt wird bei der Abholung.";
-  document.getElementById("korbInhalt").hidden=true;
-  var dk=document.getElementById("korbDanke");dk.hidden=false;
-  var pa=dk.querySelector(".packen");pa.classList.remove("los");void pa.offsetWidth;pa.classList.add("los");
-});
-function dankeReset(){
-  korb=[];korbZeigen();document.getElementById("korbForm").reset();pruefen();
-  document.getElementById("korbInhalt").hidden=false;document.getElementById("korbDanke").hidden=true;
-  korbKnopf.hidden=true;
-}
-document.getElementById("dankeFertig").addEventListener("click",function(){vorher=null;korbZu();});
 korbZeigen();
 
 
