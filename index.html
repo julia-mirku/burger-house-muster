@@ -506,7 +506,7 @@ h2.mit-umlaut{padding-top:.36em}
 .tal .sterne{opacity:0;transition:opacity 2s ease}
 .tal[data-zeit="nacht"] .sterne{opacity:1}
 .tal .sterne circle{opacity:.55;transform-box:fill-box;transform-origin:50% 50%}
-.tal .sterne circle.blitz{animation:sternBlitz 2.6s ease-in-out both}
+.tal .sterne circle.blitz{animation:sternBlitz 3s ease-in-out both}
 @keyframes sternBlitz{0%,100%{opacity:.55;filter:none}45%{opacity:1;filter:drop-shadow(0 0 1.6px rgba(255,246,216,.85))}}
 .tal .glint{opacity:0;pointer-events:none}
 .tal .glint.an{animation:glint 2.6s ease-in-out both}
@@ -1249,7 +1249,7 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
   var cPA=document.getElementById("fryCoatPA"),cPB=document.getElementById("fryCoatPB"),cRA=document.getElementById("fryCoatRA"),cRB=document.getElementById("fryCoatRB");
   var schatten=document.createElement("div");schatten.className="fry-schatten";feld.appendChild(schatten);
   /* Fritte: 22 breit, 108 lang; Spitze (unten Mitte) bei 11/108, im SVG +2 Rand */
-  var FW=26,FH=112,TX=13,TY=110;
+  var FW=26,FH=112,TX=13,TY=110,VX=10;/* sichtbare Spitze liegt VX links/oben von st */
   var POT={ketchup:{cx:78,sy:133,rx:45,ry:9.5,rimY:132,rimRx:54,tief:14,vorn:true,fill:"#C8261A",welle:"wellenK",sauce:"sauceK",lean:-12},
            mayo:{cx:190,sy:151,rx:34,ry:7,rimY:150,rimRx:42,tief:13,vorn:true,fill:"#F1E2A6",welle:"wellenM",sauce:"sauceM",lean:11},
            bbq:{cx:143,sy:101,rx:27,ry:6,rimY:100,rimRx:34,tief:11,vorn:false,fill:"#6B2B14",welle:"wellenB",sauce:"sauceB",lean:-4}};
@@ -1260,7 +1260,7 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
   function messen(){k=feld.getBoundingClientRect().width/250;fry.style.width=(FW*k+20)+"px";fry.style.height=(FH*k+20)+"px";fry.style.transformOrigin=(10+TX*k)+"px "+(10+TY*k)+"px";}
   function welleD(l){var y=108-Math.max(0,Math.min(44,l));return "M-2 "+y.toFixed(1)+"q3 -1.8 6 0t6 0t6 0t6 0t6 0V112H-2Z";}
   function zeichnen(){
-    fry.style.transform="translate3d("+(st.x*k-TX*k-10).toFixed(2)+"px,"+(st.y*k-TY*k-10).toFixed(2)+"px,0) rotate("+st.rot.toFixed(2)+"deg) scale("+st.sc.toFixed(3)+")";
+    fry.style.transform="translate3d("+((st.x-TX-VX)*k).toFixed(2)+"px,"+((st.y-TY-VX)*k).toFixed(2)+"px,0) rotate("+st.rot.toFixed(2)+"deg) scale("+st.sc.toFixed(3)+")";
     cPA.setAttribute("d",welleD(alt.l));cRA.setAttribute("fill",alt.f);cPB.setAttribute("d",welleD(neu.l));cRB.setAttribute("fill",neu.f);
     schatten.style.opacity=drag?.9:0;
     schatten.style.transform="translate("+(st.x*k-17).toFixed(1)+"px,"+(st.y*k+12*k).toFixed(1)+"px) scale("+(drag?1.1:.9)+")";
@@ -1330,14 +1330,15 @@ wacks.forEach(function(w){w.addEventListener("animationend",function(){w.classLi
   }
   /* Grenzen beim Ziehen: Spitze bleibt in der Sauce, geht nie durch Schale oder Rand */
   function zwang(tx,ty){
-    var P;
-    if(drin){P=POT[drin];
+    var P,m;
+    /* Mitte der Sauce im Rechenmass (Spitze wird VX weiter links gezeichnet); Fritte ganz in der Sauce: halbe Breite 14 */
+    if(drin){P=POT[drin];m=P.cx+VX;
       if(ty<P.sy-4){drin=null;}
-      else{var w=Math.max(4,P.rx*.82-9);return {x:Math.max(P.cx-w,Math.min(P.cx+w,tx)),y:Math.min(ty,P.sy+P.tief)};}
+      else{var w=Math.max(3,P.rx-14);return {x:Math.max(m-w,Math.min(m+w,tx)),y:Math.min(ty,P.sy+P.tief)};}
     }
-    for(var i=0;i<REIHE.length;i++){var n=REIHE[i];P=POT[n];var dx=Math.abs(tx-P.cx);
-      var w2=Math.max(4,P.rx*.82-9);
-      if(dx<=P.rx*.82&&ty>=P.sy-1&&(P.vorn||ty<=P.sy+P.tief+22||st.y<P.sy)){drin=n;welle(P);return {x:Math.max(P.cx-w2,Math.min(P.cx+w2,tx)),y:Math.min(ty,P.sy+P.tief)};}
+    for(var i=0;i<REIHE.length;i++){var n=REIHE[i];P=POT[n];m=P.cx+VX;var dx=Math.abs(tx-m);
+      var w2=Math.max(3,P.rx-14);
+      if(dx<=P.rx*.82&&ty>=P.sy-1&&(P.vorn||ty<=P.sy+P.tief+22||st.y<P.sy)){drin=n;welle(P);return {x:Math.max(m-w2,Math.min(m+w2,tx)),y:Math.min(ty,P.sy+P.tief)};}
       if(dx<=P.rimRx+3&&ty>P.rimY-5&&(P.vorn||(st.y<=P.rimY-3&&ty<P.rimY+40)))return {x:tx,y:P.rimY-5};
     }
     return {x:tx,y:ty};
@@ -1600,7 +1601,7 @@ korbZeigen();
       if(q<1)raf2=requestAnimationFrame(f);else{laeuft=false;if(aktM>1.1)aktM=-.16;}}
     raf2=requestAnimationFrame(f);
   }
-  /* Sterne: selten, einer nach dem anderen */
+  /* Sterne: einer nach dem anderen, etwa jede Sekunde, sanft ueberlappend */
   var sterne=[].slice.call(tal.querySelectorAll(".sterne circle")),letzterStern=-1,sternTimer=null;
   /* nur Sterne, die man wirklich sieht: im Bild, nicht unter der Karte */
   var talKarte=tal.querySelector(".tal-karte"),zuletzt=[];
@@ -1614,10 +1615,10 @@ korbZeigen();
   function funkel(){
     if(tal.dataset.zeit==="nacht"&&!ruhig&&!document.hidden){
       var kand=sichtbare();if(!kand.length)kand=sterne;
-      var st=kand[Math.floor(Math.random()*kand.length)];zuletzt.push(sterne.indexOf(st));if(zuletzt.length>3)zuletzt.shift();st.classList.remove("blitz");void st.getBoundingClientRect();st.classList.add("blitz");
+      var st=kand[Math.floor(Math.random()*kand.length)];zuletzt.push(sterne.indexOf(st));if(zuletzt.length>4)zuletzt.shift();st.classList.remove("blitz");void st.getBoundingClientRect();st.classList.add("blitz");
       glint.setAttribute("transform","translate("+st.getAttribute("cx")+" "+st.getAttribute("cy")+")");
     }
-    sternTimer=setTimeout(funkel,1900+Math.random()*500);
+    sternTimer=setTimeout(funkel,880+Math.random()*260);
   }
   sternTimer=setTimeout(funkel,900);
   sterne.forEach(function(c){c.addEventListener("animationend",function(){c.classList.remove("blitz");});});glint.addEventListener("animationend",function(e){if(e.target===glint)glint.classList.remove("an");});
