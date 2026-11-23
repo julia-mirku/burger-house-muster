@@ -116,6 +116,9 @@ h2{font-size:clamp(34px,6vw,60px)}
 .dampf.an path:nth-child(3){animation-delay:.5s}
 @keyframes dampf{0%{opacity:0;stroke-dashoffset:160;transform:translateY(10px)}25%{opacity:.85}100%{opacity:0;stroke-dashoffset:0;transform:translateY(-34px)}}
 .tropfen{transform-box:fill-box;transform-origin:50% 0}
+.wackel{transform-box:fill-box;transform-origin:50% 0;animation:kaeseWackel 3s ease-in-out infinite alternate}
+.mini .wackel,.k-bild .wackel{animation:none}
+@keyframes kaeseWackel{from{transform:rotate(-1.6deg) scaleX(.97)}to{transform:rotate(1.6deg) scaleX(1.02)}}
 .held .burger.bereit .tropfen{animation-name:tropfen;animation-timing-function:cubic-bezier(.15,.55,.25,1);animation-fill-mode:both}
 @keyframes tropfen{from{transform:scaleY(1)}to{transform:scaleY(var(--fak))}}
 .funke{z-index:50;position:absolute;width:34px;height:34px;opacity:0;pointer-events:none}
@@ -663,7 +666,7 @@ h2.mit-umlaut{padding-top:.36em}
   html{scroll-behavior:auto}
   .korb,.korb-hintergrund,.sticker,.schicht .etikett{transition:none}
   .tuete-knopf.neu,.tuete-knopf.stups,.wack.hoch{animation:none}
-  .burger .schicht.faellt,.rv.da,.pommes.an .tuete .stab,.burger.bereit .tropfen{animation:none}
+  .burger .schicht.faellt,.rv.da,.pommes.an .tuete .stab,.burger.bereit .tropfen,.wackel{animation:none}
   .rv{opacity:1;transform:none}
   .schicht{transition:none}
 }
@@ -1014,7 +1017,24 @@ var ART={
   deckel:{n:"Brot",h:112,c:"#E08A33",svg:function(){return '<defs><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6B25A"/><stop offset=".55" stop-color="#E08A33"/><stop offset="1" stop-color="#B85F1C"/></linearGradient><radialGradient id="gl" cx=".38" cy=".25" r=".6"><stop offset="0" stop-color="#FFE2B0" stop-opacity=".85"/><stop offset="1" stop-color="#FFE2B0" stop-opacity="0"/></radialGradient></defs><path d="M8 102C8 40 70 6 150 6s142 34 142 96a8 8 0 0 1-8 8H16a8 8 0 0 1-8-8z" fill="url(#gb)" '+S+'/><path d="M10 98c40 8 240 8 280 0v4a8 8 0 0 1-8 8H18a8 8 0 0 1-8-8z" fill="#9C4E16" opacity=".55"/><ellipse cx="118" cy="44" rx="96" ry="34" fill="url(#gl)"/><path d="M58 42c20-16 50-24 82-24" fill="none" stroke="#FFE7BE" stroke-width="7" stroke-linecap="round" opacity=".8"/>'+[[92,40,-20],[130,30,8],[170,34,24],[210,48,-12],[112,64,14],[150,56,-6],[190,70,20],[72,70,-30],[232,76,10],[132,86,-14],[170,90,6],[250,58,30],[52,88,-10]].map(function(p){return '<ellipse cx="'+(p[0]+1)+'" cy="'+(p[1]+2)+'" rx="6.5" ry="3.4" transform="rotate('+p[2]+' '+p[0]+' '+p[1]+')" fill="#9C4E16" opacity=".35"/><ellipse cx="'+p[0]+'" cy="'+p[1]+'" rx="6.5" ry="3.4" transform="rotate('+p[2]+' '+p[0]+' '+p[1]+')" fill="#FFF6E0" stroke="#211A14" stroke-width="1.6"/>';}).join("");}},
   salat:{n:"Salat",h:26,c:"#6FA83B",svg:function(){var d="M4 6H296V15";for(var i=0;i<12;i++){var x=296-i*24.33;d+=" Q"+(x-12.2).toFixed(1)+" "+(i%2?24:22.5)+" "+(x-24.33).toFixed(1)+" 15";}d+="Z";return '<path d="'+d+'" fill="#6FA83B" '+S+'/><path d="M20 10q24 6 48 0M120 11q24 6 48 0M220 10q24 6 48 0" fill="none" stroke="#9CCB5E" stroke-width="3" stroke-linecap="round"/>';}},
   tomate:{n:"Tomate",h:26,c:"#E0412C",svg:function(){function scheibe(x,w,f){var c="";[0.22,0.5,0.78].forEach(function(p,i){var cx=x+w*p;c+='<ellipse cx="'+cx+'" cy="13" rx="'+(w*0.12)+'" ry="4.6" fill="#F36A52"/>';[-1,0,1].forEach(function(k){c+='<ellipse cx="'+(cx+k*w*0.05)+'" cy="'+(13+(k?1.6:-1.4))+'" rx="1.7" ry="1.2" fill="#FBD46A"/>';});});return '<rect x="'+x+'" y="3" width="'+w+'" height="20" rx="10" fill="'+f+'" stroke="#211A14" stroke-width="3"/><rect x="'+(x+5)+'" y="7" width="'+(w-10)+'" height="12" rx="6" fill="#E85440"/>'+c+'<path d="M'+(x+14)+' 7.5h'+(w*0.3)+'" stroke="#FFB4A4" stroke-width="2.5" stroke-linecap="round"/>';}return scheibe(152,134,"#D83A26")+scheibe(14,146,"#E0412C");}},
-  kaese:{n:"Käse",h:36,c:"#F7C948",svg:function(){var t=[[44,7,0,1.45,40],[118,2,1.2,1.25,55],[182,10,.5,1.7,36],[262,9,2,1.6,45]].map(function(d){var x=d[0],l=d[1];return '<g class="tropfen" style="--fak:'+d[3]+';animation-duration:'+d[4]+'s;animation-delay:'+(1+d[2])+'s"><path d="M'+(x-14)+' 13Q'+(x-7)+' 14 '+(x-7)+' 19V'+(13+l)+'Q'+(x-7)+' '+(21+l)+' '+x+' '+(21+l)+'Q'+(x+7)+' '+(21+l)+' '+(x+7)+' '+(13+l)+'V19Q'+(x+7)+' 14 '+(x+14)+' 13" fill="#F2B832" stroke="#211A14" stroke-width="3" vector-effect="non-scaling-stroke" stroke-linejoin="round"/><path d="M'+(x-3)+' 18v'+Math.max(l-4,1)+'" stroke="#FFE08A" stroke-width="2.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/></g>';}).join("");return '<defs><linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFD965"/><stop offset="1" stop-color="#F2B832"/></linearGradient></defs><path d="M2 4h296v10H2z" fill="url(#gk)" '+S+'/>'+t+'<path d="M16 8h96M190 8h80" stroke="#FFF0B0" stroke-width="3" stroke-linecap="round"/>';}},
+  kaese:{n:"Käse",h:36,c:"#F7C948",svg:function(){
+    /* weicher Kaese: Platte und Tropfen aus einem Guss, keine Naht ueber den Tropfen */
+    var D=[[44,7,0,1.45,40],[118,2,1.2,1.25,55],[182,10,.5,1.7,36],[262,9,2,1.6,45]],K='stroke="#211A14" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" fill="none" vector-effect="non-scaling-stroke"';
+    var platte='M7 3.6C40 2.6 70 4.4 100 3.6S170 2.4 210 3.6 268 4.5 293 3.6Q298.6 3.7 298.6 8.6Q298.6 13.4 293 14.2';
+    var flaeche=platte,unten='',x0=293;
+    D.slice().reverse().forEach(function(d){var x=d[0];flaeche+='Q'+((x0+x+14)/2).toFixed(1)+' 14.9 '+(x+14)+' 14H'+(x-14);unten='M'+(x+14)+' 14Q'+((x0+x+14)/2).toFixed(1)+' 14.9 '+x0+' 14.2'+unten;x0=x-14;});
+    flaeche+='Q'+((x0+7)/2).toFixed(1)+' 14.9 7 14.2Q1.4 13.4 1.4 8.6Q1.4 3.7 7 3.6Z';unten='M7 14.2Q'+((x0+7)/2).toFixed(1)+' 14.9 '+x0+' 14'+unten;
+    var t=D.map(function(d,n){var x=d[0],l=d[1],e=21+l;
+      var form='M'+(x-14)+' 14Q'+(x-7.5)+' 14.4 '+(x-7)+' 20V'+(13+l)+'C'+(x-7)+' '+(e-1)+' '+(x-4)+' '+(e+.6)+' '+x+' '+(e+.6)+'S'+(x+7)+' '+(e-1)+' '+(x+7)+' '+(13+l)+'V20Q'+(x+7.5)+' 14.4 '+(x+14)+' 14';
+      return '<path d="M'+(x-14)+' 12H'+(x+14)+'V14.6H'+(x-14)+'Z" fill="#F4BB36"/>'+
+        '<g class="tropfen" style="--fak:'+d[3]+';animation-duration:'+d[4]+'s;animation-delay:'+(1+d[2])+'s"><g class="wackel" style="animation-duration:'+(2.9+n*.55).toFixed(2)+'s;animation-delay:-'+(n*.8).toFixed(1)+'s">'+
+        '<path d="'+form+'Z" fill="url(#gkt)"/><path d="'+form+'" '+K+'/>'+
+        '<path d="M'+(x-3.4)+' 19.5v'+Math.max(l-4.5,1)+'" stroke="#FFE7A0" stroke-width="2.2" stroke-linecap="round" opacity=".9" vector-effect="non-scaling-stroke"/></g></g>';}).join("");
+    return '<defs><linearGradient id="gk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE07A"/><stop offset=".55" stop-color="#FBCB4E"/><stop offset="1" stop-color="#F4BB36"/></linearGradient>'+
+      '<linearGradient id="gkt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F8C746"/><stop offset=".45" stop-color="#F4BB36"/><stop offset="1" stop-color="#E9A92A"/></linearGradient></defs>'+
+      '<path d="'+flaeche+'" fill="url(#gk)"/>'+t+
+      '<path d="M7 14.2Q1.4 13.4 1.4 8.6Q1.4 3.7 7 3.6C40 2.6 70 4.4 100 3.6S170 2.4 210 3.6 268 4.5 293 3.6Q298.6 3.7 298.6 8.6Q298.6 13.4 293 14.2" '+K+'/><path d="'+unten+'" '+K+'/>'+
+      '<path d="M16 7.4C40 6.6 70 7.8 104 7.2M188 7.2C215 6.6 245 7.6 270 7.2" stroke="#FFF3C4" stroke-width="2.6" stroke-linecap="round" opacity=".85" fill="none"/>';}},
   roesti:{n:"Rösti",h:42,c:"#E9A23B",svg:function(){var seed=7;function r(){seed=(seed*9301+49297)%233280;return seed/233280;}
     var top="M10 9",bot="",i,x;for(i=0;i<=28;i++){x=10+i*10;top+=" L"+x+" "+(6+r()*4).toFixed(1);}
     var pts=[];for(i=28;i>=0;i--){x=10+i*10;pts.push(" L"+x+" "+(33+r()*4).toFixed(1));}
