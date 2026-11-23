@@ -507,7 +507,7 @@ h2.mit-umlaut{padding-top:.36em}
 .tal[data-zeit="nacht"] .sterne{opacity:1}
 .tal .sterne circle{opacity:.55;transform-box:fill-box;transform-origin:50% 50%}
 .tal .sterne circle.blitz{animation:sternBlitz 2.6s ease-in-out both}
-@keyframes sternBlitz{0%,100%{opacity:.55;transform:scale(1)}45%{opacity:1;transform:scale(2.2)}}
+@keyframes sternBlitz{0%,100%{opacity:.55;filter:none}45%{opacity:1;filter:drop-shadow(0 0 1.6px rgba(255,246,216,.85))}}
 .tal .glint{opacity:0;pointer-events:none}
 .tal .glint.an{animation:glint 2.6s ease-in-out both}
 @keyframes glint{0%,70%,100%{opacity:0}38%{opacity:1}}
@@ -1616,7 +1616,6 @@ korbZeigen();
       var kand=sichtbare();if(!kand.length)kand=sterne;
       var st=kand[Math.floor(Math.random()*kand.length)];zuletzt.push(sterne.indexOf(st));if(zuletzt.length>3)zuletzt.shift();st.classList.remove("blitz");void st.getBoundingClientRect();st.classList.add("blitz");
       glint.setAttribute("transform","translate("+st.getAttribute("cx")+" "+st.getAttribute("cy")+")");
-      glint.classList.remove("an");void glint.getBoundingClientRect();glint.classList.add("an");
     }
     sternTimer=setTimeout(funkel,1900+Math.random()*500);
   }
