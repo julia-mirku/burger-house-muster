@@ -497,7 +497,7 @@ h2.mit-umlaut{padding-top:.36em}
 @keyframes glint{0%,100%{opacity:0}45%{opacity:1}}
 .tal .glint path{transform-box:fill-box;transform-origin:50% 50%}
 .tal .glint.an path{animation:glintDreh 2.2s ease-in-out both}
-@keyframes glintDreh{0%{transform:scale(.2) rotate(0)}45%{transform:scale(1) rotate(30deg)}100%{transform:scale(.2) rotate(60deg)}}
+@keyframes glintDreh{0%{transform:scale(.2) rotate(0)}45%{transform:scale(1.35) rotate(30deg)}100%{transform:scale(.2) rotate(60deg)}}
 .tal .h1{stop-color:#5DB8EA}.tal .h2{stop-color:#CDEBFA}
 .tal .berg-fern{fill:#7FA36A}.tal .berg-nah{fill:#4E8A3A}.tal .haeuser{fill:#D9C9AC;stroke:#211A14;stroke-width:3}
 .tal .strasse{fill:#5E5247}
@@ -549,7 +549,7 @@ h2.mit-umlaut{padding-top:.36em}
 
 
 
-@media (prefers-reduced-motion:reduce){.tal .rauch circle,.tal .sterne *{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.tal .rauch circle{animation:none!important}}
 /* ---------- Breiten ---------- */
 @media (max-width:1060px){
   .karte{grid-template-columns:repeat(2,1fr)}
@@ -1596,16 +1596,25 @@ korbZeigen();
   }
   /* Sterne: selten, einer nach dem anderen */
   var sterne=[].slice.call(tal.querySelectorAll(".sterne circle")),letzterStern=-1,sternTimer=null;
+  /* nur Sterne, die man wirklich sieht: im Bild, nicht unter der Karte */
+  var talKarte=tal.querySelector(".tal-karte"),zuletzt=[];
+  function sichtbare(){
+    var tr=tal.querySelector(".tal-svg").getBoundingClientRect(),kr=talKarte?talKarte.getBoundingClientRect():null;
+    return sterne.filter(function(c,i){var r=c.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
+      if(x<tr.left+6||x>tr.right-6||y<tr.top+6||y>tr.bottom)return false;
+      if(kr&&x>kr.left-14&&x<kr.right+14&&y>kr.top-14&&y<kr.bottom+14)return false;
+      return zuletzt.indexOf(i)<0;});
+  }
   function funkel(){
-    if(tal.dataset.zeit==="nacht"&&!ruhig&&!document.hidden){
-      var k;do{k=Math.floor(Math.random()*sterne.length);}while(k===letzterStern&&sterne.length>1);letzterStern=k;
-      var st=sterne[k];st.classList.remove("blitz");void st.getBoundingClientRect();st.classList.add("blitz");
+    if(tal.dataset.zeit==="nacht"&&location.hash!=="#bild"&&!document.hidden){
+      var kand=sichtbare();if(!kand.length)kand=sterne;
+      var st=kand[Math.floor(Math.random()*kand.length)];zuletzt.push(sterne.indexOf(st));if(zuletzt.length>3)zuletzt.shift();st.classList.remove("blitz");void st.getBoundingClientRect();st.classList.add("blitz");
       glint.setAttribute("transform","translate("+st.getAttribute("cx")+" "+st.getAttribute("cy")+")");
       glint.classList.remove("an");void glint.getBoundingClientRect();glint.classList.add("an");
     }
-    sternTimer=setTimeout(funkel,2600+Math.random()*3400);
+    sternTimer=setTimeout(funkel,1300+Math.random()*1100);
   }
-  sternTimer=setTimeout(funkel,1500);
+  sternTimer=setTimeout(funkel,900);
   sterne.forEach(function(c){c.addEventListener("animationend",function(){c.classList.remove("blitz");});});glint.addEventListener("animationend",function(e){if(e.target===glint)glint.classList.remove("an");});
   var obs=new MutationObserver(function(){bewege(tal.dataset.zeit);if(tal.dataset.zeit!=="nacht"){glint.classList.remove("an");sterne.forEach(function(c){c.classList.remove("blitz");});}});obs.observe(tal,{attributes:true,attributeFilter:["data-zeit"]});
   function jetzt(){
